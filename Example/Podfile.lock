@@ -1,13 +1,5 @@
 PODS:
   - Alamofire (4.7.2)
-  - Bringg-iOS-DriverSDK (1.0.0):
-    - Alamofire (~> 4.7.0)
-    - CryptoSwift (~> 0.8.3)
-    - GzipSwift (~> 4.0.4)
-    - libPhoneNumber-iOS (~> 0.9.0)
-    - Socket.IO-Client-Swift (~> 13.1.1)
-    - Starscream (~> 3.0.2)
-    - XCGLogger (~> 6.0.2)
   - CocoaLumberjack/Default (3.4.1)
   - CocoaLumberjack/Swift (3.4.1):
     - CocoaLumberjack/Default
@@ -35,7 +27,6 @@ PODS:
     - ObjcExceptionBridging
 
 DEPENDENCIES:
-  - Bringg-iOS-DriverSDK (~> 1.0.0)
   - CocoaLumberjack/Swift (= 3.4.1)
   - Eureka (~> 4.1.1)
   - FSPagerView
@@ -46,7 +37,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
-    - Bringg-iOS-DriverSDK
     - CocoaLumberjack
     - CryptoSwift
     - Eureka
@@ -71,7 +61,6 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
-  Bringg-iOS-DriverSDK: b516c09cea5348b54d3f8036f44d9bb072945204
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
   CryptoSwift: 033efc3523865d19cc6ab6612fa17a62613b5dfa
   Eureka: b88fb930e42c79f8c03c373d0fcdc28c1d6c50ed
