@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.authors          = { 'Michael Tzach' => 'michaelt@bringg.com' }
   s.homepage         = 'https://www.bringg.com'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.source           = { :git => 'git@github.com:bringg/Bringg-iOS-DriverSDK.git', :tag => s.version }
+  s.source           = { :git => 'https://github.com/bringg/Bringg-iOS-DriverSDK.git', :tag => s.version }
 
   s.ios.deployment_target = '9.0'
   s.ios.vendored_frameworks = 'BringgDriverSDK.framework'
