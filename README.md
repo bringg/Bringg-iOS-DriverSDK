@@ -1,3 +1,6 @@
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Bringg-iOS-DriverSDK.svg)](https://img.shields.io/cocoapods/v/Bringg-iOS-DriverSDK.svg)
+[![Platform](https://img.shields.io/cocoapods/p/Bringg-iOS-DriverSDK.svg)](https://img.shields.io/cocoapods/p/Bringg-iOS-DriverSDK.svg)
+
 # Bringg Driver SDK
 
 - [Installation](#installation)
