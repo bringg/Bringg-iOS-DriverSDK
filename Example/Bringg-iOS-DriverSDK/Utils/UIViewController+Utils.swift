@@ -1,8 +1,4 @@
 //
-//  UIViewController+Utils.swift
-//  BringgDriverSDKExampleApp
-//
-//  Created by Michael Tzach on 07/03/2018.
 //  Copyright © 2018 Bringg. All rights reserved.
 //
 

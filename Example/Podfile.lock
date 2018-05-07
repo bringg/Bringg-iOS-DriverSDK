@@ -1,6 +1,6 @@
 PODS:
-  - Alamofire (4.7.0)
-  - Bringg-iOS-DriverSDK (0.9.2):
+  - Alamofire (4.7.2)
+  - Bringg-iOS-DriverSDK (1.0.0):
     - Alamofire (~> 4.7.0)
     - CryptoSwift (~> 0.8.3)
     - GzipSwift (~> 4.0.4)
@@ -12,6 +12,8 @@ PODS:
   - CocoaLumberjack/Swift (3.4.1):
     - CocoaLumberjack/Default
   - CryptoSwift (0.8.3)
+  - Eureka (4.1.1)
+  - FSPagerView (0.7.1)
   - GzipSwift (4.0.4)
   - libPhoneNumber-iOS (0.9.13)
   - ObjcExceptionBridging (1.0.1):
@@ -33,11 +35,29 @@ PODS:
     - ObjcExceptionBridging
 
 DEPENDENCIES:
-  - Bringg-iOS-DriverSDK (~> 0.9.2)
+  - Bringg-iOS-DriverSDK (~> 1.0.0)
   - CocoaLumberjack/Swift (= 3.4.1)
+  - Eureka (~> 4.1.1)
+  - FSPagerView
   - PhoneNumberKit (~> 2.1)
-  - SnapKit
+  - SnapKit (~> 4.0.0)
   - Starscream (from `https://github.com/bringg/Starscream`, branch `feature/notification-center-data-usage`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - Bringg-iOS-DriverSDK
+    - CocoaLumberjack
+    - CryptoSwift
+    - Eureka
+    - FSPagerView
+    - GzipSwift
+    - libPhoneNumber-iOS
+    - ObjcExceptionBridging
+    - PhoneNumberKit
+    - SnapKit
+    - Socket.IO-Client-Swift
+    - XCGLogger
 
 EXTERNAL SOURCES:
   Starscream:
@@ -50,10 +70,12 @@ CHECKOUT OPTIONS:
     :git: https://github.com/bringg/Starscream
 
 SPEC CHECKSUMS:
-  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
-  Bringg-iOS-DriverSDK: 3fbe1996170d67c5c76e15aa6af10a508c5e2870
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  Bringg-iOS-DriverSDK: b516c09cea5348b54d3f8036f44d9bb072945204
   CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
   CryptoSwift: 033efc3523865d19cc6ab6612fa17a62613b5dfa
+  Eureka: b88fb930e42c79f8c03c373d0fcdc28c1d6c50ed
+  FSPagerView: 958aba39684e1573755ddcfcc29f7eebb8413cee
   GzipSwift: 1a5bc5f7827e09846b0635b5079f1224bc3b1c3a
   libPhoneNumber-iOS: e444379ac18bbfbdefad571da735b2cd7e096caa
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
@@ -63,6 +85,6 @@ SPEC CHECKSUMS:
   Starscream: eaa830f09e001f0ac5f0efd19f1f85ddbd0e747a
   XCGLogger: c9601cae9a8912de34a58666ba931ed3d624dd31
 
-PODFILE CHECKSUM: 839f2490b2435497ec52bebbbda2f5609feb5e88
+PODFILE CHECKSUM: d14f2340cf8592e44cd08313f861142afbb268aa
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0

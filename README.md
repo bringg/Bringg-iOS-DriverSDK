@@ -1,11 +1,10 @@
-
-
 # Bringg Driver SDK
 
 - [Installation](#installation)
+- Full documentation - [Link](https://developers.bringg.com/docs/bringg-new-sdk-for-ios)
 
 ## Installation
-\### CocoaPods
+### CocoaPods
 Make sure you have cocoapods installed.
 ```bash
 $ gem install cocoapods
@@ -14,7 +13,7 @@ $ gem install cocoapods
 To integrate BringgDriverSDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'Bringg-iOS-DriverSDK', '~> 1.0.0'
+pod 'Bringg-iOS-DriverSDK', '~> 1.0.1'
 ```
 
 Then, run the following command:
@@ -34,15 +33,6 @@ Go to the info tab in your app settings and add permission strings for :
 + Privacy - Location Always and When In Use Usage Description
 + Privacy - Location When In Use Usage Description
 
-## AppDelegate.Swift
-On your AppDelegate:
-```
-import BringgDriverSDK
-class AppDelegate: UIResponder, UIApplicationDelegate {
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Initialize Bringg SDK.
-        Bringg.initializeSDK()
-        ...
-}
-...
-```
+## Example App
+An Example app is included with the framework. It includes example usage of most SDK functionalities.  
+To use the example app, clone the repository and open the project at `/Example`. Before using the example app, run `pod install` and open the created workspace.

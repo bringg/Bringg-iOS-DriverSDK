@@ -1,8 +1,4 @@
 //
-//  ViewController.swift
-//  BringgDriverSDKExampleApp
-//
-//  Created by Michael Tzach on 06/03/2018.
 //  Copyright © 2018 Bringg. All rights reserved.
 //
 
@@ -32,12 +28,10 @@ class MainTabViewController: UITabBarController {
         super.viewDidLoad()
         
         self.viewControllers = [
-            UINavigationController(rootViewController: taskListViewController),
+            UINavigationController(rootViewController: profileViewController),
             UINavigationController(rootViewController: shiftViewController),
-            UINavigationController(rootViewController: profileViewController)
+            UINavigationController(rootViewController: taskListViewController)
         ]
-        
-        self.selectedIndex = 1
     }
 }
 

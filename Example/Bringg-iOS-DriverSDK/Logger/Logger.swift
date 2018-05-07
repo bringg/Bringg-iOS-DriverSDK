@@ -1,7 +1,4 @@
 //
-//  Logger.swift
-//
-//  Created by Michael Tzach on 26/03/2018.
 //  Copyright © 2018 Bringg. All rights reserved.
 //
 
@@ -34,7 +31,19 @@ class Logger: LoggerProtocol {
     }
     
     static private func format(_ message: String, file: String, function: String, line: UInt) -> String {
-        return "\"\(file)\" \(function):\(line)\t\(message)"
+        var formattedMessage = ""
+        if !file.isEmpty {
+            formattedMessage.append("\"\(file)\" ")
+        }
+        if !function.isEmpty {
+            formattedMessage.append("\(function)")
+        }
+        if line > 0 {
+            formattedMessage.append(":\(line)")
+        }
+        formattedMessage.append(" ")
+        formattedMessage.append(message)
+        return formattedMessage
     }
     
     func logDebug(_ message: String, file: String, function: String, line: UInt) {

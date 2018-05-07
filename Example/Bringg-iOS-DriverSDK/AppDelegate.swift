@@ -1,8 +1,5 @@
 //
-//  AppDelegate.swift
-//  Bringg-iOS-DriverSDK
-//
-//  Copyright (c) 2018 Bringg. All rights reserved.
+//  Copyright © 2018 Bringg. All rights reserved.
 //
 
 import UIKit

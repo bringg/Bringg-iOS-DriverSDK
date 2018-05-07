@@ -14,6 +14,9 @@
 		4603C39D206D1FF200F70967 /* ShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4603C399206D1FF200F70967 /* ShiftViewController.swift */; };
 		4603C39F206D1FF800F70967 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4603C39E206D1FF800F70967 /* UIViewController+Utils.swift */; };
 		465A72C22070E6160065FCA7 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465A72C12070E6160065FCA7 /* Logger.swift */; };
+		469311BA20A0612900D957CA /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469311B920A0612900D957CA /* TaskViewController.swift */; };
+		469311BC20A0613D00D957CA /* WaypointPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469311BB20A0613D00D957CA /* WaypointPageCell.swift */; };
+		469311BE20A0614F00D957CA /* NotLoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469311BD20A0614F00D957CA /* NotLoggedInView.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
@@ -29,6 +32,9 @@
 		4603C399206D1FF200F70967 /* ShiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShiftViewController.swift; sourceTree = "<group>"; };
 		4603C39E206D1FF800F70967 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		465A72C12070E6160065FCA7 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		469311B920A0612900D957CA /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
+		469311BB20A0613D00D957CA /* WaypointPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointPageCell.swift; sourceTree = "<group>"; };
+		469311BD20A0614F00D957CA /* NotLoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotLoggedInView.swift; sourceTree = "<group>"; };
 		49E017DD359750EE108B88D1 /* Pods_Bringg_iOS_DriverSDK_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bringg_iOS_DriverSDK_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* Bringg-iOS-DriverSDK_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bringg-iOS-DriverSDK_Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,6 +92,9 @@
 				4603C397206D1FF200F70967 /* ProfileViewController.swift */,
 				4603C399206D1FF200F70967 /* ShiftViewController.swift */,
 				4603C396206D1FF200F70967 /* TaskListViewController.swift */,
+				469311B920A0612900D957CA /* TaskViewController.swift */,
+				469311BB20A0613D00D957CA /* WaypointPageCell.swift */,
+				469311BD20A0614F00D957CA /* NotLoggedInView.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -151,7 +160,6 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				DB973A22F273B37F9410951B /* [CP] Embed Pods Frameworks */,
-				B8123C1206D574D7DC8F93AB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -215,21 +223,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B8123C1206D574D7DC8F93AB /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bringg-iOS-DriverSDK_Example/Pods-Bringg-iOS-DriverSDK_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D4840E1A58A950394D48E90B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -259,6 +252,8 @@
 				"${PODS_ROOT}/Bringg-iOS-DriverSDK/BringgDriverSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
+				"${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework",
 				"${BUILT_PRODUCTS_DIR}/GzipSwift/Gzip.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework",
 				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
@@ -274,6 +269,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BringgDriverSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSPagerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gzip.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjcExceptionBridging.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
@@ -296,10 +293,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4603C39C206D1FF200F70967 /* MainTabViewController.swift in Sources */,
+				469311BE20A0614F00D957CA /* NotLoggedInView.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				4603C39F206D1FF800F70967 /* UIViewController+Utils.swift in Sources */,
 				4603C39D206D1FF200F70967 /* ShiftViewController.swift in Sources */,
+				469311BC20A0613D00D957CA /* WaypointPageCell.swift in Sources */,
 				465A72C22070E6160065FCA7 /* Logger.swift in Sources */,
+				469311BA20A0612900D957CA /* TaskViewController.swift in Sources */,
 				4603C39B206D1FF200F70967 /* ProfileViewController.swift in Sources */,
 				4603C39A206D1FF200F70967 /* TaskListViewController.swift in Sources */,
 			);
