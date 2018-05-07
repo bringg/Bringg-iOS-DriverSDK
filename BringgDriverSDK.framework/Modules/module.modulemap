@@ -1,0 +1,11 @@
+framework module BringgDriverSDK {
+  umbrella header "BringgDriverSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module BringgDriverSDK.Swift {
+    header "BringgDriverSDK-Swift.h"
+    requires objc
+}
