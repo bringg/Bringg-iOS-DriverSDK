@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Bringg-iOS-DriverSDK'
-  s.version          = '1.0.2'
+  s.version          = '1.0.3'
   s.summary          = 'Driver SDK for the Bringg delivery platform'
 
   s.description      = <<-DESC
@@ -11,6 +11,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://www.bringg.com'
   s.license          = { :type => 'proprietary', :file => 'LICENSE' }
   s.source           = { :git => 'https://github.com/bringg/Bringg-iOS-DriverSDK.git', :tag => s.version }
+  s.documentation_url = 'https://developers.bringg.com/docs/bringg-new-sdk-for-ios'
 
   s.ios.deployment_target = '9.0'
   s.ios.vendored_frameworks = 'BringgDriverSDK.framework'
