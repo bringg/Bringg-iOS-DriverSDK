@@ -24,5 +24,7 @@ Pod::Spec.new do |s|
   s.dependency 'GzipSwift', '~> 4.0.4'
   s.dependency 'Alamofire', '~> 4.7.0'
   s.dependency 'XCGLogger', '~> 6.0.2'
+  s.dependency 'RealmSwift', '~> 3.7.4'
+  s.dependency 'ObjcExceptionBridging', '~> 1.0.1'
 
 end
