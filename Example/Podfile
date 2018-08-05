@@ -3,7 +3,7 @@ platform :ios, '9.0'
 
 target 'Bringg-iOS-DriverSDK_Example' do
   # Bringg driver SDK pods
-  pod 'Bringg-iOS-DriverSDK', '~> 1.2.0'
+  pod 'Bringg-iOS-DriverSDK', '~> 1.2.1'
 
   # The next line is optional and allows logging socket data usage
   pod 'Starscream', :git => "https://github.com/bringg/Starscream", :branch => "feature/notification-center-data-usage"
