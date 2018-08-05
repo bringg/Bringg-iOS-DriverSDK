@@ -152,7 +152,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     private func getTasksAndUpdateUI() {
-        if Bringg.shared.loginManager.currentUser == nil {
+        if !Bringg.shared.loginManager.isLoggedIn {
             notLoggedInView.isHidden = false
             return
         }

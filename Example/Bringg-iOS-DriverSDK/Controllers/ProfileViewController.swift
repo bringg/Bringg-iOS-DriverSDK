@@ -343,7 +343,7 @@ private class LoginEmailPasswordViewController: UIViewController, UITextFieldDel
             self.submitButton.isEnabled = true
 
             if let error = error {
-                self.showError("there was an error: \(error)")
+                self.showError("there was an error: \(error.localizedDescription)")
                 return
             }
             if let merchantList = merchantList {
@@ -464,9 +464,16 @@ private class LoginQRViewController: UIViewController, AVCaptureMetadataOutputOb
 }
 
 private class LoginPhoneViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    private lazy var countryCodeLabel: UILabel = {
+    private struct Consts {
+        static let initialCountryCode = "il"
+        static let initialCountryCallingNumberCode = "+972"
+    }
+
+    private var countryCode: String = Consts.initialCountryCode
+
+    private lazy var countryCodeNumberLabel: UILabel = {
         let view = UILabel()
-        view.text = "+972"
+        view.text = Consts.initialCountryCallingNumberCode
         view.textAlignment = .right
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(countryCodeLabelPressed))
         view.addGestureRecognizer(gestureRecognizer)
@@ -505,7 +512,7 @@ private class LoginPhoneViewController: UIViewController, UIPickerViewDelegate, 
         super.viewDidLoad()
         view.backgroundColor = .white
 
-        view.addSubview(countryCodeLabel)
+        view.addSubview(countryCodeNumberLabel)
         view.addSubview(countryCodePickerView)
         view.addSubview(phoneNumberTextField)
         view.addSubview(submitButton)
@@ -515,7 +522,7 @@ private class LoginPhoneViewController: UIViewController, UIPickerViewDelegate, 
     }
 
     private func makeConstraints() {
-        countryCodeLabel.snp.makeConstraints { make in
+        countryCodeNumberLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(8)
             make.top.equalToSuperview().offset(8)
             make.width.equalToSuperview().dividedBy(5)
@@ -524,12 +531,12 @@ private class LoginPhoneViewController: UIViewController, UIPickerViewDelegate, 
 
         phoneNumberTextField.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
-            make.left.equalTo(countryCodeLabel.snp.right).offset(8)
+            make.left.equalTo(countryCodeNumberLabel.snp.right).offset(8)
             make.trailing.equalToSuperview().offset(-8)
         }
 
         submitButton.snp.makeConstraints { make in
-            make.top.equalTo(countryCodeLabel.snp.bottom)
+            make.top.equalTo(countryCodeNumberLabel.snp.bottom)
             make.centerX.equalToSuperview()
         }
 
@@ -573,7 +580,7 @@ private class LoginPhoneViewController: UIViewController, UIPickerViewDelegate, 
     }
 
     @objc private func submitButtonPressed() {
-        guard let countryCode = countryCodeLabel.text, !countryCode.isEmpty else { showError("Must enter country code"); return }
+        guard let countryCodeNumber = countryCodeNumberLabel.text, !countryCodeNumber.isEmpty else { showError("Must enter country code"); return }
         guard let phoneNumber = phoneNumberTextField.text, !phoneNumber.isEmpty else { showError("Must enter phone number"); return }
 
         if countryChooserIsOpen {
@@ -583,7 +590,7 @@ private class LoginPhoneViewController: UIViewController, UIPickerViewDelegate, 
         }
 
         activityIndicator.startAnimating()
-        Bringg.shared.loginManager.requestVerificationCode(forPhone: countryCode + phoneNumber) { error in
+        Bringg.shared.loginManager.requestVerificationCode(forCountryCode: countryCode, phone: countryCodeNumber + phoneNumber) { error in
             self.activityIndicator.stopAnimating()
 
             if let error = error {
@@ -591,8 +598,8 @@ private class LoginPhoneViewController: UIViewController, UIPickerViewDelegate, 
                 return
             }
 
-            let phoneNumberWithCountryCode = countryCode + phoneNumber
-            self.navigationController?.pushViewController(LoginVerificationCodeViewController(phoneNumber: phoneNumberWithCountryCode), animated: true)
+            let loginVerificationVC = LoginVerificationCodeViewController(countryCode: self.countryCode, phoneNumber: countryCodeNumber + phoneNumber)
+            self.navigationController?.pushViewController(loginVerificationVC, animated: true)
         }
     }
 
@@ -612,16 +619,20 @@ private class LoginPhoneViewController: UIViewController, UIPickerViewDelegate, 
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let countryNameCode = countryNameCodes[row]
-        guard let countryCode = PhoneNumberKit().countryCode(for: countryNameCode) else { return }
-        countryCodeLabel.text = "+\(countryCode)"
+        guard let countryCallingCode = PhoneNumberKit().countryCode(for: countryNameCode) else { return }
+
+        self.countryCodeNumberLabel.text = "+\(countryCallingCode)"
+        self.countryCode = countryNameCode
     }
 }
 
 private class LoginVerificationCodeViewController: UIViewController {
 
+    private var countryCode: String
     private var phoneNumber: String
 
-    init(phoneNumber: String) {
+    init(countryCode: String, phoneNumber: String) {
+        self.countryCode = countryCode
         self.phoneNumber = phoneNumber
         super.init(nibName: nil, bundle: nil)
     }
@@ -704,7 +715,7 @@ private class LoginVerificationCodeViewController: UIViewController {
         }
 
         activityIndicator.startAnimating()
-        Bringg.shared.loginManager.login(withVerificationCode: verificationCode, phone: phoneNumber, merchantID: merchantId) { merchantList, error in
+        Bringg.shared.loginManager.login(withVerificationCode: verificationCode, countryCode: countryCode, phone: phoneNumber, merchantID: merchantId) { merchantList, error in
             self.activityIndicator.stopAnimating()
 
             if let error = error {

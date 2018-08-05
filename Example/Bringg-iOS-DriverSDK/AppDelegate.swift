@@ -11,11 +11,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var mainTabController = MainTabViewController()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        Bringg.initializeSDK(logger: Logger())
-        
+        let bringgInitializationError = Bringg.initializeSDK(logger: Logger())
+
+        if let initError = bringgInitializationError {
+            fatalError("Bringg SDK failed to initialize. Nothing to do here anymore. error: \(initError.localizedDescription)")
+        }
+
+        let navigationController = MainTabViewController()
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = mainTabController
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+
         return true
     }
 }

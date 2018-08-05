@@ -17,14 +17,14 @@ Pod::Spec.new do |s|
   s.ios.vendored_frameworks = 'BringgDriverSDK.framework'
 
   ######## Dependencies ######
-  s.dependency 'Socket.IO-Client-Swift', '~> 13.1.1'
-  s.dependency 'Starscream', '~> 3.0.2'
-  s.dependency 'libPhoneNumber-iOS', '~> 0.9.0'
-  s.dependency 'CryptoSwift', '~> 0.8.3'
-  s.dependency 'GzipSwift', '~> 4.0.4'
-  s.dependency 'Alamofire', '~> 4.7.0'
-  s.dependency 'XCGLogger', '~> 6.0.2'
-  s.dependency 'RealmSwift', '~> 3.7.4'
-  s.dependency 'ObjcExceptionBridging', '~> 1.0.1'
+  s.dependency 'Socket.IO-Client-Swift', '= 13.1.3'
+  s.dependency 'Starscream', '= 3.0.4'
+  s.dependency 'libPhoneNumber-iOS', '= 0.9.13'
+  s.dependency 'CryptoSwift', '= 0.8.3'
+  s.dependency 'GzipSwift', '= 4.0.4'
+  s.dependency 'Alamofire', '= 4.7.3'
+  s.dependency 'XCGLogger', '= 6.0.2'
+  s.dependency 'RealmSwift', '= 3.7.5'
+  s.dependency 'ObjcExceptionBridging', '= 1.0.1'
 
 end

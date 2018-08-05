@@ -7,26 +7,26 @@ import UIKit
 class MainTabViewController: UITabBarController {
 
     private var taskListViewController: TaskListViewController = {
-        let vc = TaskListViewController()
-        vc.title = "Tasks"
-        return vc
+        let viewController = TaskListViewController()
+        viewController.title = "Tasks"
+        return viewController
     }()
-    
+
     private var shiftViewController: ShiftViewController = {
-        let vc = ShiftViewController()
-        vc.title = "Shift"
-        return vc
+        let viewController = ShiftViewController()
+        viewController.title = "Shift"
+        return viewController
     }()
-    
+
     private var profileViewController: ProfileViewController = {
-        let vc = ProfileViewController()
-        vc.title = "Profile"
-        return vc
+        let viewController = ProfileViewController()
+        viewController.title = "Profile"
+        return viewController
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.viewControllers = [
             UINavigationController(rootViewController: profileViewController),
             UINavigationController(rootViewController: shiftViewController),
@@ -34,4 +34,3 @@ class MainTabViewController: UITabBarController {
         ]
     }
 }
-

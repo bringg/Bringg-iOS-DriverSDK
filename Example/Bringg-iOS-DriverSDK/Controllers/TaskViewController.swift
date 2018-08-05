@@ -151,7 +151,6 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
         waypointPageCell.waypoint = waypoint
         waypointPageCell.isCurrentWaypoint = task.activeWaypointId == waypoint.id
         waypointPageCell.waypointInventoryArray = task.taskInventories.filter { $0.waypointId == waypoint.id }
-        waypointPageCell.waypointNotesArray = task.notes.filter { $0.waypointId == waypoint.id }
 
         waypointPageCell.delegate = self
 
@@ -187,14 +186,14 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
     }
 
     func waypointPageCell(_ cell: WaypointPageCell, completeWaypointPressed forWaypoint: Waypoint) {
-        Bringg.shared.tasksManager.leaveWaypoint(with: forWaypoint.id) { nextWaypointId, error in
+        Bringg.shared.tasksManager.leaveWaypoint(with: forWaypoint.id) { error in
             if let error = error {
                 self.showError(error.localizedDescription)
                 return
             }
             self.refreshTask()
 
-            if nextWaypointId != nil {
+            if let indexOfWaypoint = self.task.waypoints.index(of: forWaypoint), indexOfWaypoint < self.task.waypoints.count {
                 self.waypointsPagerView.scrollToItem(at: self.waypointsPagerView.currentIndex + 1, animated: true)
                 self.waypointPageControl.currentPage += 1
             } else {
