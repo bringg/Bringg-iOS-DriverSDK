@@ -16,7 +16,7 @@ $ gem install cocoapods
 To integrate BringgDriverSDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-$ pod 'Bringg-iOS-DriverSDK', '~> 1.2.1'
+$ pod 'Bringg-iOS-DriverSDK', '~> 1.6.0'
 ```
 
 Then, run the following command:
