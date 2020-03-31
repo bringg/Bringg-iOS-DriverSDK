@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/bringg/Bringg-iOS-DriverSDK.git', :tag => s.version }
   s.documentation_url = 'https://developers.bringg.com/docs/bringg-new-sdk-for-ios'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.ios.vendored_frameworks = 'BringgDriverSDK.framework'
 
   ######## Dependencies ######
