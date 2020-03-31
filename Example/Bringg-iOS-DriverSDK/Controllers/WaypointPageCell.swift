@@ -1,4 +1,8 @@
 //
+//  WaypointPageCell.swift
+//  BringgDriverSDK_Example
+//
+//  Created by Michael Tzach on 15/04/2018.
 //  Copyright © 2018 Bringg. All rights reserved.
 //
 
@@ -8,6 +12,7 @@ import FSPagerView
 import SnapKit
 
 private enum WaypointActionButtonState {
+    case pending
     case startWaypoint
     case arriveAtWaypoint
     case completeWaypoint
@@ -15,50 +20,43 @@ private enum WaypointActionButtonState {
     case isCancelled
 }
 
-private extension WaypointStatus {
-    func waypointActionButtonState() -> WaypointActionButtonState {
-        switch self {
-        case .invalid: return .isCancelled
-        case .pending: return .startWaypoint
-        case .started: return .arriveAtWaypoint
-        case .checkedIn: return .completeWaypoint
-        case .done: return .isDone
-        }
-    }
-}
-
 protocol WaypointPageCellDelegate: class {
     func waypointPageCell(_ cell: WaypointPageCell, startWaypointPressed forWaypoint: Waypoint)
     func waypointPageCell(_ cell: WaypointPageCell, arriveAtWaypointPressed forWaypoint: Waypoint)
     func waypointPageCell(_ cell: WaypointPageCell, completeWaypointPressed forWaypoint: Waypoint)
+    func waypointPageCell(_ cell: WaypointPageCell, inventoryPressed: TaskInventory)
 }
 
 class WaypointPageCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSource {
-    private enum Sections: Int {
+    private enum Sections: Int, CaseIterable {
         case waypointDetails
         case inventoryItems
-        case waypointNotes
+        case phoneNumber
 
-        static func numberOfSections() -> Int { return Sections.waypointNotes.rawValue + 1 }
+        static func numberOfSections() -> Int { return Sections.allCases.count }
     }
 
-    private enum WaypointDetailsCells: Int {
+    private enum WaypointDetailsCells: Int, CaseIterable {
         case address
         case customer
 
-        static func numberOfCells() -> Int { return WaypointDetailsCells.customer.rawValue + 1 }
+        static func numberOfCells() -> Int { return WaypointDetailsCells.allCases.count }
+    }
+
+    private enum PhoneNumberCells: Int, CaseIterable {
+        case phoneAvailable
+        case phoneData
+
+        static func numberOfCells() -> Int { return PhoneNumberCells.allCases.count }
     }
 
     var waypoint: Waypoint? {
         didSet { updateUIDependingOnWaypoint() }
     }
-    var isCurrentWaypoint: Bool = false {
+    var task: Task? {
         didSet { updateUIDependingOnWaypoint() }
     }
     var waypointInventoryArray: [TaskInventory]? = nil {
-        didSet { updateUIDependingOnWaypoint() }
-    }
-    var waypointNotesArray: [Note]? = nil {
         didSet { updateUIDependingOnWaypoint() }
     }
 
@@ -66,6 +64,31 @@ class WaypointPageCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSou
 
     static let cellIdentifier = "WaypointPageCellIndentifier"
     private let waypointDataTableViewCellIdentifier = "waypointDataTableViewCellIdentifier"
+    private let phoneNumberCellIdentifier = "phoneNumberCellIdentifier"
+
+    private func waypointActionButtonState() -> WaypointActionButtonState? {
+        guard let waypoint = waypoint, let task = task else {
+            return nil
+        }
+
+        if let doneValue = waypoint.done, doneValue == true {
+            return .isDone
+        }
+
+        let isActiveWaypoint = waypoint.id == task.activeWaypointId
+        if !isActiveWaypoint {
+            return .pending
+        }
+
+        switch task.status {
+        case .accepted: return .startWaypoint
+        case .assigned, .free, .invalid: return .isCancelled //This should never happen. This cell should be displayed after the task has been accepted
+        case .cancelled: return .isCancelled
+        case .checkedIn: return .completeWaypoint
+        case .checkedOut: return .isDone
+        case .onTheWay: return .arriveAtWaypoint
+        }
+    }
 
     //Views
 
@@ -75,6 +98,7 @@ class WaypointPageCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSou
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: waypointDataTableViewCellIdentifier)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: phoneNumberCellIdentifier)
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .clear
 
@@ -97,13 +121,13 @@ class WaypointPageCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSou
     }()
 
     @objc private func waypointActionButtonPressed() {
-        guard let waypoint = self.waypoint else { return }
+        guard let waypoint = waypoint, let waypointActionButtonState = waypointActionButtonState() else { return }
 
-        switch waypoint.status.waypointActionButtonState() {
+        switch waypointActionButtonState {
         case .startWaypoint: self.delegate?.waypointPageCell(self, startWaypointPressed: waypoint)
         case .arriveAtWaypoint: self.delegate?.waypointPageCell(self, arriveAtWaypointPressed: waypoint)
         case .completeWaypoint: self.delegate?.waypointPageCell(self, completeWaypointPressed: waypoint)
-        case .isDone, .isCancelled: break
+        case .pending, .isDone, .isCancelled: break
         }
     }
 
@@ -148,10 +172,7 @@ class WaypointPageCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSou
     }
 
     func waypointActionButtonText() -> String {
-        if !isCurrentWaypoint {
-            return "PENDING"
-        }
-        guard let actionButtonState = self.waypoint?.status.waypointActionButtonState() else {
+        guard let actionButtonState = waypointActionButtonState() else {
             return ""
         }
         switch actionButtonState {
@@ -160,19 +181,17 @@ class WaypointPageCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSou
         case .completeWaypoint: return "COMPLETE ORDER"
         case .isDone: return "COMPLETED"
         case .isCancelled: return "CANCELLED"
+        case .pending: return "PENDING"
         }
     }
 
     func shouldWaypointActionButtonBeEnabled() -> Bool {
-        if !isCurrentWaypoint {
-            return false
-        }
-        guard let actionButtonState = self.waypoint?.status.waypointActionButtonState() else {
+        guard let actionButtonState = waypointActionButtonState() else {
             return false
         }
         switch actionButtonState {
         case .startWaypoint, .arriveAtWaypoint, .completeWaypoint: return true
-        case .isDone, .isCancelled: return false
+        case .isDone, .isCancelled, .pending: return false
         }
     }
 
@@ -199,9 +218,8 @@ class WaypointPageCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSou
         case .inventoryItems:
             let numberofInventoryItems = waypointInventoryArray?.count ?? 0
             return numberofInventoryItems > 0 ? "Inventory" : nil
-        case .waypointNotes:
-            let numberOfWaypointNotes = waypointNotesArray?.count ?? 0
-            return numberOfWaypointNotes > 0 ? "Notes" : nil
+        case .phoneNumber:
+            return "Phone Number"
         }
     }
 
@@ -212,8 +230,8 @@ class WaypointPageCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSou
             return WaypointDetailsCells.numberOfCells()
         case .inventoryItems:
             return waypointInventoryArray?.count ?? 0
-        case .waypointNotes:
-            return waypointNotesArray?.count ?? 0
+        case .phoneNumber:
+            return PhoneNumberCells.numberOfCells()
         }
     }
 
@@ -225,8 +243,8 @@ class WaypointPageCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSou
             return self.tableView(tableView, cellForWaypointDetailsAtIndexPath: indexPath)
         case .inventoryItems:
             return self.tableView(tableView, cellForInventoryAtIndexPath: indexPath)
-        case .waypointNotes:
-            return self.tableView(tableView, cellForNoteAtIndexPath: indexPath)
+        case .phoneNumber:
+            return self.tableView(tableView, cellForPhoneNumberAtIndexPath: indexPath)
         }
     }
 
@@ -256,14 +274,67 @@ class WaypointPageCell: FSPagerViewCell, UITableViewDelegate, UITableViewDataSou
         return cell
     }
 
-    private func tableView(_ tableView: UITableView, cellForNoteAtIndexPath indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: waypointDataTableViewCellIdentifier, for: indexPath)
+    private func tableView(_ tableView: UITableView, cellForPhoneNumberAtIndexPath indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: phoneNumberCellIdentifier, for: indexPath)
         cell.selectionStyle = .none
 
-        guard let note = self.waypointNotesArray?[indexPath.row] else { return cell }
-        cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = note.note
-
+        guard let cellType = PhoneNumberCells(rawValue: indexPath.row) else { return cell }
+        switch cellType {
+        case .phoneAvailable:
+            let phoneAvailableString: String
+            if let phoneAvailable = waypoint?.phoneAvailable {
+                phoneAvailableString = String(phoneAvailable)
+            } else {
+                phoneAvailableString = "unknown"
+            }
+            cell.textLabel?.text = "Phone Available: \(phoneAvailableString)"
+        case .phoneData:
+            if let phoneNumber = waypoint?.customer?.phone {
+                cell.textLabel?.text = phoneNumber
+            } else {
+                cell.textLabel?.text = "Get Phone Number"
+            }
+        }
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let section = Sections(rawValue: indexPath.section) else { return }
+        switch section {
+        case .waypointDetails: break
+        case .inventoryItems:
+            guard let inventoryItem = waypointInventoryArray?[indexPath.row] else { return }
+            delegate?.waypointPageCell(self, inventoryPressed: inventoryItem)
+        case .phoneNumber:
+            self.tableView(tableView, didSelectPhoneNumberCellAtIndexPath: indexPath)
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectPhoneNumberCellAtIndexPath indexPath: IndexPath) {
+        guard let cellType = PhoneNumberCells(rawValue: indexPath.row) else { return }
+        switch cellType {
+        case .phoneAvailable:
+            break   //nothing to do
+        case .phoneData:
+            guard let taskId = task?.id, let waypointId = waypoint?.id else { return }
+            guard waypoint?.phoneAvailable == true else {
+                logInfo("Phone is not available, no need to fetch from the server")
+                return
+            }
+            guard waypoint?.customer?.phone == nil else {
+                return
+            }
+            Bringg.shared.tasksManager.getMaskedPhoneNumber(taskId: taskId, waypointId: waypointId) { result in
+                let cell = tableView.cellForRow(at: indexPath)
+                switch result {
+                case .success(let phoneNumber):
+                    cell?.textLabel?.text = phoneNumber
+                case .failure(let error):
+                    logError("Failed to get masked phone number for task:\(taskId), waypoint: \(waypointId), error: \(error.localizedDescription)")
+                    cell?.textLabel?.text = error.localizedDescription
+                }
+            }
+        }
+
     }
 }

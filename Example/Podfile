@@ -1,12 +1,12 @@
 use_frameworks!
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 target 'Bringg-iOS-DriverSDK_Example' do
   # Bringg driver SDK pods
-  pod 'Bringg-iOS-DriverSDK', '~> 1.2.1'
+  pod 'Bringg-iOS-DriverSDK', '~> 1.6.0'
 
   # The next line is optional and allows logging socket data usage
-  pod 'Starscream', :git => "https://github.com/bringg/Starscream", :branch => "feature/notification-center-data-usage"
+  pod 'Starscream', :git => "https://github.com/bringg/Starscream", :branch => "feature/data_usage_feature_swift_5"
 
   # Pods for the example app
   pod 'Eureka', '~> 4.1.1'

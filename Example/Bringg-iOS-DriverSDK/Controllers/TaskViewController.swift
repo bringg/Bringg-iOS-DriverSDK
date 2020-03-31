@@ -1,4 +1,8 @@
 //
+//  TaskViewController.swift
+//  BringgDriverSDK_Example
+//
+//  Created by Michael Tzach on 15/04/2018.
 //  Copyright © 2018 Bringg. All rights reserved.
 //
 
@@ -11,7 +15,7 @@ protocol TaskViewControllerDelegate: class {
     func taskViewControllerDidFinishTask(_ sender: TaskViewController)
 }
 
-class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewDataSource, WaypointPageCellDelegate, UserEventsDelegate, TasksEventsDelegate {
+class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewDataSource, WaypointPageCellDelegate, UserEventsDelegate, TasksManagerDelegate {
     weak var delegate: TaskViewControllerDelegate?
 
     private var task: Task {
@@ -38,6 +42,16 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
         return control
     }()
 
+    private lazy var acceptTaskView: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("Accept task", for: .normal)
+        button.addTarget(self, action: #selector(acceptTaskButtonPressed(_:)), for: .touchUpInside)
+        button.isHidden = true
+        button.backgroundColor = .white
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+
     private var waypointPageControlHeightConstraint: Constraint?
 
     init(task: Task) {
@@ -59,6 +73,7 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
 
         view.addSubview(waypointPageControl)
         view.addSubview(waypointsPagerView)
+        view.addSubview(acceptTaskView)
         view.addSubview(notLoggedInView)
 
         makeConstraints()
@@ -68,7 +83,7 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if let activeWaypointId = task.activeWaypointId, let indexOfActiveWaypoint = task.waypoints.index(where: { $0.id == activeWaypointId }) {
+        if let activeWaypointId = task.activeWaypointId, let indexOfActiveWaypoint = task.waypoints.firstIndex(where: { $0.id == activeWaypointId }) {
             waypointPageControl.currentPage = indexOfActiveWaypoint
             waypointsPagerView.scrollToItem(at: indexOfActiveWaypoint, animated: true)
         }
@@ -93,8 +108,12 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
             if #available(iOS 11.0, *) {
                 make.bottom.equalTo(self.view.safeAreaLayoutGuide)
             } else {
-                make.top.equalToSuperview()
+                make.bottom.equalToSuperview()
             }
+        }
+
+        acceptTaskView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
 
         notLoggedInView.snp.makeConstraints { make in
@@ -103,7 +122,10 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
     }
 
     private func refreshTask() {
-        Bringg.shared.tasksManager.getTask(with: task.id) { task in
+        Bringg.shared.tasksManager.getTask(withTaskId: task.id) { task, error in
+            if let error = error {
+                self.showError(error.localizedDescription)
+            }
             guard let task = task else { return }
             self.task = task
         }
@@ -111,6 +133,9 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
 
     private func updateUI() {
         self.notLoggedInView.isHidden = Bringg.shared.loginManager.currentUser != nil
+
+        let shouldShowAcceptTaskOverlay = task.status == .assigned || task.status == .free
+        self.acceptTaskView.isHidden = !shouldShowAcceptTaskOverlay
 
         waypointsPagerView.reloadData()
 
@@ -121,6 +146,17 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
             self.waypointPageControlHeightConstraint?.deactivate()
         } else {
             self.waypointPageControlHeightConstraint?.activate()
+        }
+    }
+
+    @objc func acceptTaskButtonPressed(_ sender: UIButton) {
+        Bringg.shared.tasksManager.acceptTask(taskId: task.id) { error in
+            if let error = error {
+                self.showError(error.localizedDescription)
+                return
+            }
+
+            self.refreshTask()
         }
     }
 
@@ -149,8 +185,8 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
         let waypoint = task.waypoints[index]
 
         waypointPageCell.waypoint = waypoint
-        waypointPageCell.isCurrentWaypoint = task.activeWaypointId == waypoint.id
-        waypointPageCell.waypointInventoryArray = task.taskInventories.filter { $0.waypointId == waypoint.id }
+        waypointPageCell.task = task
+        waypointPageCell.waypointInventoryArray = waypoint.inventoryItems
 
         waypointPageCell.delegate = self
 
@@ -165,13 +201,14 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
 
     func waypointPageCell(_ cell: WaypointPageCell, startWaypointPressed forWaypoint: Waypoint) {
         let taskId = forWaypoint.taskId ?? self.task.id
-
-        Bringg.shared.tasksManager.startTask(with: taskId) { error in
-            if let error = error {
+        
+        Bringg.shared.tasksManager.startTask(with: taskId) { result in
+            switch result {
+            case .success:
+                self.refreshTask()
+            case .failure(let error):
                 self.showError(error.localizedDescription)
-                return
             }
-            self.refreshTask()
         }
     }
 
@@ -193,7 +230,7 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
             }
             self.refreshTask()
 
-            if let indexOfWaypoint = self.task.waypoints.index(of: forWaypoint), indexOfWaypoint < self.task.waypoints.count {
+            if let indexOfWaypoint = self.task.waypoints.firstIndex(of: forWaypoint), indexOfWaypoint < self.task.waypoints.count {
                 self.waypointsPagerView.scrollToItem(at: self.waypointsPagerView.currentIndex + 1, animated: true)
                 self.waypointPageControl.currentPage += 1
             } else {
@@ -202,44 +239,34 @@ class TaskViewController: UIViewController, FSPagerViewDelegate, FSPagerViewData
         }
     }
 
-    // MARK: TasksEventsDelegate
-    func tasksEventsProviderDidRefreshTaskList(_ taskStateProvider: TasksManagerProtocol) {
+    func waypointPageCell(_ cell: WaypointPageCell, inventoryPressed: TaskInventory) {
+        guard let waypoint = cell.waypoint else { return }
+        let inventoryViewController = InventoryViewController(task: task, waypoint: waypoint) //Rename delegate
+        navigationController?.pushViewController(inventoryViewController, animated: true)
+        
+    }
+
+    // MARK: TasksManagerDelegate
+
+    func tasksManagerDidRefreshTaskList(_ tasksManager: TasksManagerProtocol) {
         refreshTask()
     }
 
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didAddNewTask taskId: NSNumber) {
+    func tasksManager(_ tasksManager: TasksManagerProtocol, didAddNewTask taskId: Int) {
         refreshTask()
     }
 
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didUpdateTask taskId: NSNumber) {
+    func tasksManager(_ tasksManager: TasksManagerProtocol, didUpdateTask taskId: Int) {
         refreshTask()
     }
 
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didAddWaypoint waypointId: NSNumber) {
+    func tasksManager(_ tasksManager: TasksManagerProtocol, didAutoStartTask taskId: Int) { }
+    
+    func tasksManager(_ tasksManager: TasksManagerProtocol, didRemoveTask task: Task) {
         refreshTask()
     }
 
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didAddNote noteId: NSNumber) {
-        refreshTask()
-    }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didUpdateWaypoint waypointId: NSNumber) {
-        refreshTask()
-    }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didCompleteTask taskId: NSNumber) {
-        refreshTask()
-    }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didRemoveTask taskId: NSNumber) {
-        refreshTask()
-    }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didMassRemoveTasks taskIds: [NSNumber]) {
-        refreshTask()
-    }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didRemoveWaypoint waypointId: NSNumber) {
+    func tasksManager(_ tasksManager: TasksManagerProtocol, didMassRemoveTasks tasks: [Task]) {
         refreshTask()
     }
 }

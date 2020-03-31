@@ -20,6 +20,7 @@
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		DC8DFD9024339F1900B22ED6 /* InventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8DFD8F24339F1900B22ED6 /* InventoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		6DE2F7E711D84BF5647837CD /* Pods-Bringg-iOS-DriverSDK_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bringg-iOS-DriverSDK_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bringg-iOS-DriverSDK_Example/Pods-Bringg-iOS-DriverSDK_Example.release.xcconfig"; sourceTree = "<group>"; };
+		DC8DFD8F24339F1900B22ED6 /* InventoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryViewController.swift; sourceTree = "<group>"; };
 		E79F600A27705928A7A9E00C /* Pods-Bringg-iOS-DriverSDK_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bringg-iOS-DriverSDK_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bringg-iOS-DriverSDK_Tests/Pods-Bringg-iOS-DriverSDK_Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +90,7 @@
 		4603C3A3206D207300F70967 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				DC8DFD8F24339F1900B22ED6 /* InventoryViewController.swift */,
 				4603C398206D1FF200F70967 /* MainTabViewController.swift */,
 				4603C397206D1FF200F70967 /* ProfileViewController.swift */,
 				4603C399206D1FF200F70967 /* ShiftViewController.swift */,
@@ -197,6 +200,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -247,7 +251,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Bringg-iOS-DriverSDK_Example/Pods-Bringg-iOS-DriverSDK_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Bringg-iOS-DriverSDK_Example/Pods-Bringg-iOS-DriverSDK_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${PODS_ROOT}/Bringg-iOS-DriverSDK/BringgDriverSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
@@ -255,6 +259,8 @@
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework",
 				"${BUILT_PRODUCTS_DIR}/GzipSwift/Gzip.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainAccess/KeychainAccess.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjcExceptionBridging/ObjcExceptionBridging.framework",
 				"${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
@@ -274,6 +280,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSPagerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gzip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainAccess.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjcExceptionBridging.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PhoneNumberKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
@@ -286,7 +294,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bringg-iOS-DriverSDK_Example/Pods-Bringg-iOS-DriverSDK_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bringg-iOS-DriverSDK_Example/Pods-Bringg-iOS-DriverSDK_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -304,6 +312,7 @@
 				469311BC20A0613D00D957CA /* WaypointPageCell.swift in Sources */,
 				465A72C22070E6160065FCA7 /* Logger.swift in Sources */,
 				469311BA20A0612900D957CA /* TaskViewController.swift in Sources */,
+				DC8DFD9024339F1900B22ED6 /* InventoryViewController.swift in Sources */,
 				4603C39B206D1FF200F70967 /* ProfileViewController.swift in Sources */,
 				4603C39A206D1FF200F70967 /* TaskListViewController.swift in Sources */,
 			);

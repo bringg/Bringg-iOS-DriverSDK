@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '10.0'
   s.ios.vendored_frameworks = 'BringgDriverSDK.framework'
+  s.swift_version = '5.1'
 
   ######## Dependencies ######
   s.dependency 'Socket.IO-Client-Swift', '15.1.0'

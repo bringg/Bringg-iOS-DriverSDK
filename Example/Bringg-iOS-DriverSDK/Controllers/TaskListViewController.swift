@@ -1,4 +1,8 @@
 //
+//  TaskListViewController.swift
+//  BringgDriverSDKExampleApp
+//
+//  Created by Michael Tzach on 06/03/2018.
 //  Copyright © 2018 Bringg. All rights reserved.
 //
 
@@ -18,14 +22,13 @@ extension TaskStatus {
         case .checkedOut: return "checkedOut"
         case .accepted: return "accepted"
         case .cancelled: return "cancelled"
-        case .rejected: return "rejected"
         }
     }
 }
 
 class TaskTableCellView: UITableViewCell {
     fileprivate static let cellIdentifier = "TaskTableCellViewCellIdentifier"
-
+    
     fileprivate var task: Task? {
         didSet {
             if let task = self.task {
@@ -40,54 +43,54 @@ class TaskTableCellView: UITableViewCell {
             }
         }
     }
-
+    
     private lazy var taskTitleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.textColor = .black
         return label
     }()
-
+    
     private lazy var externalIdLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.textColor = .black
         return label
     }()
-
+    
     private lazy var statusAndAsapLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.textColor = .gray
         return label
     }()
-
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        
         addSubview(taskTitleLabel)
         addSubview(externalIdLabel)
         addSubview(statusAndAsapLabel)
         makeConstraints()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
-
+    
     private func makeConstraints() {
         taskTitleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
             make.top.equalToSuperview().offset(8)
         }
-
+        
         externalIdLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
             make.top.equalTo(taskTitleLabel.snp.bottom).offset(8)
         }
-
+        
         statusAndAsapLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
@@ -97,120 +100,113 @@ class TaskTableCellView: UITableViewCell {
     }
 }
 
-class TaskListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TasksEventsDelegate, UserEventsDelegate, TaskViewControllerDelegate {
+class TaskListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TasksManagerDelegate, UserEventsDelegate, TaskViewControllerDelegate {
     private enum Sections: Int {
         case tasks
-
+        
         static func numberOfSections() -> Int {
             return Sections.tasks.rawValue + 1
         }
     }
-
+    
     //Views
-
+    
     private var notLoggedInView = NotLoggedInView()
-
+    
     private lazy var tasksTableView: UITableView = {
         let tableView = UITableView(frame: view.bounds, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(refreshControlFired(_:)), for: .valueChanged)
-
-        if #available(iOS 10.0, *) {
-            tableView.refreshControl = refreshControl
-        } else {
-            tableView.addSubview(refreshControl)
-        }
-
         return tableView
     }()
-
+    
     //State
     private var tasks: [Task]?
     private var lastTimeTasksWereRefreshed: Date?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-
+        
         tasksTableView.register(TaskTableCellView.self, forCellReuseIdentifier: TaskTableCellView.cellIdentifier)
-
+        
         view.addSubview(tasksTableView)
         view.addSubview(notLoggedInView)
         makeConstraints()
-
+        
         Bringg.shared.tasksManager.addDelegate(self)
         Bringg.shared.loginManager.addDelegate(self)
-    }
+        
+        tasksTableView.isEditing = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonPressed))
 
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         getTasksAndUpdateUI()
     }
-
+    
     private func getTasksAndUpdateUI() {
         if !Bringg.shared.loginManager.isLoggedIn {
             notLoggedInView.isHidden = false
             return
         }
-
+        
         notLoggedInView.isHidden = true
-
-        Bringg.shared.tasksManager.getTasks { tasks, lastTimeTasksWereRefreshed in
-            self.tasks = tasks
+        
+        Bringg.shared.tasksManager.getTasks { tasks, lastTimeTasksWereRefreshed, error in
+            if let error = error {
+                self.showError(error.localizedDescription)
+                return
+            }
+            self.tasks = tasks?.sorted(by: { task1, task2 in
+                if let priority1 = task1.priority, let priority2 = task2.priority {
+                    return priority1 > priority2
+                }
+                return task1.id > task2.id
+            })
             self.lastTimeTasksWereRefreshed = lastTimeTasksWereRefreshed
             self.tasksTableView.reloadData()
         }
     }
-
+    
     private func makeConstraints() {
         tasksTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-
+        
         notLoggedInView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
 
-    @objc private func refreshControlFired(_ refreshControl: UIRefreshControl) {
-        Bringg.shared.tasksManager.refreshTasks { tasks, error in
-            refreshControl.endRefreshing()
-
-            if let error = error {
-                self.showError(error.localizedDescription)
-                return
-            }
-
-            self.tasks = tasks
-            self.tasksTableView.reloadData()
-        }
+    @objc private func editButtonPressed() {
+        tasksTableView.isEditing = !tasksTableView.isEditing
     }
-
+    
     // MARK: UITableViewDelegate, UITableViewDataSource
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let task = tasks?[indexPath.row] else { return }
         let taskViewController = TaskViewController(task: task)
         taskViewController.delegate = self
         navigationController?.pushViewController(taskViewController, animated: true)
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableCellView.cellIdentifier, for: indexPath)
         cell.selectionStyle = .none
-
         if let taskCell = cell as? TaskTableCellView {
             let task = tasks?[indexPath.row]
             taskCell.task = task
         }
-
+        
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let section = Sections(rawValue: section) else { return nil }
         switch section {
@@ -218,69 +214,75 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
             return "Tasks"
         }
     }
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks?.count ?? 0
     }
-
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let task = self.tasks!.remove(at: sourceIndexPath.row)
+        self.tasks!.insert(task, at: destinationIndexPath.row)
+        let taskIds = self.tasks!.map { $0.id }
+        Bringg.shared.tasksManager.updateTasksPriorities(orderedTaskIds: taskIds, completion: { errorUpdatingPriorities in
+            if let errorUpdatingPriorities = errorUpdatingPriorities {
+                print("💣 \(errorUpdatingPriorities.localizedDescription)")
+                return
+            }
+            print("🐧 updated task priorties completed")
+        })
+    }
+    
     // MARK: TaskViewControllerDelegate
-
+    
     func taskViewControllerDidFinishTask(_ sender: TaskViewController) {
         self.navigationController?.popToViewController(self, animated: true)
     }
-
-    // MARK: TasksManagerProtocol
-
-    func tasksEventsProviderDidRefreshTaskList(_ taskStateProvider: TasksManagerProtocol) {
+    
+    // MARK: TasksManagerDelegate
+    
+    func tasksManagerDidRefreshTaskList(_ tasksManager: TasksManagerProtocol) {
         getTasksAndUpdateUI()
     }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didAddNewTask taskId: NSNumber) {
+    
+    func tasksManager(_ tasksManager: TasksManagerProtocol, didAddNewTask taskId: Int) {
         getTasksAndUpdateUI()
     }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didUpdateTask taskId: NSNumber) {
+    
+    func tasksManager(_ tasksManager: TasksManagerProtocol, didUpdateTask taskId: Int) {
         getTasksAndUpdateUI()
     }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didAddWaypoint waypointId: NSNumber) {
+    func tasksManager(_ tasksManager: TasksManagerProtocol, didAutoStartTask taskId: Int) { }
+    
+    func tasksManager(_ tasksManager: TasksManagerProtocol, didRemoveTask task: Task) {
         getTasksAndUpdateUI()
     }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didAddNote noteId: NSNumber) {
+    
+    func tasksManager(_ tasksManager: TasksManagerProtocol, didMassRemoveTasks tasks: [Task]) {
         getTasksAndUpdateUI()
     }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didUpdateWaypoint waypointId: NSNumber) {
-        getTasksAndUpdateUI()
-    }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didCompleteTask taskId: NSNumber) {
-        getTasksAndUpdateUI()
-    }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didRemoveTask taskId: NSNumber) {
-        getTasksAndUpdateUI()
-    }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didMassRemoveTasks taskIds: [NSNumber]) {
-        getTasksAndUpdateUI()
-    }
-
-    func tasksEventsProvider(_ tasksEventsProvider: TasksManagerProtocol, didRemoveWaypoint waypointId: NSNumber) {
-        getTasksAndUpdateUI()
-    }
-
+    
     // MARK: UserEventsDelegate
-
+    
     func userDidLogin() {
         getTasksAndUpdateUI()
     }
-
+    
     func userDidLogout() {
         getTasksAndUpdateUI()
     }

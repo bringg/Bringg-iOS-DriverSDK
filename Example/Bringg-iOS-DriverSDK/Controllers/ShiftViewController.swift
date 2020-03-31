@@ -1,4 +1,8 @@
 //
+//  ShiftViewController.swift
+//  BringgDriverSDKExampleApp
+//
+//  Created by Michael Tzach on 06/03/2018.
 //  Copyright © 2018 Bringg. All rights reserved.
 //
 
@@ -72,7 +76,7 @@ class ShiftViewController: UIViewController, UserEventsDelegate, ShiftManagerDel
             make.leading.greaterThanOrEqualToSuperview().offset(15)
             make.trailing.lessThanOrEqualToSuperview().offset(-15)
             if #available(iOS 11.0, *) {
-                make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
+                make.top.equalTo(view.safeAreaLayoutGuide).offset(15)
             } else {
                 make.top.equalToSuperview().offset(15)
             }
@@ -137,29 +141,33 @@ class ShiftViewController: UIViewController, UserEventsDelegate, ShiftManagerDel
 
     @objc private func startShiftButtonPressed(_ sender: UIButton) {
         activityIndicatorView.startAnimating()
-        Bringg.shared.shiftManager.startShift { error, shiftStateError in
+        Bringg.shared.shiftManager.startShift { result in
             self.activityIndicatorView.stopAnimating()
 
-            if let error = error {
-                self.showError("Error starting shift. \(error)")
-                return
-            }
-            switch shiftStateError {
-            case .unknown:
-                self.handleShiftStartFailedDueToErrorWithForceStartOption(message: "Shift couldn't be started for an unknown reason")
-            case .none:
+            switch result {
+            case .success:
                 print("Started shift")
                 self.setViewTextAndEnabledDependingOnIsOnShiftState()
-            case .alreadyExists:
-                self.handleShiftStartFailedDueToErrorWithForceStartOption(message: "Shift already exists")
-            case .alreadyExistsOnDifferentDevice:
-                self.handleShiftStartFailedDueToErrorWithForceStartOption(message: "Shift already exists on different device")
-            case .notAllowedDueToDistanceFromHome:
-                self.handleShiftStartFailedDueToErrorWithForceStartOption(message: "Shift start not allowed due to distance from home")
-            case .notAllowedDueToScheduleTimeOfDay:
-                self.handleShiftStartFailedDueToErrorWithForceStartOption(message: "Shift start not allowed due to schedule time of day")
-            case .notAllowedDueToDistanceFromScheduleHomeAndTimeOfDay:
-                self.handleShiftStartFailedDueToErrorWithForceStartOption(message: "Shift start not allowed due to schedule time of day and distance from home")
+            case .failure(let startShiftError):
+                switch startShiftError {
+                case .notAllMandatoryActionsAreFulfilled, .generalError, .startShiftAlreadyInProgress:
+                    self.showError("Error starting shift \(startShiftError)")
+                case .stateErrorFromTheServer(let shiftStateError):
+                    switch shiftStateError {
+                    case .none:
+                        self.handleShiftStartFailedDueToErrorWithForceStartOption(message: "Shift couldn't be started for an unknown reason")
+                    case .alreadyExists:
+                        self.handleShiftStartFailedDueToErrorWithForceStartOption(message: "Shift already exists")
+                    case .alreadyExistsOnDifferentDevice:
+                        self.handleShiftStartFailedDueToErrorWithForceStartOption(message: "Shift already exists on different device")
+                    case .notAllowedDueToDistanceFromHome:
+                        self.handleShiftStartFailedDueToErrorWithForceStartOption(message: "Shift start not allowed due to distance from home")
+                    case .notAllowedDueToScheduleTimeOfDay:
+                        self.handleShiftStartFailedDueToErrorWithForceStartOption(message: "Shift start not allowed due to schedule time of day")
+                    case .notAllowedDueToDistanceFromScheduleHomeAndTimeOfDay:
+                        self.handleShiftStartFailedDueToErrorWithForceStartOption(message: "Shift start not allowed due to schedule time of day and distance from home")
+                    }
+                }
             }
         }
     }
@@ -170,7 +178,7 @@ class ShiftViewController: UIViewController, UserEventsDelegate, ShiftManagerDel
         //They change the local state of the app and update the server when network is available.
         //After calling endShift, you should treat the shift as ended.
         endShiftInitiatedFromClient = true
-        Bringg.shared.shiftManager.endShift()
+        _ = Bringg.shared.shiftManager.endShift()
         print("Ended shift")
         self.setViewTextAndEnabledDependingOnIsOnShiftState()
     }
@@ -196,10 +204,10 @@ class ShiftViewController: UIViewController, UserEventsDelegate, ShiftManagerDel
 
     private func forceStartShift() {
         activityIndicatorView.startAnimating()
-        Bringg.shared.shiftManager.forceStartShift { error in
+        Bringg.shared.shiftManager.forceStartShift { result in
             self.activityIndicatorView.stopAnimating()
 
-            if let error = error {
+            if let error = result.error {
                 self.showError("Error starting shift. \(error)")
                 return
             }
@@ -262,14 +270,14 @@ class ShiftHistoryViewController: UITableViewController {
     }
 
     private func loadShifts(force: Bool = false) {
-        Bringg.shared.shiftManager.getShiftHistory(forceRefresh: force) { shifts, error in
-            if let error = error {
+        Bringg.shared.shiftHistoryManager.getShiftHistory(forceRefresh: force) { result in
+            switch result {
+            case .success(let shifts):
+                self.shiftHistory = shifts
+                self.refreshControl?.endRefreshing()
+            case .failure(let error):
                 self.showError(error.localizedDescription)
-                return
             }
-
-            self.shiftHistory = shifts
-            self.refreshControl?.endRefreshing()
         }
     }
 
@@ -294,7 +302,7 @@ class ShiftHistoryViewController: UITableViewController {
         } else {
             shift = nil
         }
-
+        
         cell.setShift(shift)
         return cell
     }
@@ -330,7 +338,7 @@ private class ShiftHistoryTableViewCell: UITableViewCell {
         return label
     }()
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         contentView.addSubview(shiftIdLabel)
@@ -365,7 +373,7 @@ private class ShiftHistoryTableViewCell: UITableViewCell {
 
     func setShift(_ shift: Shift?) {
         if let shift = shift {
-            shiftIdLabel.text = "Shift id: \(shift.shiftId)"
+            shiftIdLabel.text = "Shift id: \(shift.id)"
             startTimeLabel.text = "Start: \(ShiftHistoryTableViewCell.dateFormatter.string(from: shift.startDate))"
             if let endDate = shift.endDate {
                 endTimeLabel.text = "End: \(ShiftHistoryTableViewCell.dateFormatter.string(from: endDate))"

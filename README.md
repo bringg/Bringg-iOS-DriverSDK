@@ -35,6 +35,10 @@ Go to the info tab in your app settings and add permission strings for :
 
 + Privacy - Location Always and When In Use Usage Description
 + Privacy - Location When In Use Usage Description
++ Privacy - Location Always Usage Description
++ Privacy - Bluetooth Always Usage Description
++ Privacy - Bluetooth Peripheral Usage Description
++ Privacy - Motion Usage Description
 
 ## Example App
 An Example app is included with the framework. It includes example usage of most SDK functionalities.  

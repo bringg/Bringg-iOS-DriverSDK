@@ -1,4 +1,8 @@
 //
+//  ProfileViewController.swift
+//  BringgDriverSDKExampleApp
+//
+//  Created by Michael Tzach on 06/03/2018.
 //  Copyright © 2018 Bringg. All rights reserved.
 //
 
@@ -32,12 +36,13 @@ class ProfileViewController: UIViewController, UserEventsDelegate {
             if viewController.view.superview != nil {
                 viewController.view.snp.remakeConstraints({ make in
                     if #available(iOS 11.0, *) {
-                        make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-                        make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+                        make.top.equalTo(view.safeAreaLayoutGuide)
+                        make.bottom.equalTo(view.safeAreaLayoutGuide)
                     } else {
                         make.top.equalToSuperview()
                         make.bottom.equalToSuperview()
                     }
+
                     make.left.equalToSuperview()
                     make.right.equalToSuperview()
                 })
@@ -122,14 +127,9 @@ private class LogoutViewController: UIViewController {
         logoutButton.isEnabled = false
         activityIndicator.startAnimating()
 
-        Bringg.shared.loginManager.logout { error in
+        Bringg.shared.loginManager.logout {
             self.logoutButton.isEnabled = true
             self.activityIndicator.stopAnimating()
-
-            if let error = error {
-                self.showError("error in logout: \(error)")
-                return
-            }
 
             print("logged out!")
         }
@@ -324,37 +324,40 @@ private class LoginEmailPasswordViewController: UIViewController, UITextFieldDel
         guard let email = emailTextField.text, !email.isEmpty else { showError("you must enter an email"); return }
         guard let password = passwordTextField.text, !password.isEmpty else { showError("you must enter a password"); return }
 
-        var merchantId: NSNumber?
-        if let merchantIdString = merchantIdTextField.text, let merchantIdInt = Int(merchantIdString) {
-            merchantId = NSNumber(value: merchantIdInt)
-        }
-
         activityIndicator.startAnimating()
         emailTextField.isEnabled = false
         passwordTextField.isEnabled = false
         merchantIdTextField.isEnabled = false
         submitButton.isEnabled = false
 
-        Bringg.shared.loginManager.login(withEmail: email, password: password, merchantID: merchantId) { merchantList, error in
+        Bringg.shared.loginManager.login(withEmail: email, password: password, merchant: nil) { response in
             self.activityIndicator.stopAnimating()
             self.emailTextField.isEnabled = true
             self.passwordTextField.isEnabled = true
             self.merchantIdTextField.isEnabled = true
             self.submitButton.isEnabled = true
 
-            if let error = error {
-                self.showError("there was an error: \(error.localizedDescription)")
-                return
-            }
-            if let merchantList = merchantList {
-                self.showMerchantList(merchantList, merchantChosen: { merchantId in
-                    self.merchantIdTextField.text = "\(merchantId)"
-                    self.submitButtonPressed()
-                })
-                return
+            switch response {
+            case .failure(let errorType):
+                switch errorType {
+                case .unauthorized(let error): self.showError("Unauthorized: \(error.localizedDescription)")
+                case .userIsNotADriver: self.showError("User is not a driver. only a driver can login to the driver app")
+                case .other(let error): self.showError("There was an error: \(error.localizedDescription)")
+                }
+            case .success(let successType):
+                switch successType {
+                case .loggedIn:
+                    print("logged in!")
+                case .multipleMerchantsExistForUser(let merchants):
+                    self.showMerchantList(merchants, merchantChosen: { merchantId in
+                        self.merchantIdTextField.text = "\(merchantId)"
+                        self.submitButtonPressed()
+                    })
+                case .shouldChangeToOpenIdConnect:
+                    print("sso login is not supported in example app")
+                }
             }
 
-            print("logged in!")
         }
     }
 
@@ -650,8 +653,9 @@ private class LoginVerificationCodeViewController: UIViewController {
 
     private lazy var merchantIdTextField: UITextField = {
         let view = UITextField()
-        view.placeholder = "merchant id (optional)"
+        view.placeholder = "merchant id"
         view.keyboardType = .decimalPad
+        view.isEnabled = false
         return view
     }()
 
@@ -680,7 +684,7 @@ private class LoginVerificationCodeViewController: UIViewController {
     private func makeConstraints() {
         verificationCodeTextField.snp.makeConstraints { make in
             if #available(iOS 11.0, *) {
-                make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+                make.top.equalTo(view.safeAreaLayoutGuide)
             } else {
                 make.top.equalToSuperview()
             }
@@ -709,29 +713,24 @@ private class LoginVerificationCodeViewController: UIViewController {
     @objc private func submitButtonPressed() {
         guard let verificationCode = verificationCodeTextField.text, verificationCode.count > 3 else { showError("Verification code must be at least three digits"); return }
 
-        var merchantId: NSNumber?
-        if let merchantIdString = merchantIdTextField.text, let merchantIdInt = Int(merchantIdString) {
-            merchantId = NSNumber(value: merchantIdInt)
-        }
-
         activityIndicator.startAnimating()
-        Bringg.shared.loginManager.login(withVerificationCode: verificationCode, countryCode: countryCode, phone: phoneNumber, merchantID: merchantId) { merchantList, error in
+        Bringg.shared.loginManager.login(withVerificationCode: verificationCode, countryCode: countryCode, phone: phoneNumber, merchant: nil) { result in
             self.activityIndicator.stopAnimating()
 
-            if let error = error {
+            switch result {
+            case .failure(let error):
                 self.showError("there was an error: \(error)")
-                return
-            }
-            if let merchantList = merchantList {
-                self.showMerchantList(merchantList, merchantChosen: { merchantId in
+            case .success(.multipleMerchantsExistForUser(let merchants)):
+                self.showMerchantList(merchants) { merchantId in
                     self.merchantIdTextField.text = "\(merchantId)"
                     self.submitButtonPressed()
-                })
-                return
+                }
+            case .success(.loggedIn):
+                self.navigationController?.popViewController(animated: true)
+                print("logged in!")
+            case .success(.shouldChangeToOpenIdConnect):
+                print("sso login is not supported in example app")
             }
-
-            self.navigationController?.popViewController(animated: true)
-            print("logged in!")
         }
     }
 }

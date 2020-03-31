@@ -1,0 +1,109 @@
+PODS:
+  - Alamofire (4.9.0)
+  - Bringg-iOS-DriverSDK (1.6.0):
+    - Alamofire (= 4.9.0)
+    - CryptoSwift (= 1.0.0)
+    - GzipSwift (= 5.0.0)
+    - KeychainAccess (= 3.2.0)
+    - Kingfisher (= 5.7.1)
+    - libPhoneNumber-iOS (= 0.9.15)
+    - ObjcExceptionBridging (= 1.0.1)
+    - RealmSwift (= 3.18.0)
+    - Socket.IO-Client-Swift (= 15.1.0)
+    - Starscream (= 3.1.0)
+    - XCGLogger (= 7.0.0)
+  - CocoaLumberjack/Default (3.4.1)
+  - CocoaLumberjack/Swift (3.4.1):
+    - CocoaLumberjack/Default
+  - CryptoSwift (1.0.0)
+  - Eureka (4.1.1)
+  - FSPagerView (0.8.3)
+  - GzipSwift (5.0.0)
+  - KeychainAccess (3.2.0)
+  - Kingfisher (5.7.1)
+  - libPhoneNumber-iOS (0.9.15)
+  - ObjcExceptionBridging (1.0.1):
+    - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
+  - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
+  - PhoneNumberKit (2.6.0):
+    - PhoneNumberKit/PhoneNumberKitCore (= 2.6.0)
+    - PhoneNumberKit/UIKit (= 2.6.0)
+  - PhoneNumberKit/PhoneNumberKitCore (2.6.0)
+  - PhoneNumberKit/UIKit (2.6.0):
+    - PhoneNumberKit/PhoneNumberKitCore
+  - Realm (3.18.0):
+    - Realm/Headers (= 3.18.0)
+  - Realm/Headers (3.18.0)
+  - RealmSwift (3.18.0):
+    - Realm (= 3.18.0)
+  - SnapKit (4.0.1)
+  - Socket.IO-Client-Swift (15.1.0):
+    - Starscream (~> 3.1)
+  - Starscream (3.1.0)
+  - XCGLogger (7.0.0):
+    - XCGLogger/Core (= 7.0.0)
+  - XCGLogger/Core (7.0.0):
+    - ObjcExceptionBridging
+
+DEPENDENCIES:
+  - Bringg-iOS-DriverSDK (~> 1.6.0)
+  - CocoaLumberjack/Swift (= 3.4.1)
+  - Eureka (~> 4.1.1)
+  - FSPagerView
+  - PhoneNumberKit (~> 2.1)
+  - SnapKit (~> 4.0.0)
+  - Starscream (from `https://github.com/bringg/Starscream`, branch `feature/data_usage_feature_swift_5`)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Bringg-iOS-DriverSDK
+    - CocoaLumberjack
+    - CryptoSwift
+    - Eureka
+    - FSPagerView
+    - GzipSwift
+    - KeychainAccess
+    - Kingfisher
+    - libPhoneNumber-iOS
+    - ObjcExceptionBridging
+    - PhoneNumberKit
+    - Realm
+    - RealmSwift
+    - SnapKit
+    - Socket.IO-Client-Swift
+    - XCGLogger
+
+EXTERNAL SOURCES:
+  Starscream:
+    :branch: feature/data_usage_feature_swift_5
+    :git: https://github.com/bringg/Starscream
+
+CHECKOUT OPTIONS:
+  Starscream:
+    :commit: 2646d2837c60c63cc4ea97f7eb5197d81450a686
+    :git: https://github.com/bringg/Starscream
+
+SPEC CHECKSUMS:
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  Bringg-iOS-DriverSDK: 9ff0d18c4a233ef487115a1f95d10f642ca1b413
+  CocoaLumberjack: 2e258a064cacc8eb9a2aca318e24d02a0a7fd56d
+  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
+  Eureka: b88fb930e42c79f8c03c373d0fcdc28c1d6c50ed
+  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
+  GzipSwift: 5592f4d62b641e04d06443ba471f8ed76b1363e4
+  KeychainAccess: 3b1bf8a77eb4c6ea1ce9404c292e48f948954c6b
+  Kingfisher: 176d377ad339113c99ad4980cbae687f807e20fe
+  libPhoneNumber-iOS: 0a32a9525cf8744fe02c5206eb30d571e38f7d75
+  ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
+  PhoneNumberKit: 167ee1f0bbb6efce7c62559e620eae745595532f
+  Realm: 7b3d04740facf45e958a514b466a32b04f1113d6
+  RealmSwift: c817b5f374668cf08f649afb05f55d92a787649c
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  Socket.IO-Client-Swift: 7cb44c0ffb86e158cee32d0642d30ec5fdcf8f61
+  Starscream: 5cbf3d36bf5af6906d1362bba4ce326bb011d4cc
+  XCGLogger: 0434f15e3909cdc450bb63faf638b8792ab782ab
+
+PODFILE CHECKSUM: 76a7bdeda3cb7870f7964bb164194a5ee3626fd7
+
+COCOAPODS: 1.9.1
