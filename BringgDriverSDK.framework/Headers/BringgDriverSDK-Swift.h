@@ -235,9 +235,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Bringg * _Null_unspeci
 @end
 
 
-@interface Bringg (SWIFT_EXTENSION(BringgDriverSDK))
-+ (NSArray<NSError *> * _Nonnull)clearDataWithoutInitializingBringg SWIFT_WARN_UNUSED_RESULT;
-@end
 
 @protocol LoggerProtocol;
 
@@ -246,29 +243,22 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Bringg * _Null_unspeci
 @end
 
 
-SWIFT_CLASS("_TtC15BringgDriverSDK18BringgDriverSDKLog")
-@interface BringgDriverSDKLog : NSObject
-+ (void)debug:(NSString * _Nonnull)message file:(NSString * _Nonnull)file function:(NSString * _Nonnull)function line:(NSUInteger)line;
-+ (void)info:(NSString * _Nonnull)message file:(NSString * _Nonnull)file function:(NSString * _Nonnull)function line:(NSUInteger)line;
-+ (void)warn:(NSString * _Nonnull)message file:(NSString * _Nonnull)file function:(NSString * _Nonnull)function line:(NSUInteger)line;
-+ (void)error:(NSString * _Nonnull)message file:(NSString * _Nonnull)file function:(NSString * _Nonnull)function line:(NSUInteger)line;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
 
 
 
 
 
+/// Similar to StartShiftErrorType
+typedef SWIFT_ENUM(NSInteger, CreatePendingShiftErrorType, closed) {
+  CreatePendingShiftErrorTypeNone = 0,
+  CreatePendingShiftErrorTypeAlreadyExists = 1,
+  CreatePendingShiftErrorTypeAlreadyExistsOnDifferentDevice = 2,
+  CreatePendingShiftErrorTypeNotAllowedDueToDistanceFromHome = 3,
+  CreatePendingShiftErrorTypeNotAllowedDueToScheduleTimeOfDay = 4,
+  CreatePendingShiftErrorTypeNotAllowedDueToDistanceFromScheduleHomeAndTimeOfDay = 5,
+};
 
 
-
-
-
-SWIFT_CLASS("_TtC15BringgDriverSDK6Device")
-@interface Device : NSObject
-+ (BOOL)isSimulator SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
 
 typedef SWIFT_ENUM(NSInteger, DriverActivityType, closed) {
   DriverActivityTypeUnknown = 0,
@@ -322,6 +312,9 @@ typedef SWIFT_ENUM(NSInteger, StartShiftErrorType, closed) {
   StartShiftErrorTypeNotAllowedDueToDistanceFromHome = 3,
   StartShiftErrorTypeNotAllowedDueToScheduleTimeOfDay = 4,
   StartShiftErrorTypeNotAllowedDueToDistanceFromScheduleHomeAndTimeOfDay = 5,
+  StartShiftErrorTypeGivenShiftAlreadyStarted = 6,
+  StartShiftErrorTypeShiftWasStartedByDispatcher = 7,
+  StartShiftErrorTypeNotAllMandatoryActionsAreFulfilled = 8,
 };
 
 typedef SWIFT_ENUM(NSInteger, TaskStatus, closed) {
@@ -587,9 +580,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Bringg * _Null_unspeci
 @end
 
 
-@interface Bringg (SWIFT_EXTENSION(BringgDriverSDK))
-+ (NSArray<NSError *> * _Nonnull)clearDataWithoutInitializingBringg SWIFT_WARN_UNUSED_RESULT;
-@end
 
 @protocol LoggerProtocol;
 
@@ -598,29 +588,22 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Bringg * _Null_unspeci
 @end
 
 
-SWIFT_CLASS("_TtC15BringgDriverSDK18BringgDriverSDKLog")
-@interface BringgDriverSDKLog : NSObject
-+ (void)debug:(NSString * _Nonnull)message file:(NSString * _Nonnull)file function:(NSString * _Nonnull)function line:(NSUInteger)line;
-+ (void)info:(NSString * _Nonnull)message file:(NSString * _Nonnull)file function:(NSString * _Nonnull)function line:(NSUInteger)line;
-+ (void)warn:(NSString * _Nonnull)message file:(NSString * _Nonnull)file function:(NSString * _Nonnull)function line:(NSUInteger)line;
-+ (void)error:(NSString * _Nonnull)message file:(NSString * _Nonnull)file function:(NSString * _Nonnull)function line:(NSUInteger)line;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
 
 
 
 
 
+/// Similar to StartShiftErrorType
+typedef SWIFT_ENUM(NSInteger, CreatePendingShiftErrorType, closed) {
+  CreatePendingShiftErrorTypeNone = 0,
+  CreatePendingShiftErrorTypeAlreadyExists = 1,
+  CreatePendingShiftErrorTypeAlreadyExistsOnDifferentDevice = 2,
+  CreatePendingShiftErrorTypeNotAllowedDueToDistanceFromHome = 3,
+  CreatePendingShiftErrorTypeNotAllowedDueToScheduleTimeOfDay = 4,
+  CreatePendingShiftErrorTypeNotAllowedDueToDistanceFromScheduleHomeAndTimeOfDay = 5,
+};
 
 
-
-
-
-SWIFT_CLASS("_TtC15BringgDriverSDK6Device")
-@interface Device : NSObject
-+ (BOOL)isSimulator SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
 
 typedef SWIFT_ENUM(NSInteger, DriverActivityType, closed) {
   DriverActivityTypeUnknown = 0,
@@ -674,6 +657,9 @@ typedef SWIFT_ENUM(NSInteger, StartShiftErrorType, closed) {
   StartShiftErrorTypeNotAllowedDueToDistanceFromHome = 3,
   StartShiftErrorTypeNotAllowedDueToScheduleTimeOfDay = 4,
   StartShiftErrorTypeNotAllowedDueToDistanceFromScheduleHomeAndTimeOfDay = 5,
+  StartShiftErrorTypeGivenShiftAlreadyStarted = 6,
+  StartShiftErrorTypeShiftWasStartedByDispatcher = 7,
+  StartShiftErrorTypeNotAllMandatoryActionsAreFulfilled = 8,
 };
 
 typedef SWIFT_ENUM(NSInteger, TaskStatus, closed) {

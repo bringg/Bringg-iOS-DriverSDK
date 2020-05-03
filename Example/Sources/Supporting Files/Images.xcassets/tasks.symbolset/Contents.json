@@ -1,0 +1,12 @@
+{
+  "symbols" : [
+    {
+      "idiom" : "universal",
+      "filename" : "tasks.svg"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

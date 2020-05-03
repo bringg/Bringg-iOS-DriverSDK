@@ -1,0 +1,85 @@
+PODS:
+  - Alamofire (4.9.0)
+  - BringgDriverSDK (1.7.0):
+    - Alamofire (= 4.9.0)
+    - CryptoSwift (= 1.0.0)
+    - GzipSwift (= 5.0.0)
+    - KeychainAccess (= 3.2.0)
+    - Kingfisher (= 5.7.1)
+    - libPhoneNumber-iOS (= 0.9.15)
+    - ObjcExceptionBridging (= 1.0.1)
+    - RealmSwift (= 3.18.0)
+    - Socket.IO-Client-Swift (= 15.1.0)
+    - Starscream (= 3.1.0)
+    - XCGLogger (= 7.0.0)
+  - CocoaLumberjack/Core (3.6.0)
+  - CocoaLumberjack/Swift (3.6.0):
+    - CocoaLumberjack/Core
+  - CryptoSwift (1.0.0)
+  - GzipSwift (5.0.0)
+  - KeychainAccess (3.2.0)
+  - Kingfisher (5.7.1)
+  - libPhoneNumber-iOS (0.9.15)
+  - ObjcExceptionBridging (1.0.1):
+    - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
+  - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
+  - Realm (3.18.0):
+    - Realm/Headers (= 3.18.0)
+  - Realm/Headers (3.18.0)
+  - RealmSwift (3.18.0):
+    - Realm (= 3.18.0)
+  - SnapKit (5.0.1)
+  - Socket.IO-Client-Swift (15.1.0):
+    - Starscream (~> 3.1)
+  - Starscream (3.1.0)
+  - XCGLogger (7.0.0):
+    - XCGLogger/Core (= 7.0.0)
+  - XCGLogger/Core (7.0.0):
+    - ObjcExceptionBridging
+
+DEPENDENCIES:
+  - BringgDriverSDK (from `../`)
+  - CocoaLumberjack/Swift (= 3.6.0)
+  - SnapKit
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - CocoaLumberjack
+    - CryptoSwift
+    - GzipSwift
+    - KeychainAccess
+    - Kingfisher
+    - libPhoneNumber-iOS
+    - ObjcExceptionBridging
+    - Realm
+    - RealmSwift
+    - SnapKit
+    - Socket.IO-Client-Swift
+    - Starscream
+    - XCGLogger
+
+EXTERNAL SOURCES:
+  BringgDriverSDK:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
+  BringgDriverSDK: 8ac086500ae62888ea1d5a42fd761d93ade01848
+  CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
+  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
+  GzipSwift: 5592f4d62b641e04d06443ba471f8ed76b1363e4
+  KeychainAccess: 3b1bf8a77eb4c6ea1ce9404c292e48f948954c6b
+  Kingfisher: 176d377ad339113c99ad4980cbae687f807e20fe
+  libPhoneNumber-iOS: 0a32a9525cf8744fe02c5206eb30d571e38f7d75
+  ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
+  Realm: 7b3d04740facf45e958a514b466a32b04f1113d6
+  RealmSwift: c817b5f374668cf08f649afb05f55d92a787649c
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  Socket.IO-Client-Swift: 7cb44c0ffb86e158cee32d0642d30ec5fdcf8f61
+  Starscream: 08172b481e145289c4930cb567230fb55897cfa4
+  XCGLogger: 0434f15e3909cdc450bb63faf638b8792ab782ab
+
+PODFILE CHECKSUM: 01e1fad563e9c266b47162e6c6dee20fd8ddf03c
+
+COCOAPODS: 1.9.1
