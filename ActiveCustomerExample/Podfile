@@ -1,0 +1,10 @@
+use_frameworks!
+platform :ios, '11.0'
+
+target 'BringgActiveCustomerSDKExample' do
+  pod 'BringgDriverSDK', :path => '../'
+
+  # These pods are used for the example app. You do not have to add them to your podfile
+  pod 'CocoaLumberjack/Swift', '3.6.0'
+  pod 'SnapKit'
+end

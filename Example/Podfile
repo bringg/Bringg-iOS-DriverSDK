@@ -1,17 +1,19 @@
 use_frameworks!
 platform :ios, '10.0'
 
-target 'Bringg-iOS-DriverSDK_Example' do
-  # Bringg driver SDK pods
-  pod 'Bringg-iOS-DriverSDK', '~> 1.6.0'
+target 'BringgDriverSDKExample' do
+  pod 'BringgDriverSDK', :path => '../'
+  
+  # BringgDriverSDKObjc should be added to the podfile if you need Objc support
+  pod 'BringgDriverSDKObjc', :path => '../'
 
-  # The next line is optional and allows logging socket data usage
+  # The following line should be added to the podfile
+  # It is a fork of Starscream that adds data usage tracking to the socket connection
   pod 'Starscream', :git => "https://github.com/bringg/Starscream", :branch => "feature/data_usage_feature_swift_5"
-
-  # Pods for the example app
-  pod 'Eureka', '~> 4.1.1'
-  pod 'SnapKit', '~> 4.0.0'
-  pod 'CocoaLumberjack/Swift', '3.4.1'
-  pod 'PhoneNumberKit', '~> 2.1'
+  
+  # These pods are used for the example app. You do not have to add them to your podfile
+  pod 'CocoaLumberjack/Swift', '3.6.0'
+  pod 'PhoneNumberKit'
   pod 'FSPagerView'
+  pod 'SnapKit'
 end
