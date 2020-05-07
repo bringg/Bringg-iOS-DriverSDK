@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                     = 'BringgDriverSDK'
-  s.version                  = '1.7.0'
+  s.version                  = '1.7.1'
   s.summary                  = 'Driver SDK for the Bringg platform'
 
   s.description              = <<-DESC
@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
   s.dependency 'GzipSwift', '5.0.0'
   s.dependency 'Alamofire', '4.9.0'
   s.dependency 'XCGLogger', '7.0.0'
-  s.dependency 'RealmSwift', '3.18.0'
+  s.dependency 'RealmSwift', '4.4.1'
   s.dependency 'ObjcExceptionBridging', '1.0.1'
   s.dependency 'Kingfisher', '5.7.1'
   s.dependency 'KeychainAccess', '3.2.0'

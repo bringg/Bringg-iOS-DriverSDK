@@ -20,6 +20,8 @@ final class ActiveCustomerViewController: UIViewController {
                 startTaskButton,
                 arriveAtWaypointButton,
                 leaveWaypointButton,
+                sendFeedbackButton,
+                getTasksButton
             ]
         )
 
@@ -63,6 +65,25 @@ final class ActiveCustomerViewController: UIViewController {
         target: self,
         selector: #selector(leaveWaypointButtonPressed)
     )
+    
+    private lazy var sendFeedbackButton = UIButton.createLargeStyleButton(
+        title: "Send Feedback",
+        target: self,
+        selector: #selector(sendFeedbackPressed)
+    )
+    
+    private lazy var getTasksButton = UIButton.createLargeStyleButton(
+        title: "Get Tasks",
+        target: self,
+        selector: #selector(getTasksPressed)
+    )
+    
+    private lazy var logTextView: UITextView = {
+        let textView = UITextView()
+        textView.isEditable = false
+        textView.isScrollEnabled = true
+        return textView
+    }()
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -80,6 +101,7 @@ final class ActiveCustomerViewController: UIViewController {
 
         view.addSubview(activityIndicatorView)
         view.addSubview(controlsStackView)
+        view.addSubview(logTextView)
 
         updateView()
     }
@@ -91,6 +113,8 @@ final class ActiveCustomerViewController: UIViewController {
         startTaskButton.isHidden = !AppContext.activeCustomerManager.isLoggedIn
         arriveAtWaypointButton.isHidden = !AppContext.activeCustomerManager.isLoggedIn
         leaveWaypointButton.isHidden = !AppContext.activeCustomerManager.isLoggedIn
+        sendFeedbackButton.isHidden = !AppContext.activeCustomerManager.isLoggedIn
+        getTasksButton.isHidden = !AppContext.activeCustomerManager.isLoggedIn
 
         remakeConstraints()
     }
@@ -105,7 +129,12 @@ final class ActiveCustomerViewController: UIViewController {
             make.leading.equalToSuperview().offset(8)
             make.trailing.equalToSuperview().offset(-8)
             make.top.equalTo(view.safeAreaLayoutGuide).offset(8)
-            make.bottom.lessThanOrEqualTo(view.safeAreaLayoutGuide).offset(-8)
+        }
+        logTextView.snp.remakeConstraints { make in
+            make.leading.equalToSuperview().offset(8)
+            make.trailing.equalToSuperview().offset(-8)
+            make.top.equalTo(controlsStackView.snp.bottom).offset(4)
+            make.bottom.equalToSuperview()
         }
     }
 
@@ -113,6 +142,7 @@ final class ActiveCustomerViewController: UIViewController {
 
     @objc private func loginButtonPressed() {
         activityIndicatorView.startAnimating()
+        addLog("Logging in...")
         HTTPService.shared.getUserToken { result in
             switch result {
             case .failure(let error):
@@ -130,8 +160,10 @@ final class ActiveCustomerViewController: UIViewController {
                     self.updateView()
                     if let sdkLoginError = error {
                         print("SDK Login finished with failure")
+                        self.addLog("login failed \(String(describing: error))")
                         self.showError(sdkLoginError.localizedDescription)
                     } else {
+                        self.addLog("login succeeded")
                         print("SDK Login finished with success")
                     }
                 }
@@ -154,14 +186,19 @@ final class ActiveCustomerViewController: UIViewController {
 
     @objc private func startTaskButtonPressed() {
         let context = "start task"
+        addLog("Starting task")
         getActiveTask(context: context) { getActiveTask in
+            self.addLog("Starting task \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
             AppContext.activeCustomerManager.startTask(with: getActiveTask.taskId) { error in
                 self.activityIndicatorView.stopAnimating()
                 if let error = error {
                     print("Finished \(context) with failure")
                     self.showError(error.localizedDescription)
+                    self.addLog("start task failed")
+                    self.addLog("\(error)")
                 } else {
                     print("Finished \(context) with success")
+                    self.addLog("Task started \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
                 }
             }
         }
@@ -169,14 +206,19 @@ final class ActiveCustomerViewController: UIViewController {
 
     @objc private func arriveAtWaypointButtonPressed() {
         let context = "arrive at waypoint"
+        addLog("Arrive task")
         getActiveTask(context: context) { getActiveTask in
+            self.addLog("Arrive task \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
             AppContext.activeCustomerManager.arriveAtWaypoint(with: getActiveTask.waypointId) { error in
                 self.activityIndicatorView.stopAnimating()
                 if let error = error {
                     print("Finished \(context) with failure")
                     self.showError(error.localizedDescription)
+                    self.addLog("Arrive task failed \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
+                    self.addLog("\(error)")
                 } else {
                     print("Finished \(context) with success")
+                    self.addLog("Arrive task finished \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
                 }
             }
         }
@@ -185,14 +227,34 @@ final class ActiveCustomerViewController: UIViewController {
     @objc private func leaveWaypointButtonPressed() {
         let context = "leave waypoint"
         getActiveTask(context: context) { getActiveTask in
+            self.addLog("Leave task \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
             AppContext.activeCustomerManager.leaveWaypoint(with: getActiveTask.waypointId) { error in
                 self.activityIndicatorView.stopAnimating()
                 if let error = error {
                     print("Finished \(context) with failure")
                     self.showError(error.localizedDescription)
+                    self.addLog("Leave task failed \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
+                    self.addLog("\(error)")
                 } else {
                     print("Finished \(context) with success")
+                    self.addLog("Leave task finished \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
                 }
+            }
+        }
+    }
+    
+    @objc private func sendFeedbackPressed() {
+        addLog("Sending logs")
+        Bringg.shared.logReportManager.sendLogsToServer { error in
+            self.addLog("Logs sent")
+        }
+    }
+    
+    @objc private func getTasksPressed() {
+        Bringg.shared.tasksManager.getTasks { tasks, timestamp, error in
+            self.addLog("Tasks")
+            tasks?.forEach {
+                self.addLog("id:\($0.id) status:\($0.status) checkin:\($0.waypoints[0].checkinTime) checkout: \($0.waypoints[0].checkoutTime)")
             }
         }
     }
@@ -211,6 +273,11 @@ final class ActiveCustomerViewController: UIViewController {
                 completion(getActiveTask)
             }
         }
+    }
+    
+    private func addLog(_ text: String) {
+        logTextView.text = "\(text)\n\(logTextView.text ?? "")"
+        
     }
 }
 
