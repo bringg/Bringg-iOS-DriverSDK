@@ -10,8 +10,8 @@
 		050715DA032699D96515CB4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3D051E836142F786C344C3 /* AppDelegate.swift */; };
 		1A2389240B0272F3FA66BA32 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40612609726591B9F51A429 /* UIViewController+Utils.swift */; };
 		2576D60D40E567DADF7CDD08 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552C071E49D6C4E72C2C2028 /* Images.xcassets */; };
+		7128880242AE9F8B9220C5D2 /* Pods_BringgActiveCustomerSDKExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1D4BEF53FFDD827399A3C49 /* Pods_BringgActiveCustomerSDKExample.framework */; };
 		89ED3BA78505F81B81B303E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA09F35C6F6081A5366748D0 /* LaunchScreen.xib */; };
-		8CE8687148196973766ED119 /* Pods_BringgActiveCustomerSDKExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E510F103562D2A1FDA6F7D68 /* Pods_BringgActiveCustomerSDKExample.framework */; };
 		AC19EA1FD0D317B0DC61C2B2 /* UIButton+LargeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D529467AAE9B03B5ED6863 /* UIButton+LargeStyle.swift */; };
 		B8751E96BDE467491118BEB0 /* ActiveCustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935AC06B50643C067FCD706 /* ActiveCustomerViewController.swift */; };
 		CA681A20E57B20AFDAA5D3ED /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EEB77758E0820501DDBA87 /* HTTPService.swift */; };
@@ -20,34 +20,44 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		07723566C8EE0E5EC2B2E8BA /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgActiveCustomerSDKExample.debug.xcconfig"; path = "Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample.debug.xcconfig"; sourceTree = "<group>"; };
+		03E29A545EE207B900FC00AB /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgActiveCustomerSDKExample.release.xcconfig"; path = "Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample.release.xcconfig"; sourceTree = "<group>"; };
 		13D529467AAE9B03B5ED6863 /* UIButton+LargeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+LargeStyle.swift"; sourceTree = "<group>"; };
 		15D58187EE675F6596764575 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		1935AC06B50643C067FCD706 /* ActiveCustomerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCustomerViewController.swift; sourceTree = "<group>"; };
-		349A5120E6AB9E2DF6CA5A39 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgActiveCustomerSDKExample.release.xcconfig"; path = "Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample.release.xcconfig"; sourceTree = "<group>"; };
 		352F6ECF33616A4BF75C3319 /* BringgActiveCustomerSDKExample.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BringgActiveCustomerSDKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38D5E636DDCB03B385861AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3F6CF5113B95928D1768E8B7 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		552C071E49D6C4E72C2C2028 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		70D19EFF9070AF3B1B866C89 /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgActiveCustomerSDKExample.debug.xcconfig"; path = "Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample.debug.xcconfig"; sourceTree = "<group>"; };
 		9F3D051E836142F786C344C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B40612609726591B9F51A429 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		C0EEB77758E0820501DDBA87 /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
-		E510F103562D2A1FDA6F7D68 /* Pods_BringgActiveCustomerSDKExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BringgActiveCustomerSDKExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1D4BEF53FFDD827399A3C49 /* Pods_BringgActiveCustomerSDKExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BringgActiveCustomerSDKExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFCCFBF9EE47AB5BA40E896B /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8A12432E2D4C7F5108ECA60F /* Frameworks */ = {
+		298BCB3987E90C25842A5663 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CE8687148196973766ED119 /* Pods_BringgActiveCustomerSDKExample.framework in Frameworks */,
+				7128880242AE9F8B9220C5D2 /* Pods_BringgActiveCustomerSDKExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B54FD2E67432FA78B7C7FAB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				70D19EFF9070AF3B1B866C89 /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */,
+				03E29A545EE207B900FC00AB /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		242A3595D9DE7188EF57CA78 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +66,14 @@
 				B40612609726591B9F51A429 /* UIViewController+Utils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		28D84181FEC9ADCB71F03AB1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C1D4BEF53FFDD827399A3C49 /* Pods_BringgActiveCustomerSDKExample.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		29377BB5385BF309DC1955BF /* Supporting Files */ = {
@@ -94,24 +112,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8D371B4FC5BF4686125F72D9 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				07723566C8EE0E5EC2B2E8BA /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */,
-				349A5120E6AB9E2DF6CA5A39 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		8F3C15928E07F70188F5E4C8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				E510F103562D2A1FDA6F7D68 /* Pods_BringgActiveCustomerSDKExample.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		A09E069EBA8515BA68014256 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,8 +128,8 @@
 			children = (
 				A09E069EBA8515BA68014256 /* Sources */,
 				861BF1A29B75F64C2DF27F3A /* Products */,
-				8D371B4FC5BF4686125F72D9 /* Pods */,
-				8F3C15928E07F70188F5E4C8 /* Frameworks */,
+				1B54FD2E67432FA78B7C7FAB /* Pods */,
+				28D84181FEC9ADCB71F03AB1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,11 +140,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73C2F94C587A4A5251E1DBF5 /* Build configuration list for PBXNativeTarget "BringgActiveCustomerSDKExample" */;
 			buildPhases = (
-				98BC5F7A9404C5FF74148414 /* [CP] Check Pods Manifest.lock */,
+				83EB4A56D522CC9B8426CCF2 /* [CP] Check Pods Manifest.lock */,
 				DF5BD375B1B386B3C29E11D9 /* Sources */,
 				E3CFE5C5DF25BF7824A45D1E /* Resources */,
-				8A12432E2D4C7F5108ECA60F /* Frameworks */,
-				78D9F9527D1241BBD06D2412 /* [CP] Embed Pods Frameworks */,
+				298BCB3987E90C25842A5663 /* Frameworks */,
+				704954E6F40BE983BDB2F333 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -195,7 +195,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		78D9F9527D1241BBD06D2412 /* [CP] Embed Pods Frameworks */ = {
+		704954E6F40BE983BDB2F333 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -212,7 +212,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		98BC5F7A9404C5FF74148414 /* [CP] Check Pods Manifest.lock */ = {
+		83EB4A56D522CC9B8426CCF2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -267,7 +267,7 @@
 /* Begin XCBuildConfiguration section */
 		516602442D5A74D57524566B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 349A5120E6AB9E2DF6CA5A39 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */;
+			baseConfigurationReference = 03E29A545EE207B900FC00AB /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -285,7 +285,7 @@
 		};
 		B75168E925D7B409A01F843A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 07723566C8EE0E5EC2B2E8BA /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */;
+			baseConfigurationReference = 70D19EFF9070AF3B1B866C89 /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
