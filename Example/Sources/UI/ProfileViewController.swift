@@ -34,14 +34,8 @@ class ProfileViewController: UIViewController, UserEventsDelegate {
         for viewController in [loginViewController, logoutViewController] as [UIViewController] {
             if viewController.view.superview != nil {
                 viewController.view.snp.remakeConstraints({ make in
-                    if #available(iOS 11.0, *) {
-                        make.top.equalTo(view.safeAreaLayoutGuide)
-                        make.bottom.equalTo(view.safeAreaLayoutGuide)
-                    } else {
-                        make.top.equalToSuperview()
-                        make.bottom.equalToSuperview()
-                    }
-
+                    make.top.equalTo(view.safeAreaLayoutGuide)
+                    make.bottom.equalTo(view.safeAreaLayoutGuide)
                     make.left.equalToSuperview()
                     make.right.equalToSuperview()
                 })
@@ -722,11 +716,7 @@ private class LoginVerificationCodeViewController: UIViewController {
 
     private func makeConstraints() {
         verificationCodeTextField.snp.makeConstraints { make in
-            if #available(iOS 11.0, *) {
-                make.top.equalTo(view.safeAreaLayoutGuide)
-            } else {
-                make.top.equalToSuperview()
-            }
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.leading.equalToSuperview().offset(12)
             make.trailing.equalToSuperview().offset(-8)
         }

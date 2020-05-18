@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.9.0)
-  - BringgDriverSDK (1.7.1):
+  - BringgDriverSDK (1.8.0):
     - Alamofire (= 4.9.0)
     - CryptoSwift (= 1.0.0)
     - GzipSwift (= 5.0.0)
@@ -12,8 +12,8 @@ PODS:
     - Socket.IO-Client-Swift (= 15.1.0)
     - Starscream (= 3.1.0)
     - XCGLogger (= 7.0.0)
-  - BringgDriverSDKObjc (1.7.1):
-    - BringgDriverSDK (= 1.7.1)
+  - BringgDriverSDKObjc (1.8.0):
+    - BringgDriverSDK (= 1.8.0)
   - CocoaLumberjack/Core (3.6.0)
   - CocoaLumberjack/Swift (3.6.0):
     - CocoaLumberjack/Core
@@ -89,8 +89,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
-  BringgDriverSDK: b0780527f529ff019c7421b2155758971d6a9c4e
-  BringgDriverSDKObjc: c05d039c43e960957aeef59657f386265af5af6c
+  BringgDriverSDK: 78c7434a86d2d8563d25492679a24e1af9782e61
+  BringgDriverSDKObjc: 5710726c544febafea1e1a2bb0ea88cf4227fa36
   CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
@@ -107,6 +107,6 @@ SPEC CHECKSUMS:
   Starscream: 5cbf3d36bf5af6906d1362bba4ce326bb011d4cc
   XCGLogger: 0434f15e3909cdc450bb63faf638b8792ab782ab
 
-PODFILE CHECKSUM: 9ac208edc0329c46eeeb453b18bccd79a267bc64
+PODFILE CHECKSUM: ba06cfdecf5e13e67d65fc37eeccb97c75cde347
 
 COCOAPODS: 1.9.1

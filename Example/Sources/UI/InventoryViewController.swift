@@ -106,11 +106,7 @@ class InventoryViewController: UIViewController {
             make.bottom.equalTo(commitEditButton.snp.top).offset(-16)
         }
         commitEditButton.snp.makeConstraints { make in
-            if #available(iOS 11.0, *) {
-                make.bottom.equalTo(view.safeAreaLayoutGuide)
-            } else {
-                make.bottom.equalToSuperview()
-            }
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.height.equalTo(55)

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                     = 'BringgDriverSDKObjc'
-  s.version                  = '1.7.1'
+  s.version                  = '1.8.0'
   s.summary                  = 'Driver SDK for the Bringg platform'
 
   s.description              = <<-DESC
@@ -15,8 +15,8 @@ Pod::Spec.new do |s|
   s.authors                  = { 'Bringg iOS Dev Team' => 'bringg-ios-developers@bringg.com' }
   s.source                   = { git: 'https://github.com/bringg/Bringg-iOS-DriverSDK.git', tag: s.version.to_s }
 
-  s.platform                 = :ios, '10.0'
-  s.ios.deployment_target    = '10.0'
+  s.platform                 = :ios, '11.0'
+  s.ios.deployment_target    = '11.0'
   
   s.frameworks               = 'UIKit'
   s.source_files             = ['BringgDriverSDK/ObjcAccess/**/*.{swift}']
@@ -24,5 +24,5 @@ Pod::Spec.new do |s|
 
   ######## Dependencies ######
 
-  s.dependency 'BringgDriverSDK', '1.7.1'
+  s.dependency 'BringgDriverSDK', '1.8.0'
 end
