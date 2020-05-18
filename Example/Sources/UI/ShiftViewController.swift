@@ -74,11 +74,7 @@ class ShiftViewController: UIViewController, UserEventsDelegate, ShiftManagerDel
         currentShiftStateLabel.snp.makeConstraints { make in
             make.leading.greaterThanOrEqualToSuperview().offset(15)
             make.trailing.lessThanOrEqualToSuperview().offset(-15)
-            if #available(iOS 11.0, *) {
-                make.top.equalTo(view.safeAreaLayoutGuide).offset(15)
-            } else {
-                make.top.equalToSuperview().offset(15)
-            }
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(15)
             make.centerX.equalToSuperview()
         }
 

@@ -13,10 +13,12 @@ import BringgDriverSDK
 
     @objc public let loginManager: LoginManagerProtocol
     @objc public let shiftManager: ShiftManagerProtocol
+    @objc public let activeCustomerManager: ActiveCustomerManagerProtocol
 
     private init(bringgDriverSDK: BringgDriverSDK.Bringg) throws {
         self.loginManager = LoginManager(loginManager: bringgDriverSDK.loginManager)
         self.shiftManager = ShiftManager(shiftManager: bringgDriverSDK.shiftManager)
+        self.activeCustomerManager = ActiveCustomerManager(activeCustomerManager: bringgDriverSDK.activeCustomerManager)
         super.init()
     }
 }

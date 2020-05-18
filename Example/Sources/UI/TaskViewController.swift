@@ -90,23 +90,16 @@ class TaskViewController: UIViewController {
         waypointPageControl.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            if #available(iOS 11.0, *) {
-                make.top.equalTo(self.view.safeAreaLayoutGuide)
-            } else {
-                make.top.equalToSuperview()
-            }
-            self.waypointPageControlHeightConstraint = make.height.equalTo(0).constraint
+            make.top.equalTo(view.safeAreaLayoutGuide)
+
+            waypointPageControlHeightConstraint = make.height.equalTo(0).constraint
         }
 
         waypointsPagerView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.top.equalTo(waypointPageControl.snp.bottom)
-            if #available(iOS 11.0, *) {
-                make.bottom.equalTo(self.view.safeAreaLayoutGuide)
-            } else {
-                make.bottom.equalToSuperview()
-            }
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
 
         acceptTaskView.snp.makeConstraints { make in
