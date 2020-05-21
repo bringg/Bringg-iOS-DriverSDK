@@ -251,6 +251,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) Bringg * _Null_unspeci
 
 
 
+typedef SWIFT_ENUM(NSInteger, ContactType, closed) {
+  ContactTypeUnknown = 0,
+  ContactTypePhone = 1,
+  ContactTypeEmail = 2,
+};
+
 /// Similar to StartShiftErrorType
 typedef SWIFT_ENUM(NSInteger, CreatePendingShiftErrorType, closed) {
   CreatePendingShiftErrorTypeNone = 0,
@@ -329,6 +335,14 @@ typedef SWIFT_ENUM(NSInteger, TaskStatus, closed) {
   TaskStatusCheckedOut = 4,
   TaskStatusAccepted = 6,
   TaskStatusCancelled = 7,
+};
+
+typedef SWIFT_ENUM(NSInteger, TaskType, closed) {
+  TaskTypeNone = 1,
+  TaskTypePickup = 2,
+  TaskTypeReturnTask = 3,
+  TaskTypeDelivery = 4,
+  TaskTypePickupAndDelivery = 5,
 };
 
 

@@ -12,6 +12,8 @@ import Foundation
     func addDelegate(_ delegate: ActiveCustomerManagerDelegate)
     func removeDelegate(_ delegate: ActiveCustomerManagerDelegate)
 
+    // MARK: - Login related
+
     var isLoggedIn: Bool { get }
     func login(
         withToken token: String,
@@ -21,19 +23,28 @@ import Foundation
     )
     func logout(completion: @escaping () -> Void)
 
+    // MARK: - Task related
+
     func startTask(with taskId: Int, completion: @escaping (Error?) -> Void)
-    func arriveAtWaypoint(with waypointId: Int, completion: @escaping (Error?) -> Void)
-    func leaveWaypoint(with waypointId: Int, completion: @escaping (Error?) -> Void)
+    func arriveAtWaypoint(completion: @escaping (Error?) -> Void)
+    func leaveWaypoint(completion: @escaping (Error?) -> Void)
+    func updateWaypointETA(eta: Date, completion: @escaping (Error?) -> Void)
+
+    var activeTask: Task? { get }
+
+    func setUserTransportType(_ transportType: TransportType, completion: ((Error?) -> Void)?)
 }
 
 @objc public protocol ActiveCustomerManagerDelegate: AnyObject {
-    func activeCustomerManager(_ sender: ActiveCustomerManagerProtocol, taskRemovedWithId taskId: Int)
+    func activeCustomerManagerActiveTaskUpdated(_ sender: ActiveCustomerManagerProtocol)
     func activeCustomerManagerDidLogout()
 }
 
 @objc class ActiveCustomerManager: NSObject, ActiveCustomerManagerProtocol {
     private let activeCustomerManager: BringgDriverSDK.ActiveCustomerManagerProtocol
     private let delegates: MulticastDelegate<ActiveCustomerManagerDelegate>
+
+    var activeTask: Task? { Task(task: activeCustomerManager.activeTask) }
 
     init(activeCustomerManager: BringgDriverSDK.ActiveCustomerManagerProtocol) {
         self.activeCustomerManager = activeCustomerManager
@@ -70,20 +81,28 @@ import Foundation
         activeCustomerManager.startTask(with: taskId, completion: completion)
     }
 
-    func arriveAtWaypoint(with waypointId: Int, completion: @escaping (Error?) -> Void) {
-        activeCustomerManager.arriveAtWaypoint(with: waypointId, completion: completion)
+    func arriveAtWaypoint(completion: @escaping (Error?) -> Void) {
+        activeCustomerManager.arriveAtWaypoint(completion: completion)
     }
 
-    func leaveWaypoint(with waypointId: Int, completion: @escaping (Error?) -> Void) {
-        activeCustomerManager.leaveWaypoint(with: waypointId, completion: completion)
+    func leaveWaypoint(completion: @escaping (Error?) -> Void) {
+        activeCustomerManager.leaveWaypoint(completion: completion)
+    }
+
+    func setUserTransportType(_ transportType: TransportType, completion: ((Error?) -> Void)?) {
+        activeCustomerManager.setUserTransportType(transportType, completion: completion)
+    }
+
+    func updateWaypointETA(eta: Date, completion: @escaping (Error?) -> Void) {
+        activeCustomerManager.updateWaypointETA(eta: eta, completion: completion)
     }
 }
 
 // MARK: - ActiveCustomerManagerDelegate
 
 extension ActiveCustomerManager: BringgDriverSDK.ActiveCustomerManagerDelegate {
-    func activeCustomerManager(_ sender: BringgDriverSDK.ActiveCustomerManagerProtocol, taskRemovedWithId taskId: Int) {
-        delegates.invoke { $0.activeCustomerManager(self, taskRemovedWithId: taskId) }
+    func activeCustomerManagerActiveTaskUpdated(_ sender: BringgDriverSDK.ActiveCustomerManagerProtocol) {
+        delegates.invoke { $0.activeCustomerManagerActiveTaskUpdated(self) }
     }
 
     func activeCustomerManagerDidLogout() {

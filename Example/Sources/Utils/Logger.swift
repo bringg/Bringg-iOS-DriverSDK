@@ -26,7 +26,7 @@ private class LogFormatter: NSObject, DDLogFormatter {
 }
 
 class Logger: LoggerProtocol {
-    private static let logLevel: DDLogLevel = .debug
+    private static let logLevel: DDLogLevel = .info
     let ddLog = DDLog()
 
     init() {

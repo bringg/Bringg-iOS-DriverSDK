@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                     = 'BringgDriverSDKObjc'
-  s.version                  = '1.8.0'
+  s.version                  = '1.9.0'
   s.summary                  = 'Driver SDK for the Bringg platform'
 
   s.description              = <<-DESC
@@ -24,5 +24,5 @@ Pod::Spec.new do |s|
 
   ######## Dependencies ######
 
-  s.dependency 'BringgDriverSDK', '1.8.0'
+  s.dependency 'BringgDriverSDK', '1.9.0'
 end

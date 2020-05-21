@@ -20,7 +20,6 @@ struct GetUserToken: Codable {
 
 struct GetActiveTask {
     let taskId: Int
-    let waypointId: Int
 }
 
 // This mocks the http service to the hosting app's server
