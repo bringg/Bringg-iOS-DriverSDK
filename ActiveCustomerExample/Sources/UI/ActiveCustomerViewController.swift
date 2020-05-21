@@ -20,8 +20,7 @@ final class ActiveCustomerViewController: UIViewController {
                 startTaskButton,
                 arriveAtWaypointButton,
                 leaveWaypointButton,
-                sendFeedbackButton,
-                getTasksButton
+                updatePickupETAButton,
             ]
         )
 
@@ -65,19 +64,13 @@ final class ActiveCustomerViewController: UIViewController {
         target: self,
         selector: #selector(leaveWaypointButtonPressed)
     )
-    
-    private lazy var sendFeedbackButton = UIButton.createLargeStyleButton(
-        title: "Send Feedback",
+
+    private lazy var updatePickupETAButton = UIButton.createLargeStyleButton(
+        title: "Update ETA to pickup",
         target: self,
-        selector: #selector(sendFeedbackPressed)
+        selector: #selector(updatePickupETAButtonPressed)
     )
-    
-    private lazy var getTasksButton = UIButton.createLargeStyleButton(
-        title: "Get Tasks",
-        target: self,
-        selector: #selector(getTasksPressed)
-    )
-    
+
     private lazy var logTextView: UITextView = {
         let textView = UITextView()
         textView.isEditable = false
@@ -110,11 +103,28 @@ final class ActiveCustomerViewController: UIViewController {
         loginButton.isHidden = AppContext.activeCustomerManager.isLoggedIn
         logoutButton.isHidden = !AppContext.activeCustomerManager.isLoggedIn
 
-        startTaskButton.isHidden = !AppContext.activeCustomerManager.isLoggedIn
-        arriveAtWaypointButton.isHidden = !AppContext.activeCustomerManager.isLoggedIn
-        leaveWaypointButton.isHidden = !AppContext.activeCustomerManager.isLoggedIn
-        sendFeedbackButton.isHidden = !AppContext.activeCustomerManager.isLoggedIn
-        getTasksButton.isHidden = !AppContext.activeCustomerManager.isLoggedIn
+        startTaskButton.isHidden = true
+        arriveAtWaypointButton.isHidden = true
+        leaveWaypointButton.isHidden = true
+        updatePickupETAButton.isHidden = true
+
+        if AppContext.activeCustomerManager.isLoggedIn {
+            switch AppContext.activeCustomerManager.activeTask?.status {
+            case .none:
+                // No active task. Start task button should be enabled to allow activating a task if the user has a task
+                startTaskButton.isHidden = false
+            case .onTheWay:
+                // The task is started and on the way to the waypoint.
+                // Should allow customer reporting that he arrived or update the estimated time to arrival
+                arriveAtWaypointButton.isHidden = false
+                updatePickupETAButton.isHidden = false
+            case .checkedIn:
+                // The customer is already on location. Depending on the flow (who should finish the task - the customer or the store), we will display the leave button
+                leaveWaypointButton.isHidden = false
+            default:
+                break
+            }
+        }
 
         remakeConstraints()
     }
@@ -185,99 +195,85 @@ final class ActiveCustomerViewController: UIViewController {
     // MARK: - Task related button handlers
 
     @objc private func startTaskButtonPressed() {
-        let context = "start task"
         addLog("Starting task")
-        getActiveTask(context: context) { getActiveTask in
-            self.addLog("Starting task \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
-            AppContext.activeCustomerManager.startTask(with: getActiveTask.taskId) { error in
+
+        activityIndicatorView.startAnimating()
+
+        HTTPService.shared.getActiveTask { result in
+            switch result {
+            case .failure(let error):
+                self.addLog("Finished starting task with error")
+                self.showError(error.localizedDescription)
                 self.activityIndicatorView.stopAnimating()
-                if let error = error {
-                    print("Finished \(context) with failure")
-                    self.showError(error.localizedDescription)
-                    self.addLog("start task failed")
-                    self.addLog("\(error)")
-                } else {
-                    print("Finished \(context) with success")
-                    self.addLog("Task started \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
+            case .success(let getActiveTask):
+                self.addLog("Starting task \(getActiveTask.taskId)")
+
+                AppContext.activeCustomerManager.startTask(with: getActiveTask.taskId) { error in
+                    self.activityIndicatorView.stopAnimating()
+                    if let error = error {
+                        self.addLog("Finished staring task with failure")
+                        self.showError(error.localizedDescription)
+                    } else {
+                        self.addLog("Finished starting task with success")
+                    }
                 }
             }
         }
     }
 
     @objc private func arriveAtWaypointButtonPressed() {
-        let context = "arrive at waypoint"
-        addLog("Arrive task")
-        getActiveTask(context: context) { getActiveTask in
-            self.addLog("Arrive task \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
-            AppContext.activeCustomerManager.arriveAtWaypoint(with: getActiveTask.waypointId) { error in
-                self.activityIndicatorView.stopAnimating()
-                if let error = error {
-                    print("Finished \(context) with failure")
-                    self.showError(error.localizedDescription)
-                    self.addLog("Arrive task failed \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
-                    self.addLog("\(error)")
-                } else {
-                    print("Finished \(context) with success")
-                    self.addLog("Arrive task finished \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
-                }
+        addLog("Arriving at waypoint")
+        AppContext.activeCustomerManager.arriveAtWaypoint { error in
+            self.activityIndicatorView.stopAnimating()
+            if let error = error {
+                self.showError(error.localizedDescription)
+                self.addLog("Arriving at waypoint finished with an error")
+                self.addLog("\(error)")
+            } else {
+                self.addLog("Arriving at waypoint finished with success")
             }
         }
     }
 
     @objc private func leaveWaypointButtonPressed() {
-        let context = "leave waypoint"
-        getActiveTask(context: context) { getActiveTask in
-            self.addLog("Leave task \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
-            AppContext.activeCustomerManager.leaveWaypoint(with: getActiveTask.waypointId) { error in
-                self.activityIndicatorView.stopAnimating()
-                if let error = error {
-                    print("Finished \(context) with failure")
-                    self.showError(error.localizedDescription)
-                    self.addLog("Leave task failed \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
-                    self.addLog("\(error)")
-                } else {
-                    print("Finished \(context) with success")
-                    self.addLog("Leave task finished \(getActiveTask.taskId) waypoint \(getActiveTask.waypointId)")
-                }
-            }
-        }
-    }
-    
-    @objc private func sendFeedbackPressed() {
-        addLog("Sending logs")
-        Bringg.shared.logReportManager.sendLogsToServer { error in
-            self.addLog("Logs sent")
-        }
-    }
-    
-    @objc private func getTasksPressed() {
-        Bringg.shared.tasksManager.getTasks { tasks, timestamp, error in
-            self.addLog("Tasks")
-            tasks?.forEach {
-                self.addLog("id:\($0.id) status:\($0.status) checkin:\($0.waypoints[0].checkinTime) checkout: \($0.waypoints[0].checkoutTime)")
+        addLog("Leaving waypoint")
+        AppContext.activeCustomerManager.leaveWaypoint { error in
+            self.activityIndicatorView.stopAnimating()
+            if let error = error {
+                print("Finished leaving waypoint with failure")
+                self.showError(error.localizedDescription)
+                self.addLog("\(error)")
+            } else {
+                print("Finished leaving waypoint with success")
+                self.addLog("Leave waypoint finished")
             }
         }
     }
 
-    // Completion will be fired on success only
-    private func getActiveTask(context: String, completion: @escaping (GetActiveTask) -> Void) {
-        activityIndicatorView.startAnimating()
-        print("Starting \(context)")
-        HTTPService.shared.getActiveTask { result in
-            switch result {
-            case .failure(let error):
-                print("Finished \(context) with failure")
-                self.showError(error.localizedDescription)
-                self.activityIndicatorView.stopAnimating()
-            case .success(let getActiveTask):
-                completion(getActiveTask)
+    @objc private func updatePickupETAButtonPressed() {
+        addLog("Moving to date picker view")
+
+        let dateTimePicker = DateTimePickerViewController { [weak self] updatedETA in
+            guard let self = self else { return }
+            self.addLog("New eta submitted. \(updatedETA)")
+            self.navigationController?.popViewController(animated: true)
+
+            AppContext.activeCustomerManager.updateWaypointETA(eta: updatedETA) { [weak self] error in
+                guard let self = self else { return }
+                if let error = error {
+                    self.addLog("Failed updating eta \(error)")
+                } else {
+                    self.addLog("Finished updating eta")
+                }
             }
         }
+        dateTimePicker.title = "Update ETA"
+        navigationController?.pushViewController(dateTimePicker, animated: true)
     }
-    
+
     private func addLog(_ text: String) {
+        print(text)
         logTextView.text = "\(text)\n\(logTextView.text ?? "")"
-        
     }
 }
 
@@ -288,10 +284,13 @@ extension ActiveCustomerViewController: ActiveCustomerManagerDelegate {
         updateView()
     }
 
-    func activeCustomerManager(_ sender: ActiveCustomerManagerProtocol, taskRemovedWithId taskId: Int) {
-        // In some customer flows, the client only reports on task start and arrive at waypoint (pickup location).
-        // This delegate method will be called in those flows where the store reports the task checked out (customer left pickup location).
-        // Consider adding a message to the customer that the task is done.
-        showMessage(title: "Thank you", message: "You pickuped up your package from the store.")
+    func activeCustomerManagerActiveTaskUpdated(_ sender: ActiveCustomerManagerProtocol) {
+        // This delegate method will be called when the active task is updated
+        // When starting a task, this will be called as activeTask changes from `nil` to the active task.
+        // With every update to the task caused either from user interaction or a change on the server, this will be called.
+        // When the active task is done, this will be called and `activeTask` will be nil
+
+        print("activeTask updated \(String(describing: sender.activeTask))")
+        updateView()
     }
 }

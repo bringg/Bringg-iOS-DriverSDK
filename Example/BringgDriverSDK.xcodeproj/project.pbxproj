@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		1869355CA80E13DA9C28A79F /* ShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD6504300928E38FEFC91958 /* ShiftViewController.swift */; };
 		1A2BC14CEF97570E6525EE18 /* WaypointPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B5694B5DD6380EE8EA584D /* WaypointPageCell.swift */; };
+		247A7DE496C29540692E2688 /* Pods_BringgDriverSDKExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 538B6B11105B48BD441707E2 /* Pods_BringgDriverSDKExample.framework */; };
 		314826436282648F8E03FBC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23FA516A4AC5AE1E76FA5C36 /* Images.xcassets */; };
 		454FB4F5C569D2855FF44DA6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F980F5D4CDCBCD2987EB770A /* ProfileViewController.swift */; };
 		4EA3DB446380C21648C3D16C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6187D858D3DCC6EF4FD1C50 /* AppDelegate.swift */; };
 		4F4D319DF1AF735EE2DA2883 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB36E992A52812C1C300583 /* TaskViewController.swift */; };
-		54692565210EBAC8C78C3DB1 /* Pods_BringgDriverSDKExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6A6ADF2AE1EB11901493650 /* Pods_BringgDriverSDKExample.framework */; };
 		6A488C6856B5BEA46263327E /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCA4A015C58CB8DB11DBAD /* TaskListViewController.swift */; };
 		9B827E239E729C44BEF79448 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17790DF2448D80CDF26C9D26 /* Logger.swift */; };
 		AAC8577A4D7D8D60B3C68A74 /* LoginManagerObjcUsageExamples.m in Sources */ = {isa = PBXBuildFile; fileRef = 11304279BD31C3A4D8A41462 /* LoginManagerObjcUsageExamples.m */; };
@@ -28,18 +28,18 @@
 		11304279BD31C3A4D8A41462 /* LoginManagerObjcUsageExamples.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginManagerObjcUsageExamples.m; sourceTree = "<group>"; };
 		17790DF2448D80CDF26C9D26 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		23FA516A4AC5AE1E76FA5C36 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		25C9134D5CAF9F6B6A11D1F4 /* Pods-BringgDriverSDKExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgDriverSDKExample.debug.xcconfig"; path = "Target Support Files/Pods-BringgDriverSDKExample/Pods-BringgDriverSDKExample.debug.xcconfig"; sourceTree = "<group>"; };
+		2CBF9A5453EBB58911CFC566 /* Pods-BringgDriverSDKExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgDriverSDKExample.release.xcconfig"; path = "Target Support Files/Pods-BringgDriverSDKExample/Pods-BringgDriverSDKExample.release.xcconfig"; sourceTree = "<group>"; };
 		3975C84FA865DA4B42926E3A /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
+		4FE2C1C3F2EFF9398346877B /* Pods-BringgDriverSDKExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgDriverSDKExample.debug.xcconfig"; path = "Target Support Files/Pods-BringgDriverSDKExample/Pods-BringgDriverSDKExample.debug.xcconfig"; sourceTree = "<group>"; };
 		5347E4EDC33E6DBB56431114 /* InventoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryViewController.swift; sourceTree = "<group>"; };
+		538B6B11105B48BD441707E2 /* Pods_BringgDriverSDKExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BringgDriverSDKExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BB36E992A52812C1C300583 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		7872F0D2A8BB86B88B5FD684 /* LoginManagerObjcUsageExamples.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginManagerObjcUsageExamples.h; sourceTree = "<group>"; };
 		7ABCA4A015C58CB8DB11DBAD /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
-		8F9112D8FAB785287CD8A134 /* Pods-BringgDriverSDKExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgDriverSDKExample.release.xcconfig"; path = "Target Support Files/Pods-BringgDriverSDKExample/Pods-BringgDriverSDKExample.release.xcconfig"; sourceTree = "<group>"; };
 		AD6504300928E38FEFC91958 /* ShiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftViewController.swift; sourceTree = "<group>"; };
 		AF1A5D411B70AFA012809415 /* NotLoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotLoggedInView.swift; sourceTree = "<group>"; };
 		B0B5694B5DD6380EE8EA584D /* WaypointPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointPageCell.swift; sourceTree = "<group>"; };
 		B6187D858D3DCC6EF4FD1C50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B6A6ADF2AE1EB11901493650 /* Pods_BringgDriverSDKExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BringgDriverSDKExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8C10D2066BE62CD736A7835 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		D6C8430292E2ABD50499C781 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		E48EA4AA2FA330317F299439 /* BringgDriverSDKExample.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BringgDriverSDKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,11 +48,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7EBA69599225B3CF974FA1E9 /* Frameworks */ = {
+		FF1D2DF066478014A153573D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54692565210EBAC8C78C3DB1 /* Pods_BringgDriverSDKExample.framework in Frameworks */,
+				247A7DE496C29540692E2688 /* Pods_BringgDriverSDKExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,8 +64,8 @@
 			children = (
 				9624321350B045D92656E465 /* Sources */,
 				58B779204875B62E033CE9FB /* Products */,
-				35312F96ACD5447E248A5819 /* Pods */,
-				43A7D2D78DDE8E60C3A1567A /* Frameworks */,
+				6B32DF6FDB66AF3B1D8051D8 /* Pods */,
+				E59CBE21A2F76FA335B01AE9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,16 +76,6 @@
 				B8C10D2066BE62CD736A7835 /* UIViewController+Utils.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		35312F96ACD5447E248A5819 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				25C9134D5CAF9F6B6A11D1F4 /* Pods-BringgDriverSDKExample.debug.xcconfig */,
-				8F9112D8FAB785287CD8A134 /* Pods-BringgDriverSDKExample.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		36EE452708CBDBB770E99075 /* UI */ = {
@@ -105,20 +95,22 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		43A7D2D78DDE8E60C3A1567A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B6A6ADF2AE1EB11901493650 /* Pods_BringgDriverSDKExample.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		58B779204875B62E033CE9FB /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				E48EA4AA2FA330317F299439 /* BringgDriverSDKExample.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6B32DF6FDB66AF3B1D8051D8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4FE2C1C3F2EFF9398346877B /* Pods-BringgDriverSDKExample.debug.xcconfig */,
+				2CBF9A5453EBB58911CFC566 /* Pods-BringgDriverSDKExample.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		788A49F318CD46645BAE9707 /* Supporting Files */ = {
@@ -142,6 +134,14 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		E59CBE21A2F76FA335B01AE9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				538B6B11105B48BD441707E2 /* Pods_BringgDriverSDKExample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,11 +149,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4744C0CE36061F9A8F229B9F /* Build configuration list for PBXNativeTarget "BringgDriverSDKExample" */;
 			buildPhases = (
-				106C5C1539144F6E9C20B425 /* [CP] Check Pods Manifest.lock */,
+				9555EF9F1731B33F9AFA158C /* [CP] Check Pods Manifest.lock */,
 				399B70A42DBFDD3BB7A4E3B9 /* Sources */,
 				128F7F2DB216E708F0B1E497 /* Resources */,
-				7EBA69599225B3CF974FA1E9 /* Frameworks */,
-				1543D393F8403EBDE2DBB94B /* [CP] Embed Pods Frameworks */,
+				FF1D2DF066478014A153573D /* Frameworks */,
+				BC96A876FAE3A8B49558495E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -204,7 +204,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		106C5C1539144F6E9C20B425 /* [CP] Check Pods Manifest.lock */ = {
+		9555EF9F1731B33F9AFA158C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -226,7 +226,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1543D393F8403EBDE2DBB94B /* [CP] Embed Pods Frameworks */ = {
+		BC96A876FAE3A8B49558495E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -340,7 +340,7 @@
 		};
 		B7B9A3B7EBCC73ED853FF810 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 25C9134D5CAF9F6B6A11D1F4 /* Pods-BringgDriverSDKExample.debug.xcconfig */;
+			baseConfigurationReference = 4FE2C1C3F2EFF9398346877B /* Pods-BringgDriverSDKExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -358,7 +358,7 @@
 		};
 		C4E6F205BFBCCD55A05C9B8E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8F9112D8FAB785287CD8A134 /* Pods-BringgDriverSDKExample.release.xcconfig */;
+			baseConfigurationReference = 2CBF9A5453EBB58911CFC566 /* Pods-BringgDriverSDKExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
