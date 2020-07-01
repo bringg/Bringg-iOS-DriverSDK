@@ -18,6 +18,7 @@ To integrate BringgDriverSDK into your Xcode project using CocoaPods, specify it
 ```ruby
 pod 'BringgDriverSDK', :git => 'https://github.com/bringg/Bringg-iOS-DriverSDK.git', :branch => '1.9.0-xcode-11.3.1'
 ```
+* note - if you are using the SDK with the react-native wrapper, the line above should be added without removing any other lines to the Podfile under the application target.
 
 Then, run the following command:
 
