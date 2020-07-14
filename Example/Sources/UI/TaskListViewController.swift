@@ -234,13 +234,7 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         let task = self.tasks!.remove(at: sourceIndexPath.row)
         self.tasks!.insert(task, at: destinationIndexPath.row)
         let taskIds = self.tasks!.map { $0.id }
-        Bringg.shared.tasksManager.updateTasksPriorities(orderedTaskIds: taskIds, completion: { errorUpdatingPriorities in
-            if let errorUpdatingPriorities = errorUpdatingPriorities {
-                print("💣 \(errorUpdatingPriorities.localizedDescription)")
-                return
-            }
-            print("🐧 updated task priorties completed")
-        })
+        Bringg.shared.tasksManager.updateTasksPriorities(orderedTaskIds: taskIds, completion: nil)
     }
 }
 
