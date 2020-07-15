@@ -14,7 +14,7 @@
     self = [super init];
     if (self) {
         // Initialize the bringg driver sdk objc access once. Should probably happen on application start
-        NSError *initializationError = [BringgObjc initializeSDKWithLogger:nil];
+        NSError *initializationError = [BringgObjc initializeSDKWithLogger:nil bringgSDKInitOptions: nil];
         if (initializationError) {
             NSLog(@"Failed initializing error: %@", initializationError);
         }

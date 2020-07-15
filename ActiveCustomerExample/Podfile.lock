@@ -1,8 +1,9 @@
 PODS:
   - Alamofire (4.9.0)
-  - BringgDriverSDK (1.9.0):
+  - BringgDriverSDK (1.10.0):
     - Alamofire (= 4.9.0)
     - CryptoSwift (= 1.0.0)
+    - DeviceKit (= 3.2.0)
     - GzipSwift (= 5.0.0)
     - KeychainAccess (= 3.2.0)
     - Kingfisher (= 5.7.1)
@@ -16,6 +17,7 @@ PODS:
   - CocoaLumberjack/Swift (3.6.0):
     - CocoaLumberjack/Core
   - CryptoSwift (1.0.0)
+  - DeviceKit (3.2.0)
   - GzipSwift (5.0.0)
   - KeychainAccess (3.2.0)
   - Kingfisher (5.7.1)
@@ -47,6 +49,7 @@ SPEC REPOS:
     - Alamofire
     - CocoaLumberjack
     - CryptoSwift
+    - DeviceKit
     - GzipSwift
     - KeychainAccess
     - Kingfisher
@@ -65,9 +68,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
-  BringgDriverSDK: afc7ea88f080a3614dd782fc7a2ed12406816379
+  BringgDriverSDK: 66552a6da282493630274ded01e5fd1d9c7be33a
   CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
+  DeviceKit: d081659419cce07c0b5239dbc9fb39ed7413c7fe
   GzipSwift: 5592f4d62b641e04d06443ba471f8ed76b1363e4
   KeychainAccess: 3b1bf8a77eb4c6ea1ce9404c292e48f948954c6b
   Kingfisher: 176d377ad339113c99ad4980cbae687f807e20fe
