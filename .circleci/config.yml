@@ -1,0 +1,58 @@
+# For a detailed guide to building and testing on iOS, read the docs:
+# https://circleci.com/docs/2.0/testing-ios/
+
+version: 2.1
+
+executors:
+    bringg_ios_dev_mac:
+        macos:
+            xcode: 11.5.0
+
+jobs:
+  build_simulator:    
+    executor: bringg_ios_dev_mac
+    steps:
+      - checkout
+      - run:
+          name: Bundle install
+          command: |
+              gem update bundler
+              bundle install --path .bundle.
+          working_directory: Example
+      - run:
+          name: Install Fastlane
+          command: bundle add fastlane
+          working_directory: Example
+      - run: 
+          command: pod install
+          working_directory: Example      
+      - run: 
+          command: fastlane build_simulator
+          working_directory: Example      
+  build_appstore:
+    executor: bringg_ios_dev_mac
+    steps:
+      - checkout
+      - run:
+          name: Bundle install
+          command: |
+              gem update bundler
+              bundle install --path .bundle.
+          working_directory: Example
+      - run:
+          name: Install Fastlane
+          command: bundle add fastlane
+          working_directory: Example
+      - run: 
+          command: pod install
+          working_directory: Example         
+      - run: 
+          command: fastlane build_appstore
+          working_directory: Example          
+
+workflows:
+    version: 2
+    ios_workflow:
+        jobs:
+            - build_simulator
+            - build_appstore
