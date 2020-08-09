@@ -15,8 +15,8 @@
 		AC19EA1FD0D317B0DC61C2B2 /* UIButton+LargeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D529467AAE9B03B5ED6863 /* UIButton+LargeStyle.swift */; };
 		B8751E96BDE467491118BEB0 /* ActiveCustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935AC06B50643C067FCD706 /* ActiveCustomerViewController.swift */; };
 		CA681A20E57B20AFDAA5D3ED /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EEB77758E0820501DDBA87 /* HTTPService.swift */; };
+		CD0EA246618D82AD4B3112FC /* Pods_BringgActiveCustomerSDKExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B73ADB702901B98309F790D6 /* Pods_BringgActiveCustomerSDKExample.framework */; };
 		CD228B8F8F91E12AAC684DB6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCCFBF9EE47AB5BA40E896B /* Logger.swift */; };
-		CE57E35A8CD7FBEB99AB94EC /* Pods_BringgActiveCustomerSDKExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4704132E1A0B8F6D62B14BB5 /* Pods_BringgActiveCustomerSDKExample.framework */; };
 		F5BB0FA2132E8F93A8024E5E /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6CF5113B95928D1768E8B7 /* AppContext.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,25 +25,25 @@
 		15D58187EE675F6596764575 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		1935AC06B50643C067FCD706 /* ActiveCustomerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCustomerViewController.swift; sourceTree = "<group>"; };
 		2AD400B007B76E95A3B78089 /* DateTimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimePickerViewController.swift; sourceTree = "<group>"; };
+		2F3947A566739C376554F9D8 /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgActiveCustomerSDKExample.debug.xcconfig"; path = "Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample.debug.xcconfig"; sourceTree = "<group>"; };
+		309D129FE96C26C00E07BD98 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgActiveCustomerSDKExample.release.xcconfig"; path = "Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample.release.xcconfig"; sourceTree = "<group>"; };
 		352F6ECF33616A4BF75C3319 /* BringgActiveCustomerSDKExample.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BringgActiveCustomerSDKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38D5E636DDCB03B385861AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3F6CF5113B95928D1768E8B7 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
-		4704132E1A0B8F6D62B14BB5 /* Pods_BringgActiveCustomerSDKExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BringgActiveCustomerSDKExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		552C071E49D6C4E72C2C2028 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9540D77C8367B58B3BB6B1A1 /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgActiveCustomerSDKExample.debug.xcconfig"; path = "Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample.debug.xcconfig"; sourceTree = "<group>"; };
 		9F3D051E836142F786C344C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B40612609726591B9F51A429 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
+		B73ADB702901B98309F790D6 /* Pods_BringgActiveCustomerSDKExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BringgActiveCustomerSDKExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0EEB77758E0820501DDBA87 /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
 		EFCCFBF9EE47AB5BA40E896B /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		EFF50A797589D45CAA0CF6E3 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgActiveCustomerSDKExample.release.xcconfig"; path = "Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		87C3468AAEB40C1ECA7E17EC /* Frameworks */ = {
+		26DF84A4830AFCCF9387C7B0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE57E35A8CD7FBEB99AB94EC /* Pods_BringgActiveCustomerSDKExample.framework in Frameworks */,
+				CD0EA246618D82AD4B3112FC /* Pods_BringgActiveCustomerSDKExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +72,16 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		2F2EFCF98971828D1261A569 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2F3947A566739C376554F9D8 /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */,
+				309D129FE96C26C00E07BD98 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		4107C1F0CABFF40912800FDB /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,14 +91,12 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		510EDEDBFE1F27238A72034F /* Pods */ = {
+		48BD5E447756D93427CF3518 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9540D77C8367B58B3BB6B1A1 /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */,
-				EFF50A797589D45CAA0CF6E3 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */,
+				B73ADB702901B98309F790D6 /* Pods_BringgActiveCustomerSDKExample.framework */,
 			);
-			name = Pods;
-			path = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		56016298A8C0714A83D9558E /* Networking */ = {
@@ -118,21 +126,13 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		BA7F41EA1842533456D38D49 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4704132E1A0B8F6D62B14BB5 /* Pods_BringgActiveCustomerSDKExample.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		F8C50A42E2C29C2DC14B119C = {
 			isa = PBXGroup;
 			children = (
 				A09E069EBA8515BA68014256 /* Sources */,
 				861BF1A29B75F64C2DF27F3A /* Products */,
-				510EDEDBFE1F27238A72034F /* Pods */,
-				BA7F41EA1842533456D38D49 /* Frameworks */,
+				2F2EFCF98971828D1261A569 /* Pods */,
+				48BD5E447756D93427CF3518 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,11 +143,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73C2F94C587A4A5251E1DBF5 /* Build configuration list for PBXNativeTarget "BringgActiveCustomerSDKExample" */;
 			buildPhases = (
-				099142F9FC5FE212D7B37476 /* [CP] Check Pods Manifest.lock */,
+				0523C8A16CB3446865D2C885 /* [CP] Check Pods Manifest.lock */,
 				DF5BD375B1B386B3C29E11D9 /* Sources */,
 				E3CFE5C5DF25BF7824A45D1E /* Resources */,
-				87C3468AAEB40C1ECA7E17EC /* Frameworks */,
-				C1D0D592DBC4416843740E50 /* [CP] Embed Pods Frameworks */,
+				26DF84A4830AFCCF9387C7B0 /* Frameworks */,
+				8055B457B2A687B98D6C32D5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -198,7 +198,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		099142F9FC5FE212D7B37476 /* [CP] Check Pods Manifest.lock */ = {
+		0523C8A16CB3446865D2C885 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -220,7 +220,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C1D0D592DBC4416843740E50 /* [CP] Embed Pods Frameworks */ = {
+		8055B457B2A687B98D6C32D5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -271,7 +271,7 @@
 /* Begin XCBuildConfiguration section */
 		516602442D5A74D57524566B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EFF50A797589D45CAA0CF6E3 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */;
+			baseConfigurationReference = 309D129FE96C26C00E07BD98 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -289,7 +289,7 @@
 		};
 		B75168E925D7B409A01F843A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9540D77C8367B58B3BB6B1A1 /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */;
+			baseConfigurationReference = 2F3947A566739C376554F9D8 /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

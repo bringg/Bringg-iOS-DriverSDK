@@ -15,8 +15,9 @@ import BringgDriverSDK
 @objc public protocol LoginManagerProtocol {
     @objc var currentUser: User? { get }
     @objc var isLoggedIn: Bool { get }
-    @objc func addDelegate(_ delegate: UserEventsDelegate)
-    @objc func removeDelegate(_ delegate: UserEventsDelegate)
+
+    @discardableResult
+    @objc func addDelegate(_ delegate: UserEventsDelegate) -> MulticastDelegateSubscription
 
     @objc func login(
         withEmail email: String,
@@ -48,12 +49,9 @@ import BringgDriverSDK
         self.loginManager = loginManager
     }
 
-    public func addDelegate(_ delegate: UserEventsDelegate) {
+    @discardableResult
+    public func addDelegate(_ delegate: UserEventsDelegate) -> MulticastDelegateSubscription {
         loginManager.addDelegate(delegate)
-    }
-
-    public func removeDelegate(_ delegate: UserEventsDelegate) {
-        loginManager.removeDelegate(delegate)
     }
 
     public func login(

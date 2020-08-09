@@ -16,7 +16,7 @@ $ gem install cocoapods
 To integrate BringgDriverSDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-$ pod 'BringgDriverSDK', '1.10.1'
+$ pod 'BringgDriverSDK', '1.11.0'
 ```
 
 Then, run the following command:
@@ -41,7 +41,7 @@ Go to the info tab in your app settings and add permission strings for:
 + Privacy - Motion Usage Description
 
 ## Example Apps
-Two example apps are included with the framework. 
+Two example apps are included with the framework.
 * `/Example` is the example app for the full functionality of the framework. This should be used for the use case of driver apps using the SDK.
 * `/ActiveCustomerExample` is the example app for the specific use case of customer apps using the app for cases where the customer is doing the pickup from a store.
 

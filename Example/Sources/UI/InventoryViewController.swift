@@ -35,22 +35,6 @@ class InventoryViewController: UIViewController {
         }
     }
 
-    lazy var commentTextField: UITextField = {
-        let textField = UITextField(frame: .zero)
-        textField.placeholder = "Comment"
-        return textField
-    }()
-
-    lazy var commitEditButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setTitle("Edit", for: .normal)
-        button.addTarget(self, action: #selector(editButtonPressed), for: .touchUpInside)
-        button.titleLabel?.textAlignment = .center
-        button.backgroundColor = .blue
-        button.setTitleColor(.white, for: .normal)
-        return button
-    }()
-
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(InventoryCell.self, forCellReuseIdentifier: "InventoryCell")
@@ -73,8 +57,6 @@ class InventoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
-        view.addSubview(commentTextField)
-        view.addSubview(commitEditButton)
         view.backgroundColor = .white
         title = "Edit Inventories"
         setupConstraints()
@@ -85,11 +67,6 @@ class InventoryViewController: UIViewController {
         Bringg.shared.tasksManager.addDelegate(self)
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        Bringg.shared.tasksManager.removeDelegate(self)
-    }
-
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     private func setupConstraints() {
@@ -97,32 +74,7 @@ class InventoryViewController: UIViewController {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.bottom.equalTo(commentTextField.snp.top).offset(-16)
-        }
-        commentTextField.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.equalTo(44)
-            make.bottom.equalTo(commitEditButton.snp.top).offset(-16)
-        }
-        commitEditButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.equalTo(55)
-        }
-    }
-
-    @objc private func editButtonPressed() {
-        guard let task = task, let waypoint = waypoint, let viewModel = viewModel else {
-            return
-        }
-        let inventoriesQuantityUpdate = viewModel.cellViewModels.map {
-            InventoryQuantityUpdate(taskInventoryId: $0.taskInventory.id, newQuantity: $0.newQuantity)
-        }
-        let request = InventoriesQuantityUpdateRequest(taskId: task.id, waypointId: waypoint.id, inventoriesQuantityUpdate: inventoriesQuantityUpdate, comment: commentTextField.text)
-        Bringg.shared.inventoryManager.updateInventoriesQuantity(request: request) { error in
-            print("Update quantity error: \(error?.localizedDescription ?? "nil")")
         }
     }
 }
