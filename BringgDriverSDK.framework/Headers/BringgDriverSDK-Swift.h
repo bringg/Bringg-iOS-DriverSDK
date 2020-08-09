@@ -318,6 +318,14 @@ SWIFT_PROTOCOL("_TtP15BringgDriverSDK14LoggerProtocol_")
 @end
 
 
+SWIFT_CLASS("_TtC15BringgDriverSDK29MulticastDelegateSubscription")
+@interface MulticastDelegateSubscription : NSObject
+- (void)stopListening;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 
 
 

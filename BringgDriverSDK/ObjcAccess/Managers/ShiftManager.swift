@@ -16,17 +16,16 @@ import Foundation
 @objc public protocol ShiftManagerProtocol {
     @objc var isOnShift: Bool { get }
     @objc var currentShift: Shift? { get }
-    
-    @objc func addDelegate(_ delegate: ShiftManagerDelegate)
-    @objc func removeDelegate(_ delegate: ShiftManagerDelegate)
+
+    @discardableResult
+    @objc func addDelegate(_ delegate: ShiftManagerDelegate) -> MulticastDelegateSubscription
 
     @objc func startShift(completion: @escaping (_ networkError: Error?, _ stateError: StartShiftErrorType) -> Void)
     @objc func forceStartShift(completion: @escaping (_ error: Error?) -> Void)
     @objc func endShift()
 }
 
-@objc public class ShiftManager: NSObject, ShiftManagerProtocol {
-    
+@objc public final class ShiftManager: NSObject, ShiftManagerProtocol {
     private let shiftManager: BringgDriverSDK.ShiftManagerProtocol
     
     private let delegates = MulticastDelegate<ShiftManagerDelegate>()
@@ -41,13 +40,10 @@ import Foundation
     
     public var isOnShift: Bool { shiftManager.isOnShift }
     public var currentShift: Shift? { Shift(shift: shiftManager.currentShift) }
-    
-    public func addDelegate(_ delegate: ShiftManagerDelegate) {
+
+    @discardableResult
+    public func addDelegate(_ delegate: ShiftManagerDelegate) -> MulticastDelegateSubscription {
         delegates.add(delegate)
-    }
-    
-    public func removeDelegate(_ delegate: ShiftManagerDelegate) {
-        delegates.remove(delegate)
     }
 
     public func startShift(completion: @escaping (Error?, StartShiftErrorType) -> Void) {

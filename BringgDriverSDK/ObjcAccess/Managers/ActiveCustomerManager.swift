@@ -9,8 +9,8 @@ import BringgDriverSDK
 import Foundation
 
 @objc public protocol ActiveCustomerManagerProtocol {
-    func addDelegate(_ delegate: ActiveCustomerManagerDelegate)
-    func removeDelegate(_ delegate: ActiveCustomerManagerDelegate)
+    @discardableResult
+    func addDelegate(_ delegate: ActiveCustomerManagerDelegate) -> MulticastDelegateSubscription
 
     // MARK: - Login related
 
@@ -55,11 +55,9 @@ import Foundation
         activeCustomerManager.addDelegate(self)
     }
 
-    func addDelegate(_ delegate: ActiveCustomerManagerDelegate) {
+    @discardableResult
+    func addDelegate(_ delegate: ActiveCustomerManagerDelegate) -> MulticastDelegateSubscription {
         delegates.add(delegate)
-    }
-    func removeDelegate(_ delegate: ActiveCustomerManagerDelegate) {
-        delegates.remove(delegate)
     }
 
     var isLoggedIn: Bool { activeCustomerManager.isLoggedIn }
