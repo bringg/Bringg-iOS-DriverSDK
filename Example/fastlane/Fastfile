@@ -18,7 +18,15 @@ platform :ios do
     match(app_identifier: ["com.bringg.driverSDK.example"], type: "appstore", readonly: true)
     gym(
       configuration: "Release",
-      export_method: "app-store",      
+      export_method: "app-store",
+      export_options: {
+        signingStyle: "manual",
+        provisioningProfiles: {
+          "com.bringg.driverSDK.example" => "match AppStore com.bringg.driverSDK.example"
+        }
+      },
+      xcargs: "PROVISIONING_PROFILE_SPECIFIER='match AppStore com.bringg.driverSDK.example'",
+      skip_profile_detection: true,
       output_directory: "build/appstore",
       output_name: "Bringg.ipa"
     )    
