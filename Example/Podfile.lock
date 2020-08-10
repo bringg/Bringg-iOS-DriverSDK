@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.9.0)
-  - BringgDriverSDK (1.11.0):
+  - BringgDriverSDK (1.11.1):
     - Alamofire (= 4.9.0)
     - CryptoSwift (= 1.0.0)
     - DeviceKit (= 3.2.0)
@@ -13,8 +13,8 @@ PODS:
     - Socket.IO-Client-Swift (= 15.1.0)
     - Starscream (= 3.1.0)
     - XCGLogger (= 7.0.0)
-  - BringgDriverSDKObjc (1.11.0):
-    - BringgDriverSDK (= 1.11.0)
+  - BringgDriverSDKObjc (1.11.1):
+    - BringgDriverSDK (= 1.11.1)
   - CocoaLumberjack/Core (3.6.0)
   - CocoaLumberjack/Swift (3.6.0):
     - CocoaLumberjack/Core
@@ -92,8 +92,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
-  BringgDriverSDK: 452c5339e7def63f28a170dfdf6013ea935875b8
-  BringgDriverSDKObjc: 84d4d06cc88fe138e49aabf2b8842dd890f12cac
+  BringgDriverSDK: 98aee74cbcf3c0bd519804855519cd4c3769f793
+  BringgDriverSDKObjc: 1977a60c7e24e8a8abb668a5936923edb8d9f636
   CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   DeviceKit: d081659419cce07c0b5239dbc9fb39ed7413c7fe
