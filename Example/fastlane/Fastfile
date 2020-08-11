@@ -28,7 +28,8 @@ platform :ios do
       xcargs: "PROVISIONING_PROFILE_SPECIFIER='match AppStore com.bringg.driverSDK.example'",
       skip_profile_detection: true,
       output_directory: "build/appstore",
-      output_name: "Bringg.ipa"
+      output_name: "Bringg.ipa",
+      disable_xcpretty: true
     )    
   end
 end
