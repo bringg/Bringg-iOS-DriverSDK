@@ -9,18 +9,28 @@ platform :ios do
   lane :build_simulator do
     match(app_identifier: ["com.bringg.driverSDK.example"], type: "development", readonly: true)
     xcodebuild(
-      workspace: 'BringgDriverSDK.xcworkspace',
+      workspace: 'BringgDriverSDKExample.xcworkspace',
       scheme: 'BringgDriverSDKExample',
-      xcargs: "-configuration Debug -sdk 'iphonesimulator13.5' -destination 'generic/platform=iOS Simulator'"
+      xcargs: "-configuration Debug -sdk 'iphonesimulator14.0' -destination 'generic/platform=iOS Simulator'"
     )    
   end
   lane :build_appstore do
-    match(app_identifier: ["com.bringg.driverSDK.example"], type: "appstore", readonly: true)
+    match(app_identifier: ["com.bringg.driverSDK.example"], type: "appstore", readonly: true)       
     gym(
       configuration: "Release",
-      export_method: "app-store",      
+      scheme: "BringgDriverSDKExample",
+      export_method: "app-store",
+      export_options: {
+        signingStyle: "manual",
+        provisioningProfiles: {
+          "com.bringg.driverSDK.example" => "match AppStore com.bringg.driverSDK.example"
+        }
+      },
+      xcargs: "PROVISIONING_PROFILE_SPECIFIER='match AppStore com.bringg.driverSDK.example'",
+      skip_profile_detection: true,
       output_directory: "build/appstore",
-      output_name: "Bringg.ipa"
-    )    
+      output_name: "Bringg.ipa",
+      disable_xcpretty: true
+    )
   end
 end

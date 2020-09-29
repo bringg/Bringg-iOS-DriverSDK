@@ -146,21 +146,8 @@ private class LogoutViewController: UIViewController {
     }
 
     @objc private func sendLogsToDispatcherPressed() {
-        sendLogsToDispatcherButton.isEnabled = false
-        activityIndicator.startAnimating()
-
-        Bringg.shared.logReportManager.sendLogsToServer { [weak self] error in
-            guard let self = self else { return }
-            self.sendLogsToDispatcherButton.isEnabled = true
-            self.activityIndicator.stopAnimating()
-
-            if let error = error {
-                self.showError("error in sending logs to server: \(error)")
-                return
-            }
-
-            self.showMessage(title: "Sent logs to server", message: "Great success")
-        }
+        Bringg.shared.logReportManager.sendLogsToServer()
+        showMessage(title: "Sending logs to server", message: "🗒")
     }
 
     @objc private func shareLogs() {

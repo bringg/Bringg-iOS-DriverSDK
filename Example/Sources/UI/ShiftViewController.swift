@@ -245,7 +245,7 @@ class ShiftViewController: UIViewController, UserEventsDelegate, ShiftManagerDel
 }
 
 class ShiftHistoryViewController: UITableViewController {
-    private var shiftHistory: [Shift]? {
+    private var shiftsHistory: [ShiftHistory]? {
         didSet {
             tableView.reloadData()
         }
@@ -270,8 +270,8 @@ class ShiftHistoryViewController: UITableViewController {
     private func loadShifts(forceRefresh: Bool = false) {
         Bringg.shared.shiftHistoryManager.getShiftHistory(forceRefresh: forceRefresh) { result in
             switch result {
-            case .success(let shifts):
-                self.shiftHistory = shifts
+            case .success(let shiftsHistory):
+                self.shiftsHistory = shiftsHistory
                 self.refreshControl?.endRefreshing()
             case .failure(let error):
                 self.showError(error.localizedDescription)
@@ -286,7 +286,7 @@ class ShiftHistoryViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return shiftHistory?.count ?? 0
+        return shiftsHistory?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -294,9 +294,9 @@ class ShiftHistoryViewController: UITableViewController {
             return UITableViewCell()
         }
 
-        let shift: Shift?
-        if let shiftHistory = shiftHistory, indexPath.row < shiftHistory.count {
-            shift = shiftHistory[indexPath.row]
+        let shift: ShiftHistory?
+        if let shiftsHistory = shiftsHistory, indexPath.row < shiftsHistory.count {
+            shift = shiftsHistory[indexPath.row]
         } else {
             shift = nil
         }
@@ -369,10 +369,14 @@ private class ShiftHistoryTableViewCell: UITableViewCell {
         }
     }
 
-    func setShift(_ shift: Shift?) {
+    func setShift(_ shift: ShiftHistory?) {
         if let shift = shift {
             shiftIdLabel.text = "Shift id: \(shift.id)"
-            startTimeLabel.text = "Start: \(ShiftHistoryTableViewCell.dateFormatter.string(from: shift.startDate))"
+            if let startDate = shift.startDate {
+                startTimeLabel.text = "Start: \(ShiftHistoryTableViewCell.dateFormatter.string(from: startDate))"
+            } else {
+                startTimeLabel.text = "No start time for shift"
+            }
             if let endDate = shift.endDate {
                 endTimeLabel.text = "End: \(ShiftHistoryTableViewCell.dateFormatter.string(from: endDate))"
             } else {
