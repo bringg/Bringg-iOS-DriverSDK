@@ -25,7 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0C343829ED61D8514D6A2177 /* BringgDriverSDKExample.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BringgDriverSDKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C343829ED61D8514D6A2177 /* BringgDriverSDKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BringgDriverSDKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CE9E2CED1FA98766B5AE253 /* Pods_BringgDriverSDKExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BringgDriverSDKExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1123D09E2DBBC60EC6B4A9F8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		16345FC7D63F34D76C887016 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -128,7 +128,6 @@
 				DE5F037AF844EB987CD50184 /* Pods-BringgDriverSDKExample.debug.xcconfig */,
 				31990F0936B4B05FC1070A33 /* Pods-BringgDriverSDKExample.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -183,6 +182,7 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				en,
 				Base,
 			);
 			mainGroup = 4D3DFEFBE03B04A6EB57396D;
