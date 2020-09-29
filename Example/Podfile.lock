@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.9.0)
-  - BringgDriverSDK (1.11.0):
+  - BringgDriverSDK (1.13.0):
     - Alamofire (= 4.9.0)
     - CryptoSwift (= 1.0.0)
     - DeviceKit (= 3.2.0)
@@ -13,8 +13,8 @@ PODS:
     - Socket.IO-Client-Swift (= 15.1.0)
     - Starscream (= 3.1.0)
     - XCGLogger (= 7.0.0)
-  - BringgDriverSDKObjc (1.11.0):
-    - BringgDriverSDK (= 1.11.0)
+  - BringgDriverSDKObjc (1.13.0):
+    - BringgDriverSDK (= 1.13.0)
   - CocoaLumberjack/Core (3.6.0)
   - CocoaLumberjack/Swift (3.6.0):
     - CocoaLumberjack/Core
@@ -28,11 +28,11 @@ PODS:
   - ObjcExceptionBridging (1.0.1):
     - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
   - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
-  - PhoneNumberKit (3.2.0):
-    - PhoneNumberKit/PhoneNumberKitCore (= 3.2.0)
-    - PhoneNumberKit/UIKit (= 3.2.0)
-  - PhoneNumberKit/PhoneNumberKitCore (3.2.0)
-  - PhoneNumberKit/UIKit (3.2.0):
+  - PhoneNumberKit (3.3.1):
+    - PhoneNumberKit/PhoneNumberKitCore (= 3.3.1)
+    - PhoneNumberKit/UIKit (= 3.3.1)
+  - PhoneNumberKit/PhoneNumberKitCore (3.3.1)
+  - PhoneNumberKit/UIKit (3.3.1):
     - PhoneNumberKit/PhoneNumberKitCore
   - Realm (4.4.1):
     - Realm/Headers (= 4.4.1)
@@ -92,8 +92,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
-  BringgDriverSDK: 452c5339e7def63f28a170dfdf6013ea935875b8
-  BringgDriverSDKObjc: 84d4d06cc88fe138e49aabf2b8842dd890f12cac
+  BringgDriverSDK: 2fffb56b8b65d50bbf0bb653e43c787366553a5e
+  BringgDriverSDKObjc: 21cd365333a7433938f9a95aca38fc8cf9fcc801
   CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   DeviceKit: d081659419cce07c0b5239dbc9fb39ed7413c7fe
@@ -103,7 +103,7 @@ SPEC CHECKSUMS:
   Kingfisher: 176d377ad339113c99ad4980cbae687f807e20fe
   libPhoneNumber-iOS: 0a32a9525cf8744fe02c5206eb30d571e38f7d75
   ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
-  PhoneNumberKit: df411d46177d1492da84e10b6c093846dd861452
+  PhoneNumberKit: ff153d5e299f6da566cb73c6aa71e354933b2932
   Realm: 4eb04d7487bd43c0581256f40b424eafb711deff
   RealmSwift: 3eb8924ff7100df5928c7602f71d0fec51e7c9c5
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
@@ -113,4 +113,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ba06cfdecf5e13e67d65fc37eeccb97c75cde347
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0.rc.1
