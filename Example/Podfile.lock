@@ -58,6 +58,8 @@ DEPENDENCIES:
   - Starscream (from `https://github.com/bringg/Starscream`, branch `feature/data_usage_feature_swift_5`)
 
 SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - PhoneNumberKit
   trunk:
     - Alamofire
     - CocoaLumberjack
@@ -69,7 +71,6 @@ SPEC REPOS:
     - Kingfisher
     - libPhoneNumber-iOS
     - ObjcExceptionBridging
-    - PhoneNumberKit
     - Realm
     - RealmSwift
     - SnapKit
@@ -111,6 +112,6 @@ SPEC CHECKSUMS:
   Starscream: 5cbf3d36bf5af6906d1362bba4ce326bb011d4cc
   XCGLogger: 0434f15e3909cdc450bb63faf638b8792ab782ab
 
-PODFILE CHECKSUM: ba06cfdecf5e13e67d65fc37eeccb97c75cde347
+PODFILE CHECKSUM: 37ea74ed50c0b3d43e26b3adea05564862083f9a
 
 COCOAPODS: 1.10.0.rc.1

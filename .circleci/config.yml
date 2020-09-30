@@ -21,13 +21,13 @@ jobs:
           working_directory: Example
       - run:
           name: Install Fastlane
-          command: bundle add fastlane
+          command: bundle add fastlane && bundle update fastlane
           working_directory: Example
       - run: 
-          command: pod install
+          command: bundle exec pod install
           working_directory: Example      
       - run: 
-          command: fastlane build_simulator
+          command: bundle exec fastlane build_simulator
           working_directory: Example      
   build_appstore:
     executor: bringg_ios_dev_mac
@@ -41,13 +41,13 @@ jobs:
           working_directory: Example
       - run:
           name: Install Fastlane
-          command: bundle add fastlane
+          command: bundle add fastlane && bundle update fastlane
           working_directory: Example
       - run: 
-          command: pod install
+          command: bundle exec pod install
           working_directory: Example         
       - run: 
-          command: fastlane build_appstore
+          command: bundle exec fastlane build_appstore
           working_directory: Example          
 
 workflows:
