@@ -11,7 +11,8 @@ import FSPagerView
 import SnapKit
 
 protocol TaskViewControllerDelegate: AnyObject {
-    func taskViewControllerDidFinishTask(_ sender: TaskViewController)
+    func taskViewControllerDidCompleteTask()
+    func taskViewControllerDidUngroupTask()
 }
 
 class TaskViewController: UIViewController {
@@ -20,6 +21,7 @@ class TaskViewController: UIViewController {
     private var task: Task {
         didSet { updateUI() }
     }
+    let refreshTaskDebounce = Debounce(timeInterval: 1000)
 
     private var notLoggedInView = NotLoggedInView()
 
@@ -72,11 +74,17 @@ class TaskViewController: UIViewController {
         view.addSubview(waypointsPagerView)
         view.addSubview(acceptTaskView)
         view.addSubview(notLoggedInView)
+        
+        if task.groupUUID != nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "split"), style: .plain, target: self, action: #selector(ungroupTask))
+        }
 
         makeConstraints()
         updateUI()
     }
 
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -112,14 +120,18 @@ class TaskViewController: UIViewController {
     }
 
     private func refreshTask() {
-        Bringg.shared.tasksManager.getTask(withTaskId: task.id) { result in
-            switch result {
-            case .failure(let error):
-                self.showError(error.localizedDescription)
-            case .success(.task(let task)):
-                self.task = task
-            case .success(.taskNotAccessible):
-                self.showError("Task is no longet accessible to the current driver")
+        refreshTaskDebounce.debounce { [weak self] in
+            guard let self = self else { return }
+            Bringg.shared.tasksManager.getTask(withTaskId: self.task.id) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .failure(let error):
+                    self.showError(error.localizedDescription)
+                case .success(.task(let task)):
+                    self.task = task
+                case .success(.taskNotAccessible):
+                    self.showError("Task is no longet accessible to the current driver")
+                }
             }
         }
     }
@@ -150,6 +162,18 @@ class TaskViewController: UIViewController {
             }
 
             self.refreshTask()
+        }
+    }
+    
+    @objc private func ungroupTask() {
+        Bringg.shared.tasksManagerInternal.ungroupTask(groupLeaderTaskId: task.id) { result in
+            switch result {
+            case .failure(let error):
+                print("Failed to ungroup task: \(error)")
+            case .success(let ungroupedTasks):
+                self.delegate?.taskViewControllerDidUngroupTask()
+                print("Ungrouped successfully: \(ungroupedTasks)")
+            }
         }
     }
 }
@@ -223,7 +247,7 @@ extension TaskViewController: WaypointPageCellDelegate {
                 self.waypointsPagerView.scrollToItem(at: self.waypointsPagerView.currentIndex + 1, animated: true)
                 self.waypointPageControl.currentPage += 1
             } else {
-                self.delegate?.taskViewControllerDidFinishTask(self)
+                self.delegate?.taskViewControllerDidCompleteTask()
             }
         }
     }
@@ -265,7 +289,12 @@ extension TaskViewController: TasksManagerDelegate {
     func tasksManager(_ tasksManager: TasksManagerProtocol, didAutoStartTask taskId: Int) { }
     
     func tasksManager(_ tasksManager: TasksManagerProtocol, didRemoveTask task: Task) {
-        refreshTask()
+        if task.id == self.task.id {
+            refreshTaskDebounce.debounce { [weak self] in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
 
     func tasksManager(_ tasksManager: TasksManagerProtocol, didMassRemoveTasks tasks: [Task]) {

@@ -1,9 +1,9 @@
 PODS:
   - Alamofire (4.9.0)
-  - BringgDriverSDK (1.13.0):
+  - BringgDriverSDK (1.13.2):
     - Alamofire (= 4.9.0)
     - CryptoSwift (= 1.0.0)
-    - DeviceKit (= 3.2.0)
+    - DeviceKit (= 4.2.1)
     - GzipSwift (= 5.0.0)
     - KeychainAccess (= 3.2.0)
     - Kingfisher (= 5.7.1)
@@ -13,13 +13,13 @@ PODS:
     - Socket.IO-Client-Swift (= 15.1.0)
     - Starscream (= 3.1.0)
     - XCGLogger (= 7.0.0)
-  - BringgDriverSDKObjc (1.13.0):
-    - BringgDriverSDK (= 1.13.0)
+  - BringgDriverSDKObjc (1.13.2):
+    - BringgDriverSDK (= 1.13.2)
   - CocoaLumberjack/Core (3.6.0)
   - CocoaLumberjack/Swift (3.6.0):
     - CocoaLumberjack/Core
   - CryptoSwift (1.0.0)
-  - DeviceKit (3.2.0)
+  - DeviceKit (4.2.1)
   - FSPagerView (0.8.3)
   - GzipSwift (5.0.0)
   - KeychainAccess (3.2.0)
@@ -58,8 +58,6 @@ DEPENDENCIES:
   - Starscream (from `https://github.com/bringg/Starscream`, branch `feature/data_usage_feature_swift_5`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - PhoneNumberKit
   trunk:
     - Alamofire
     - CocoaLumberjack
@@ -71,6 +69,7 @@ SPEC REPOS:
     - Kingfisher
     - libPhoneNumber-iOS
     - ObjcExceptionBridging
+    - PhoneNumberKit
     - Realm
     - RealmSwift
     - SnapKit
@@ -93,11 +92,11 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
-  BringgDriverSDK: 2fffb56b8b65d50bbf0bb653e43c787366553a5e
-  BringgDriverSDKObjc: 21cd365333a7433938f9a95aca38fc8cf9fcc801
+  BringgDriverSDK: 1e814eb3439fd57e0cdad285be7d101abe6af6c2
+  BringgDriverSDKObjc: 4ff4d22596c464b16a90e5bdf0fcbf7643b08355
   CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
-  DeviceKit: d081659419cce07c0b5239dbc9fb39ed7413c7fe
+  DeviceKit: cadb5ff25d45fe186778bf2d0fd2ea4750542189
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   GzipSwift: 5592f4d62b641e04d06443ba471f8ed76b1363e4
   KeychainAccess: 3b1bf8a77eb4c6ea1ce9404c292e48f948954c6b
@@ -112,6 +111,6 @@ SPEC CHECKSUMS:
   Starscream: 5cbf3d36bf5af6906d1362bba4ce326bb011d4cc
   XCGLogger: 0434f15e3909cdc450bb63faf638b8792ab782ab
 
-PODFILE CHECKSUM: 37ea74ed50c0b3d43e26b3adea05564862083f9a
+PODFILE CHECKSUM: ba06cfdecf5e13e67d65fc37eeccb97c75cde347
 
 COCOAPODS: 1.10.0.rc.1

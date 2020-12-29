@@ -222,8 +222,27 @@ final class ActiveCustomerViewController: UIViewController {
     }
 
     @objc private func arriveAtWaypointButtonPressed() {
-        addLog("Arriving at waypoint")
-        AppContext.activeCustomerManager.arriveAtWaypoint { error in
+        let alertController = UIAlertController(title: "Parking Details", message: "Would you like to add parking details?", preferredStyle: .alert)
+        
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            let parkingDetailsViewController = ParkingDetailsViewController(nibName: nil, bundle: nil)
+            parkingDetailsViewController.delegate = self
+            self.present(parkingDetailsViewController, animated: true, completion: nil)
+        }
+        let noAction = UIAlertAction(title: "No", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.reportArriveAtWaypoint()
+        }
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func reportArriveAtWaypoint() {
+        self.addLog("Arriving at waypoint")
+        AppContext.activeCustomerManager.arriveAtWaypoint { [weak self] error in
+            guard let self = self else { return }
             self.activityIndicatorView.stopAnimating()
             if let error = error {
                 self.showError(error.localizedDescription)
@@ -292,5 +311,30 @@ extension ActiveCustomerViewController: ActiveCustomerManagerDelegate {
 
         print("activeTask updated \(String(describing: sender.activeTask))")
         updateView()
+    }
+}
+
+extension ActiveCustomerViewController: ParkingDetailsViewControllerDelegate {
+    func parkingDetailsAvailable(id: Int?, saveVehicle: Bool, licensePlate: String?, color: String?, model: String?, parkingSpot: String?) {
+        self.addLog("Arriving at waypoint with parking details")
+        let customerVehicle = CustomerVehicle(
+            id: id,
+            saveVehicle: saveVehicle,
+            licensePlate: licensePlate,
+            color: color,
+            model: model,
+            parkingSpot: parkingSpot
+        )
+        AppContext.activeCustomerManager.arriveAtWaypoint(customerVehicle: customerVehicle) { [weak self] error in
+            guard let self = self else { return }
+            self.activityIndicatorView.stopAnimating()
+            if let error = error {
+                self.showError(error.localizedDescription)
+                self.addLog("Arriving at waypoint finished with an error")
+                self.addLog("\(error)")
+            } else {
+                self.addLog("Arriving at waypoint finished with success")
+            }
+        }
     }
 }
