@@ -11,7 +11,7 @@ platform :ios do
     xcodebuild(
       workspace: 'BringgDriverSDKExample.xcworkspace',
       scheme: 'BringgDriverSDKExample',
-      xcargs: "-configuration Debug -sdk 'iphonesimulator13.5' -destination 'generic/platform=iOS Simulator'"
+      xcargs: "-configuration Debug -sdk 'iphonesimulator13.7' -destination 'generic/platform=iOS Simulator'"
     )    
   end
   lane :build_appstore do
