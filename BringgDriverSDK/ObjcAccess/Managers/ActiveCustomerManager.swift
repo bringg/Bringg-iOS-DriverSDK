@@ -27,6 +27,7 @@ import Foundation
 
     func startTask(with taskId: Int, completion: @escaping (Error?) -> Void)
     func arriveAtWaypoint(completion: @escaping (Error?) -> Void)
+    func arriveAtWaypoint(customerVehicle: CustomerVehicle, completion: @escaping (Error?) -> Void)
     func leaveWaypoint(completion: @escaping (Error?) -> Void)
     func updateWaypointETA(eta: Date, completion: @escaping (Error?) -> Void)
 
@@ -81,6 +82,10 @@ import Foundation
 
     func arriveAtWaypoint(completion: @escaping (Error?) -> Void) {
         activeCustomerManager.arriveAtWaypoint(completion: completion)
+    }
+    
+    func arriveAtWaypoint(customerVehicle: CustomerVehicle, completion: @escaping (Error?) -> Void) {
+        activeCustomerManager.arriveAtWaypoint(customerVehicle: customerVehicle.customerVehicle, completion: completion)
     }
 
     func leaveWaypoint(completion: @escaping (Error?) -> Void) {
