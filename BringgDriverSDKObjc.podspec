@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                     = 'BringgDriverSDKObjc'
-  s.version                  = '1.13.0'
+  s.version                  = '1.13.2'
   s.summary                  = 'Driver SDK for the Bringg platform'
 
   s.description              = <<-DESC
@@ -20,9 +20,9 @@ Pod::Spec.new do |s|
   
   s.frameworks               = 'UIKit'
   s.source_files             = ['BringgDriverSDK/ObjcAccess/**/*.{swift}']
-  s.swift_version            = '5.1'
+  s.swift_version            = '5.3.1'
 
   ######## Dependencies ######
 
-  s.dependency 'BringgDriverSDK', '1.13.0'
+  s.dependency 'BringgDriverSDK', s.version.to_s
 end

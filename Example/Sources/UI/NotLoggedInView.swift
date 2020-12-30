@@ -9,6 +9,18 @@ import Foundation
 import SnapKit
 import UIKit
 
+class NotLoggedInViewController: UIViewController {
+    let notLoggedInView = NotLoggedInView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(notLoggedInView)
+        notLoggedInView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+}
+
 class NotLoggedInView: UIView {
     private lazy var notLoggedInLabel: UILabel = {
         let label = UILabel()
@@ -23,13 +35,13 @@ class NotLoggedInView: UIView {
 
         addSubview(notLoggedInLabel)
 
-        notLoggedInLabel.snp.makeConstraints({ make in
+        notLoggedInLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.leading.greaterThanOrEqualToSuperview()
             make.trailing.lessThanOrEqualToSuperview()
             make.top.greaterThanOrEqualToSuperview()
             make.bottom.lessThanOrEqualToSuperview()
-        })
+        }
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

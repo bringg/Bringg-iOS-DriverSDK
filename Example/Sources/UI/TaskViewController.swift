@@ -11,7 +11,7 @@ import FSPagerView
 import SnapKit
 
 protocol TaskViewControllerDelegate: AnyObject {
-    func taskViewControllerDidFinishTask(_ sender: TaskViewController)
+    func taskViewControllerDidCompleteTask()
 }
 
 class TaskViewController: UIViewController {
@@ -76,7 +76,7 @@ class TaskViewController: UIViewController {
         makeConstraints()
         updateUI()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -112,7 +112,8 @@ class TaskViewController: UIViewController {
     }
 
     private func refreshTask() {
-        Bringg.shared.tasksManager.getTask(withTaskId: task.id) { result in
+        Bringg.shared.tasksManager.getTask(withTaskId: self.task.id) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .failure(let error):
                 self.showError(error.localizedDescription)
@@ -223,7 +224,7 @@ extension TaskViewController: WaypointPageCellDelegate {
                 self.waypointsPagerView.scrollToItem(at: self.waypointsPagerView.currentIndex + 1, animated: true)
                 self.waypointPageControl.currentPage += 1
             } else {
-                self.delegate?.taskViewControllerDidFinishTask(self)
+                self.delegate?.taskViewControllerDidCompleteTask()
             }
         }
     }
@@ -265,7 +266,9 @@ extension TaskViewController: TasksManagerDelegate {
     func tasksManager(_ tasksManager: TasksManagerProtocol, didAutoStartTask taskId: Int) { }
     
     func tasksManager(_ tasksManager: TasksManagerProtocol, didRemoveTask task: Task) {
-        refreshTask()
+        if task.id == self.task.id {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 
     func tasksManager(_ tasksManager: TasksManagerProtocol, didMassRemoveTasks tasks: [Task]) {
