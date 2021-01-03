@@ -9,41 +9,43 @@
 /* Begin PBXBuildFile section */
 		050715DA032699D96515CB4F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3D051E836142F786C344C3 /* AppDelegate.swift */; };
 		063020A924887F755B103684 /* DateTimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD400B007B76E95A3B78089 /* DateTimePickerViewController.swift */; };
-		1916E6EE909D5D3E5713692C /* Pods_BringgActiveCustomerSDKExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F36B2509BF6BEA7A2A8B2F5 /* Pods_BringgActiveCustomerSDKExample.framework */; };
 		1A2389240B0272F3FA66BA32 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40612609726591B9F51A429 /* UIViewController+Utils.swift */; };
 		2576D60D40E567DADF7CDD08 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552C071E49D6C4E72C2C2028 /* Images.xcassets */; };
+		2E5FD43BC952EC300F46C15B /* ParkingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F49BF9CEADD986A6477622E /* ParkingDetailsViewController.swift */; };
 		89ED3BA78505F81B81B303E5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA09F35C6F6081A5366748D0 /* LaunchScreen.xib */; };
 		AC19EA1FD0D317B0DC61C2B2 /* UIButton+LargeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D529467AAE9B03B5ED6863 /* UIButton+LargeStyle.swift */; };
 		B8751E96BDE467491118BEB0 /* ActiveCustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1935AC06B50643C067FCD706 /* ActiveCustomerViewController.swift */; };
 		CA681A20E57B20AFDAA5D3ED /* HTTPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EEB77758E0820501DDBA87 /* HTTPService.swift */; };
 		CD228B8F8F91E12AAC684DB6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCCFBF9EE47AB5BA40E896B /* Logger.swift */; };
+		D9798FDADDC0B6C2F6AD7B13 /* Pods_BringgActiveCustomerSDKExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44DDF6238CF1BDB72D5EA287 /* Pods_BringgActiveCustomerSDKExample.framework */; };
 		F5BB0FA2132E8F93A8024E5E /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6CF5113B95928D1768E8B7 /* AppContext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		124CC41A75670D0457DC75A7 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgActiveCustomerSDKExample.release.xcconfig"; path = "Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample.release.xcconfig"; sourceTree = "<group>"; };
 		13D529467AAE9B03B5ED6863 /* UIButton+LargeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+LargeStyle.swift"; sourceTree = "<group>"; };
 		15D58187EE675F6596764575 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		1935AC06B50643C067FCD706 /* ActiveCustomerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCustomerViewController.swift; sourceTree = "<group>"; };
-		1F36B2509BF6BEA7A2A8B2F5 /* Pods_BringgActiveCustomerSDKExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BringgActiveCustomerSDKExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AD400B007B76E95A3B78089 /* DateTimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimePickerViewController.swift; sourceTree = "<group>"; };
 		352F6ECF33616A4BF75C3319 /* BringgActiveCustomerSDKExample.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = BringgActiveCustomerSDKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38D5E636DDCB03B385861AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3F49BF9CEADD986A6477622E /* ParkingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingDetailsViewController.swift; sourceTree = "<group>"; };
 		3F6CF5113B95928D1768E8B7 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
+		44DDF6238CF1BDB72D5EA287 /* Pods_BringgActiveCustomerSDKExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BringgActiveCustomerSDKExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		552C071E49D6C4E72C2C2028 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		94ACBE1DD87CCEB4941AE89F /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgActiveCustomerSDKExample.debug.xcconfig"; path = "Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample.debug.xcconfig"; sourceTree = "<group>"; };
-		9E66F0A420C7C51D9F9E3B69 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgActiveCustomerSDKExample.release.xcconfig"; path = "Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample.release.xcconfig"; sourceTree = "<group>"; };
 		9F3D051E836142F786C344C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B40612609726591B9F51A429 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 		C0EEB77758E0820501DDBA87 /* HTTPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPService.swift; sourceTree = "<group>"; };
+		EA5705B44F301943D21184C9 /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BringgActiveCustomerSDKExample.debug.xcconfig"; path = "Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample.debug.xcconfig"; sourceTree = "<group>"; };
 		EFCCFBF9EE47AB5BA40E896B /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B5FFFAC6C1959EFC288E2EC8 /* Frameworks */ = {
+		9E51AB696888482167BE0243 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1916E6EE909D5D3E5713692C /* Pods_BringgActiveCustomerSDKExample.framework in Frameworks */,
+				D9798FDADDC0B6C2F6AD7B13 /* Pods_BringgActiveCustomerSDKExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,8 +79,27 @@
 			children = (
 				1935AC06B50643C067FCD706 /* ActiveCustomerViewController.swift */,
 				2AD400B007B76E95A3B78089 /* DateTimePickerViewController.swift */,
+				3F49BF9CEADD986A6477622E /* ParkingDetailsViewController.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		4348909C63845E611F2E8C8A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EA5705B44F301943D21184C9 /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */,
+				124CC41A75670D0457DC75A7 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		46BB773E477409557B53BDE7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				44DDF6238CF1BDB72D5EA287 /* Pods_BringgActiveCustomerSDKExample.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		56016298A8C0714A83D9558E /* Networking */ = {
@@ -108,31 +129,13 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		A8550C9579AB27E3C5DBE9D2 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1F36B2509BF6BEA7A2A8B2F5 /* Pods_BringgActiveCustomerSDKExample.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		DC3A45673ABF51BB679FB331 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				94ACBE1DD87CCEB4941AE89F /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */,
-				9E66F0A420C7C51D9F9E3B69 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */,
-			);
-			name = Pods;
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		F8C50A42E2C29C2DC14B119C = {
 			isa = PBXGroup;
 			children = (
 				A09E069EBA8515BA68014256 /* Sources */,
 				861BF1A29B75F64C2DF27F3A /* Products */,
-				DC3A45673ABF51BB679FB331 /* Pods */,
-				A8550C9579AB27E3C5DBE9D2 /* Frameworks */,
+				4348909C63845E611F2E8C8A /* Pods */,
+				46BB773E477409557B53BDE7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,11 +146,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73C2F94C587A4A5251E1DBF5 /* Build configuration list for PBXNativeTarget "BringgActiveCustomerSDKExample" */;
 			buildPhases = (
-				1C75C1327F9008B26AC25907 /* [CP] Check Pods Manifest.lock */,
+				DD3C5B54201D6AEE5F6F5F8C /* [CP] Check Pods Manifest.lock */,
 				DF5BD375B1B386B3C29E11D9 /* Sources */,
 				E3CFE5C5DF25BF7824A45D1E /* Resources */,
-				B5FFFAC6C1959EFC288E2EC8 /* Frameworks */,
-				00838DDFB5370FA3D44B368E /* [CP] Embed Pods Frameworks */,
+				9E51AB696888482167BE0243 /* Frameworks */,
+				D044D846129B1DF5F03F8648 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -164,7 +167,7 @@
 		B8C6C3183E4218C5F3C583B6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 				};
 			};
@@ -174,6 +177,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
+				en,
 			);
 			mainGroup = F8C50A42E2C29C2DC14B119C;
 			productRefGroup = 861BF1A29B75F64C2DF27F3A /* Products */;
@@ -198,7 +202,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		00838DDFB5370FA3D44B368E /* [CP] Embed Pods Frameworks */ = {
+		D044D846129B1DF5F03F8648 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -215,7 +219,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BringgActiveCustomerSDKExample/Pods-BringgActiveCustomerSDKExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1C75C1327F9008B26AC25907 /* [CP] Check Pods Manifest.lock */ = {
+		DD3C5B54201D6AEE5F6F5F8C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -250,6 +254,7 @@
 				063020A924887F755B103684 /* DateTimePickerViewController.swift in Sources */,
 				CA681A20E57B20AFDAA5D3ED /* HTTPService.swift in Sources */,
 				CD228B8F8F91E12AAC684DB6 /* Logger.swift in Sources */,
+				2E5FD43BC952EC300F46C15B /* ParkingDetailsViewController.swift in Sources */,
 				AC19EA1FD0D317B0DC61C2B2 /* UIButton+LargeStyle.swift in Sources */,
 				1A2389240B0272F3FA66BA32 /* UIViewController+Utils.swift in Sources */,
 			);
@@ -271,7 +276,7 @@
 /* Begin XCBuildConfiguration section */
 		516602442D5A74D57524566B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9E66F0A420C7C51D9F9E3B69 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */;
+			baseConfigurationReference = 124CC41A75670D0457DC75A7 /* Pods-BringgActiveCustomerSDKExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -289,7 +294,7 @@
 		};
 		B75168E925D7B409A01F843A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 94ACBE1DD87CCEB4941AE89F /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */;
+			baseConfigurationReference = EA5705B44F301943D21184C9 /* Pods-BringgActiveCustomerSDKExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -315,6 +320,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -330,6 +336,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -348,11 +355,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -366,6 +375,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -381,6 +391,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -405,7 +416,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

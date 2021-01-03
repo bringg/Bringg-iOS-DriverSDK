@@ -21,13 +21,13 @@ class MainTabViewController: UITabBarController {
         viewController.tabBarItem.image = UIImage(named: "shift")
         return viewController
     }()
-
-    private var taskListViewController: TaskListViewController = {
-        let viewController = TaskListViewController()
+    
+    private var tasksTabViewController: TasksTabViewController = {
+        let viewController = TasksTabViewController()
         viewController.title = "Tasks"
         viewController.tabBarItem.image = UIImage(named: "tasks")
         return viewController
-    }()
+    }()    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class MainTabViewController: UITabBarController {
         self.viewControllers = [
             UINavigationController(rootViewController: profileViewController),
             UINavigationController(rootViewController: shiftViewController),
-            UINavigationController(rootViewController: taskListViewController),
+            UINavigationController(rootViewController: tasksTabViewController),
         ]
     }
 }
