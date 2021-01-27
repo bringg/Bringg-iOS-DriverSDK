@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                     = 'BringgDriverSDK'
-  s.version                  = '1.13.2'
+  s.version                  = '1.116.0'
   s.summary                  = 'Driver SDK for the Bringg platform'
 
   s.description              = <<-DESC
@@ -19,8 +19,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target    = '11.0'
 
   s.frameworks               = 'UIKit', 'CoreData', 'CoreLocation', 'CoreMotion'
-  s.ios.vendored_frameworks = 'BringgDriverSDK.framework'
-  s.swift_version            = '5.3.1'
+  s.ios.vendored_frameworks = 'BringgDriverSDK.xcframework'
+  s.ios.user_target_xcconfig = { 'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES' }
 
   ######## Dependencies ######
 

@@ -149,6 +149,11 @@ extension ClustersViewController: TaskViewControllerDelegate {
         self.navigationController?.popViewController(animated: true)
         self.getTasksAndUpdateUI()
     }
+    
+    func taskViewControllerDidUngroupTask() {
+        self.navigationController?.popViewController(animated: true)
+        self.getTasksAndUpdateUI()
+    }
 }
 
 // MARK: - UserEventsDelegate
