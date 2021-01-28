@@ -205,7 +205,7 @@ class ShiftViewController: UIViewController, UserEventsDelegate, ShiftManagerDel
         Bringg.shared.shiftManager.forceStartShift { result in
             self.activityIndicatorView.stopAnimating()
 
-            if let error = result.error {
+            if case let .failure(error) = result {
                 self.showError("Error starting shift. \(error)")
                 return
             }

@@ -20,6 +20,7 @@ class TaskViewController: UIViewController {
     private var task: Task {
         didSet { updateUI() }
     }
+    let refreshTaskDebounce = Debounce(timeInterval: 1000)
 
     private var notLoggedInView = NotLoggedInView()
 
@@ -76,6 +77,8 @@ class TaskViewController: UIViewController {
         makeConstraints()
         updateUI()
     }
+
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -112,15 +115,18 @@ class TaskViewController: UIViewController {
     }
 
     private func refreshTask() {
-        Bringg.shared.tasksManager.getTask(withTaskId: self.task.id) { [weak self] result in
+        refreshTaskDebounce.debounce { [weak self] in
             guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                self.showError(error.localizedDescription)
-            case .success(.task(let task)):
-                self.task = task
-            case .success(.taskNotAccessible):
-                self.showError("Task is no longet accessible to the current driver")
+            Bringg.shared.tasksManager.getTask(withTaskId: self.task.id) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .failure(let error):
+                    self.showError(error.localizedDescription)
+                case .success(.task(let task)):
+                    self.task = task
+                case .success(.taskNotAccessible):
+                    self.showError("Task is no longet accessible to the current driver")
+                }
             }
         }
     }
@@ -267,7 +273,10 @@ extension TaskViewController: TasksManagerDelegate {
     
     func tasksManager(_ tasksManager: TasksManagerProtocol, didRemoveTask task: Task) {
         if task.id == self.task.id {
-            self.navigationController?.popViewController(animated: true)
+            refreshTaskDebounce.debounce { [weak self] in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
 

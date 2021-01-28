@@ -1,4 +1,0 @@
-framework module BringgDriverSDK {
-    header "BringgDriverSDK-Swift.h"
-    requires objc
-}

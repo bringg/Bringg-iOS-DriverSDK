@@ -27,7 +27,7 @@ class TasksTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshDisplayMode()
-        refreshView()        
+        refreshView()
     }
     
     override func viewDidAppear(_ animated: Bool) {

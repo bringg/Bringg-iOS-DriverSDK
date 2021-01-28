@@ -172,6 +172,11 @@ extension TaskListViewController: TaskViewControllerDelegate {
         self.navigationController?.popToViewController(self, animated: true)
         self.getTasksAndUpdateUI()
     }
+    
+    func taskViewControllerDidUngroupTask() {        
+        self.navigationController?.popToViewController(self, animated: true)
+        self.getTasksAndUpdateUI()
+    }
 }
 
 // MARK: TasksManagerDelegate
