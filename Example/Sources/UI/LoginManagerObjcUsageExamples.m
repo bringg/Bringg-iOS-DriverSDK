@@ -23,7 +23,7 @@
 }
 
 - (void)loginWithEmailAndPassword {
-    [BringgObjc.shared.loginManager loginWithEmail:@"someEmail@somewhere.com" password:@"somePassword" merchant:nil completion:^(NSArray<MerchantSelection *> * _Nullable merchants, ChangeToOpenIdConnectResponse * _Nullable changeToOpenIdConnectResponse, NSError * _Nullable error) {
+    [BringgObjc.shared.loginManager loginWithEmail:@"someEmail@somewhere.com" password:@"somePassword" merchant:nil completion:^(NSArray<MerchantSelectionObjc *> * _Nullable merchants, ChangeToOpenIdConnectResponseObjc * _Nullable changeToOpenIdConnectResponse, NSError * _Nullable error) {
         if (error) {
             if (error.code == LoginWithEmailAndPasswordErrorCodes.userIsNotADriver) {
                 NSLog(@"Only a driver can login using the driver SDK");

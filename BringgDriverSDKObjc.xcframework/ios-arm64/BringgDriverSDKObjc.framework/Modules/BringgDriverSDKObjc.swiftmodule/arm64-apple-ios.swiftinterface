@@ -1,0 +1,1802 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name BringgDriverSDKObjc
+import AVFoundation
+import Alamofire
+import SystemConfiguration.CaptiveNetwork
+import CoreBluetooth
+import CoreLocation
+import CoreMotion
+import CoreTelephony
+import CryptoSwift
+import DeviceKit
+import Foundation
+import Gzip
+import KeychainAccess
+import Kingfisher
+import ObjcExceptionBridging
+import Photos
+import RealmSwift
+import SocketIO
+import Swift
+import Swift/*.Result*/
+import SystemConfiguration
+import UIKit
+import UserNotifications
+import XCGLogger
+import libPhoneNumber_iOS
+@objc public enum AllowShareWithCustomer : Swift.Int {
+  case disabled = 0
+  case defaultFalse = 1
+  case defaultTrue = 2
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol ActiveCustomerManagerProtocol {
+  @discardableResult
+  func addDelegate(_ delegate: BringgDriverSDKObjc.ActiveCustomerManagerDelegate) -> BringgDriverSDKObjc.MulticastDelegateSubscription
+  var isLoggedIn: Swift.Bool { get }
+  func login(withToken token: Swift.String, secret: Swift.String, region: Swift.String, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func logout(completion: @escaping () -> Swift.Void)
+  func startTask(with taskId: Swift.Int, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func arriveAtWaypoint(completion: @escaping (Swift.Error?) -> Swift.Void)
+  func arriveAtWaypoint(customerVehicle: BringgDriverSDKObjc.CustomerVehicle, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func leaveWaypoint(completion: @escaping (Swift.Error?) -> Swift.Void)
+  func updateWaypointETA(eta: Foundation.Date, completion: @escaping (Swift.Error?) -> Swift.Void)
+  var activeTask: BringgDriverSDKObjc.Task? { get }
+  func setUserTransportType(_ transportType: BringgDriverSDKObjc.TransportType, completion: ((Swift.Error?) -> Swift.Void)?)
+}
+public protocol ActiveCustomerManagerDelegate : AnyObject {
+  func activeCustomerManagerActiveTaskUpdated(_ sender: BringgDriverSDKObjc.ActiveCustomerManagerProtocol)
+  func activeCustomerManagerDidLogout()
+}
+@objc public protocol ActiveCustomerManagerObjcProtocol {
+  @objc @discardableResult
+  func addDelegate(_ delegate: BringgDriverSDKObjc.ActiveCustomerManagerObjcDelegate) -> BringgDriverSDKObjc.MulticastDelegateSubscription
+  @objc var isLoggedIn: Swift.Bool { get }
+  @objc func login(withToken token: Swift.String, secret: Swift.String, region: Swift.String, completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc func logout(completion: @escaping () -> Swift.Void)
+  @objc func startTask(with taskId: Swift.Int, completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc func arriveAtWaypoint(completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc func arriveAtWaypoint(customerVehicle: BringgDriverSDKObjc.CustomerVehicleObjc, completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc func leaveWaypoint(completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc func updateWaypointETA(eta: Foundation.Date, completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc var activeTask: BringgDriverSDKObjc.TaskObjc? { get }
+  @objc func setUserTransportType(_ transportType: BringgDriverSDKObjc.TransportTypeObjc, completion: ((Swift.Error?) -> Swift.Void)?)
+}
+@objc public protocol ActiveCustomerManagerObjcDelegate : AnyObject {
+  @objc func activeCustomerManagerActiveTaskUpdated(_ sender: BringgDriverSDKObjc.ActiveCustomerManagerObjcProtocol)
+  @objc func activeCustomerManagerDidLogout()
+}
+public typealias AddressTypeObjc = BringgDriverSDKObjc.AddressType
+public enum BigDataAnalyticsEventType {
+  case mapView(BringgDriverSDKObjc.BigDataAnalyticsEventType.MapViewAnalyticsAction)
+}
+extension BigDataAnalyticsEventType {
+  public enum MapViewAnalyticsAction : Swift.Int {
+    case opened
+    case markerTapped
+    case taskCardSwiped
+    case navigateTo
+    case showTaskDetails
+    public typealias RawValue = Swift.Int
+    public init?(rawValue: Swift.Int)
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class Bringg : ObjectiveC.NSObject {
+  @objc public static var shared: BringgDriverSDKObjc.Bringg!
+  final public let activeCustomerManager: BringgDriverSDKObjc.ActiveCustomerManagerProtocol
+  public var userManager: BringgDriverSDKObjc.UserManagerProtocol {
+    get
+  }
+  public var loginManager: BringgDriverSDKObjc.LoginManagerProtocol {
+    get
+  }
+  public var shiftManager: BringgDriverSDKObjc.ShiftManagerProtocol {
+    get
+  }
+  final public let shiftHistoryManager: BringgDriverSDKObjc.ShiftHistoryManagerProtocol
+  public var tasksManager: BringgDriverSDKObjc.TasksManagerProtocol {
+    get
+  }
+  public var inventoryManager: BringgDriverSDKObjc.InventoryManagerProtocol {
+    get
+  }
+  @objc public var logReportManager: BringgDriverSDKObjc.LogReportsManagerProtocol {
+    @objc get
+  }
+  final public let taskNoteImageManager: BringgDriverSDKObjc.TaskNoteImageManagerProtocol
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension Bringg {
+  @objc public static func initializeSDK(logger: BringgDriverSDKObjc.LoggerProtocol? = nil, bringgSDKInitOptions: BringgDriverSDKObjc.BringgSDKInitOptions = .default) -> Swift.Error?
+}
+@_hasMissingDesignatedInitializers @objc public class BringgObjc : ObjectiveC.NSObject {
+  @objc public static var shared: BringgDriverSDKObjc.BringgObjc!
+  @objc final public let loginManager: BringgDriverSDKObjc.LoginManagerObjcProtocol
+  @objc final public let shiftManager: BringgDriverSDKObjc.ShiftManagerObjcProtocol
+  @objc final public let activeCustomerManager: BringgDriverSDKObjc.ActiveCustomerManagerObjcProtocol
+  @objc final public let userManager: BringgDriverSDKObjc.UserManagerObjcProtocol
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension BringgObjc {
+  @objc public static func initializeSDK(logger: BringgDriverSDKObjc.LoggerProtocol? = nil, bringgSDKInitOptions: BringgDriverSDKObjc.BringgSDKInitOptions? = nil) -> Swift.Error?
+}
+@_inheritsConvenienceInitializers @objc public class BringgSDKInitOptionsKeys : ObjectiveC.NSObject {
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc public class BringgSDKInitOptions : ObjectiveC.NSObject {
+  @objc public static func fromFlags(flags: [Swift.String]?) -> BringgDriverSDKObjc.BringgSDKInitOptions
+  @objc public init(avoidUsingMotion: Swift.Bool, avoidUsingBluetooth: Swift.Bool)
+  @objc public static let `default`: BringgDriverSDKObjc.BringgSDKInitOptions
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension CLAuthorizationStatus : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension CLError.Code : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension CLLocationCoordinate2D : Swift.Codable, Swift.Hashable {
+  public static func == (lhs: CoreLocation.CLLocationCoordinate2D, rhs: CoreLocation.CLLocationCoordinate2D) -> Swift.Bool
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class ChangeToOpenIdConnectResponseObjc : ObjectiveC.NSObject {
+  @objc final public let merchantSelection: BringgDriverSDKObjc.MerchantSelectionObjc
+  @objc final public let openIdConfiguration: BringgDriverSDKObjc.OpenIdConfigurationObjc
+  @objc deinit
+  @objc override dynamic public init()
+}
+extension Cluster {
+  public struct ClusteredTask : Swift.CustomStringConvertible, Swift.Equatable {
+    public let task: BringgDriverSDKObjc.Task
+    public let clusteredByWaypoint: BringgDriverSDKObjc.Waypoint
+    public var description: Swift.String {
+      get
+    }
+    public static func == (lhs: BringgDriverSDKObjc.Cluster.ClusteredTask, rhs: BringgDriverSDKObjc.Cluster.ClusteredTask) -> Swift.Bool
+  }
+}
+public struct Cluster : Swift.CustomStringConvertible, Swift.Equatable {
+  public let clusteredTasks: [BringgDriverSDKObjc.Cluster.ClusteredTask]
+  public var description: Swift.String {
+    get
+  }
+  public static func == (lhs: BringgDriverSDKObjc.Cluster, rhs: BringgDriverSDKObjc.Cluster) -> Swift.Bool
+}
+public struct GetClustersResult {
+  public let clusters: [BringgDriverSDKObjc.Cluster]
+  public let unclusteredTasks: [BringgDriverSDKObjc.Task]
+}
+@objc public enum ContactType : Swift.Int, Swift.Hashable, Swift.CaseIterable {
+  case unknown = 0
+  case phone = 1
+  case email = 2
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+  public typealias AllCases = [BringgDriverSDKObjc.ContactType]
+  public static var allCases: [BringgDriverSDKObjc.ContactType] {
+    get
+  }
+}
+public struct Contact : Swift.Hashable {
+  public var customerId: Swift.Int? {
+    get
+  }
+  public var contactType: BringgDriverSDKObjc.ContactType {
+    get
+  }
+  public var contactValue: Swift.String? {
+    get
+  }
+  public var sharingAllowed: Swift.Bool? {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.Contact, b: BringgDriverSDKObjc.Contact) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers @objc public class ContactObjc : ObjectiveC.NSObject {
+  @objc public var customerId: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var contactType: BringgDriverSDKObjc.ContactTypeObjc {
+    @objc get
+  }
+  @objc public var contactValue: Swift.String? {
+    @objc get
+  }
+  @objc public var sharingAllowed: Swift.Bool {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init()
+}
+public typealias ContactTypeObjc = BringgDriverSDKObjc.ContactType
+public struct Customer : Swift.Hashable {
+  public var id: Swift.Int {
+    get
+  }
+  public var address: Swift.String? {
+    get
+  }
+  public var addressSecondLine: Swift.String? {
+    get
+  }
+  public var lat: Swift.Double? {
+    get
+  }
+  public var lng: Swift.Double? {
+    get
+  }
+  public var image: Swift.String? {
+    get
+  }
+  public var email: Swift.String? {
+    get
+  }
+  public var phone: Swift.String? {
+    get
+  }
+  public var name: Swift.String? {
+    get
+  }
+  public var allowSendingSMS: Swift.Bool? {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.Customer, b: BringgDriverSDKObjc.Customer) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers @objc public class CustomerObjc : ObjectiveC.NSObject {
+  @objc public var id: Swift.Int {
+    @objc get
+  }
+  @objc public var address: Swift.String? {
+    @objc get
+  }
+  @objc public var addressSecondLine: Swift.String? {
+    @objc get
+  }
+  @objc public var lat: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var lng: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var image: Swift.String? {
+    @objc get
+  }
+  @objc public var email: Swift.String? {
+    @objc get
+  }
+  @objc public var phone: Swift.String? {
+    @objc get
+  }
+  @objc public var name: Swift.String? {
+    @objc get
+  }
+  @objc public var allowSendingSMS: Swift.Bool {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init()
+}
+public struct CustomerVehicle {
+  public var id: Swift.Int? {
+    get
+  }
+  public var saveVehicle: Swift.Bool {
+    get
+  }
+  public var licensePlate: Swift.String? {
+    get
+  }
+  public var color: Swift.String? {
+    get
+  }
+  public var model: Swift.String? {
+    get
+  }
+  public var parkingSpot: Swift.String? {
+    get
+  }
+  public init(id: Swift.Int? = nil, saveVehicle: Swift.Bool = false, licensePlate: Swift.String? = nil, color: Swift.String? = nil, model: Swift.String? = nil, parkingSpot: Swift.String? = nil)
+}
+@_hasMissingDesignatedInitializers @objc public class CustomerVehicleObjc : ObjectiveC.NSObject {
+  @objc public var id: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var saveVehicle: Swift.Bool {
+    @objc get
+  }
+  @objc public var licensePlate: Swift.String? {
+    @objc get
+  }
+  @objc public var color: Swift.String? {
+    @objc get
+  }
+  @objc public var model: Swift.String? {
+    @objc get
+  }
+  @objc public var parkingSpot: Swift.String? {
+    @objc get
+  }
+  @objc public init(id: Swift.Int, saveVehicle: Swift.Bool, licensePlate: Swift.String?, color: Swift.String?, model: Swift.String?, parkingSpot: Swift.String?)
+  @objc public init(saveVehicle: Swift.Bool, licensePlate: Swift.String?, color: Swift.String?, model: Swift.String?, parkingSpot: Swift.String?)
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc public enum DriverActivityType : Swift.Int {
+  case unknown = 0
+  case stationary = 1
+  case walking = 2
+  case running = 3
+  case bicycle = 4
+  case driving = 5
+  case publicTransportation = 6
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension DriverActivityType : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+public typealias DriverActivityTypeObjc = BringgDriverSDKObjc.DriverActivityType
+public struct FloatingInventory : Swift.Hashable {
+  public var id: Swift.Int {
+    get
+  }
+  public var inventoryId: Swift.Int {
+    get
+  }
+  public var serialNumber: Swift.String {
+    get
+  }
+  public var sku: Swift.String {
+    get
+  }
+  public var name: Swift.String? {
+    get
+  }
+  public var externalId: Swift.String? {
+    get
+  }
+  public var note: Swift.String? {
+    get
+  }
+  public var image: BringgDriverSDKObjc.ImageURL? {
+    get
+  }
+  public var dimensions: BringgDriverSDKObjc.TaskInventory.Dimensions? {
+    get
+  }
+  public var weight: Swift.Double? {
+    get
+  }
+  public var price: Swift.Double? {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.FloatingInventory, b: BringgDriverSDKObjc.FloatingInventory) -> Swift.Bool
+}
+public enum GetFloatingInventoriesCachePolicy : Swift.CaseIterable {
+  case returnCacheDataElseLoad
+  case reloadIgnoringCacheData
+  public static func == (a: BringgDriverSDKObjc.GetFloatingInventoriesCachePolicy, b: BringgDriverSDKObjc.GetFloatingInventoriesCachePolicy) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public typealias AllCases = [BringgDriverSDKObjc.GetFloatingInventoriesCachePolicy]
+  public static var allCases: [BringgDriverSDKObjc.GetFloatingInventoriesCachePolicy] {
+    get
+  }
+}
+public struct FormattedTaskNoteData : Swift.Codable, Swift.Hashable {
+  public let headers: [Swift.String]
+  public let data: [[BringgDriverSDKObjc.JSONValue]]
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.FormattedTaskNoteData, b: BringgDriverSDKObjc.FormattedTaskNoteData) -> Swift.Bool
+}
+public typealias MultipartParameters = [Swift.String : Swift.String]
+extension UIDevice.BatteryState : Swift.Encodable {
+}
+public struct HardwareReportServerModel : Swift.Encodable {
+  public func encode(to encoder: Swift.Encoder) throws
+}
+extension HardwareReportServerModel {
+  public func parameters() throws -> Alamofire.Parameters
+}
+public enum ImageData : Swift.Hashable {
+  public struct Remote : Swift.Hashable {
+    public let url: Swift.String
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: BringgDriverSDKObjc.ImageData.Remote, b: BringgDriverSDKObjc.ImageData.Remote) -> Swift.Bool
+  }
+  case local(cacheKey: Swift.String)
+  case remote(BringgDriverSDKObjc.ImageData.Remote)
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.ImageData, b: BringgDriverSDKObjc.ImageData) -> Swift.Bool
+}
+public enum ImageURL : Swift.Hashable {
+  case placeholderURL
+  case imageURL(Foundation.URL)
+  public var url: Foundation.URL? {
+    get
+  }
+  public var urlString: Swift.String? {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.ImageURL, b: BringgDriverSDKObjc.ImageURL) -> Swift.Bool
+}
+public struct InventoriesQuantityUpdateRequest : Swift.Equatable {
+  public enum UpdateType : Swift.Equatable {
+    case acceptAll
+    case rejectAll(rejectReasonId: Swift.Int)
+    case partial(quantity: Swift.Int, rejectedQuantity: Swift.Int, rejectReasonId: Swift.Int)
+    case scan(scanString: Swift.String, isManualScan: Swift.Bool)
+    public static func == (a: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.UpdateType, b: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.UpdateType) -> Swift.Bool
+  }
+  public enum SubInventoryUpdateType : Swift.Equatable, Swift.CaseIterable {
+    case allSubInventories
+    case subInventoriesThatHaveNotBeenEdited
+    case subInventoriesThatDoNotHaveScanString
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.SubInventoryUpdateType, b: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.SubInventoryUpdateType) -> Swift.Bool
+    public typealias AllCases = [BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.SubInventoryUpdateType]
+    public static var allCases: [BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.SubInventoryUpdateType] {
+      get
+    }
+  }
+  public let taskId: Swift.Int
+  public let waypointId: Swift.Int
+  public let taskInventoryId: Swift.Int
+  public let updateType: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.UpdateType
+  public let subInventoryUpdateType: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.SubInventoryUpdateType
+  public init(taskId: Swift.Int, waypointId: Swift.Int, taskInventoryId: Swift.Int, updateType: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.UpdateType, subInventoryUpdateType: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.SubInventoryUpdateType)
+  public static func == (a: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest, b: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest) -> Swift.Bool
+}
+public protocol InventoryManagerProtocol {
+  func updateInventoriesQuantity(request: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func updateInventoriesQuantities(request: BringgDriverSDKObjc.MultipleInventoryItemsQuantityUpdateRequest, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func areAllMandatoryActionsAreFulfilledForTaskInventoryAndRecursiveSubInventories(taskId: Swift.Int, taskInventoryId: Swift.Int) throws -> Swift.Bool
+  func getRejectReasonsForTaskInventory(taskId: Swift.Int, taskInventoryId: Swift.Int) -> [BringgDriverSDKObjc.TaskInventoryRejectReason]
+  func getRejectReasonsForTaskInventories(taskId: Swift.Int) -> [BringgDriverSDKObjc.TaskInventoryRejectReason]
+}
+public enum JSONValue : Swift.Codable, Swift.Hashable {
+  case string(Swift.String)
+  case int(Swift.Int)
+  case double(Swift.Double)
+  case bool(Swift.Bool)
+  case array([BringgDriverSDKObjc.JSONValue])
+  case dictionary([Swift.String : BringgDriverSDKObjc.JSONValue])
+  case null
+  public init(with any: Any) throws
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public func toString() -> Swift.String
+  public var value: Any {
+    get
+  }
+  public func jsonSerializableValue() throws -> Any
+  public func toJSONString(options: Foundation.JSONSerialization.WritingOptions? = nil) throws -> Swift.String
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.JSONValue, b: BringgDriverSDKObjc.JSONValue) -> Swift.Bool
+}
+extension JSONValue : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension JSONValue {
+  public var stringValue: Swift.String? {
+    get
+  }
+  public var intValue: Swift.Int? {
+    get
+  }
+  public var doubleValue: Swift.Double? {
+    get
+  }
+  public var boolValue: Swift.Bool? {
+    get
+  }
+  public var arrayValue: [BringgDriverSDKObjc.JSONValue]? {
+    get
+  }
+  public var dictionaryValue: [Swift.String : BringgDriverSDKObjc.JSONValue]? {
+    get
+  }
+  public var isNull: Swift.Bool {
+    get
+  }
+}
+@objc public protocol LogReportsManagerProtocol {
+  @objc func sendLogsToServer()
+  @objc func getStoredLogs(completion: @escaping ([Foundation.Data]?) -> Swift.Void)
+}
+@objc public protocol LoggerProtocol {
+  @objc func logDebug(_ message: Swift.String, file: Swift.String, function: Swift.String, line: Swift.UInt)
+  @objc func logInfo(_ message: Swift.String, file: Swift.String, function: Swift.String, line: Swift.UInt)
+  @objc func logWarn(_ message: Swift.String, file: Swift.String, function: Swift.String, line: Swift.UInt)
+  @objc func logError(_ message: Swift.String, file: Swift.String, function: Swift.String, line: Swift.UInt)
+}
+public enum LoginSuccessWarning : Swift.Hashable {
+  case failedToDownloadTranslations
+  public static func == (a: BringgDriverSDKObjc.LoginSuccessWarning, b: BringgDriverSDKObjc.LoginSuccessWarning) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum LoginSuccessType : Swift.Hashable {
+  case loggedIn
+  case multipleMerchantsExistForUser(merchants: [BringgDriverSDKObjc.MerchantSelection])
+  case shouldChangeToOpenIdConnect(merchant: BringgDriverSDKObjc.MerchantSelection, openIdConnectConfiguration: BringgDriverSDKObjc.OpenIdConfiguration)
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.LoginSuccessType, b: BringgDriverSDKObjc.LoginSuccessType) -> Swift.Bool
+}
+public enum LoginErrorType : Swift.Error {
+  case userIsNotADriver
+  case unauthorized(error: Swift.Error)
+  case other(error: Swift.Error)
+}
+public protocol LoginManagerProtocol : AnyObject {
+  var currentUser: BringgDriverSDKObjc.User? { get }
+  var isLoggedIn: Swift.Bool { get }
+  @discardableResult
+  func addDelegate(_ delegate: BringgDriverSDKObjc.UserEventsDelegate) -> BringgDriverSDKObjc.MulticastDelegateSubscription
+  func login(withEmail email: Swift.String, password: Swift.String, merchant: BringgDriverSDKObjc.MerchantSelection?, completion: @escaping (Swift.Result<BringgDriverSDKObjc.LoginSuccessType, BringgDriverSDKObjc.LoginErrorType>) -> Swift.Void)
+  func requestVerificationCode(forCountryCode: Swift.String, phone: Swift.String, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func login(withVerificationCode code: Swift.String, countryCode: Swift.String, phone: Swift.String, merchant: BringgDriverSDKObjc.MerchantSelection?, completion: @escaping (Swift.Result<BringgDriverSDKObjc.LoginSuccessType, Swift.Error>) -> Swift.Void)
+  func login(withQRCode code: Swift.String, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func login(withToken token: Swift.String, secret: Swift.String, region: Swift.String, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func discoverSSOConfiguration(withMerchantUUID mercahntUUID: Swift.String, application: Swift.String, completion: @escaping (Swift.Result<BringgDriverSDKObjc.OpenIdDiscoverResponse, Swift.Error>) -> Swift.Void)
+  func login(withOpenIdConnectIdToken idToken: Swift.String, merchant: BringgDriverSDKObjc.MerchantSelection, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func login(withOpenIdConnectIdToken idToken: Swift.String, openIdDiscoverResponse: BringgDriverSDKObjc.OpenIdDiscoverResponse, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func recoverPassword(forEmail email: Swift.String, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func logout(completion: @escaping () -> Swift.Void)
+}
+@objc public protocol UserEventsDelegate : AnyObject {
+  @objc func userDidLogin()
+  @objc func userDidLogout()
+}
+@_inheritsConvenienceInitializers @objc public class LoginWithEmailAndPasswordErrorCodes : ObjectiveC.NSObject {
+  @objc public static let userIsNotADriver: Swift.Int
+  @objc public static let unauthorized: Swift.Int
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc public protocol LoginManagerObjcProtocol {
+  @objc var currentUser: BringgDriverSDKObjc.UserObjc? { get }
+  @objc var isLoggedIn: Swift.Bool { get }
+  @discardableResult
+  @objc func addDelegate(_ delegate: BringgDriverSDKObjc.UserEventsDelegate) -> BringgDriverSDKObjc.MulticastDelegateSubscription
+  @objc func login(withEmail email: Swift.String, password: Swift.String, merchant: BringgDriverSDKObjc.MerchantSelectionObjc?, completion: @escaping ([BringgDriverSDKObjc.MerchantSelectionObjc]?, BringgDriverSDKObjc.ChangeToOpenIdConnectResponseObjc?, Swift.Error?) -> Swift.Void)
+  @objc func requestVerificationCode(forCountryCode: Swift.String, phone: Swift.String, completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc func login(withVerificationCode code: Swift.String, countryCode: Swift.String, phone: Swift.String, merchant: BringgDriverSDKObjc.MerchantSelectionObjc?, completion: @escaping ([BringgDriverSDKObjc.MerchantSelectionObjc]?, BringgDriverSDKObjc.ChangeToOpenIdConnectResponseObjc?, Swift.Error?) -> Swift.Void)
+  @objc func login(withQRCode code: Swift.String, completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc func logout(completion: @escaping () -> Swift.Void)
+  @objc func recoverPassword(forEmail email: Swift.String, completion: @escaping (Swift.Error?) -> Swift.Void)
+}
+@_hasMissingDesignatedInitializers @objc public class LoginManagerObjc : ObjectiveC.NSObject, BringgDriverSDKObjc.LoginManagerObjcProtocol {
+  @objc public var currentUser: BringgDriverSDKObjc.UserObjc? {
+    @objc get
+  }
+  @objc public var isLoggedIn: Swift.Bool {
+    @objc get
+  }
+  @discardableResult
+  @objc public func addDelegate(_ delegate: BringgDriverSDKObjc.UserEventsDelegate) -> BringgDriverSDKObjc.MulticastDelegateSubscription
+  @objc public func login(withEmail email: Swift.String, password: Swift.String, merchant: BringgDriverSDKObjc.MerchantSelectionObjc?, completion: @escaping ([BringgDriverSDKObjc.MerchantSelectionObjc]?, BringgDriverSDKObjc.ChangeToOpenIdConnectResponseObjc?, Swift.Error?) -> Swift.Void)
+  @objc public func requestVerificationCode(forCountryCode: Swift.String, phone: Swift.String, completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc public func login(withVerificationCode code: Swift.String, countryCode: Swift.String, phone: Swift.String, merchant: BringgDriverSDKObjc.MerchantSelectionObjc?, completion: @escaping ([BringgDriverSDKObjc.MerchantSelectionObjc]?, BringgDriverSDKObjc.ChangeToOpenIdConnectResponseObjc?, Swift.Error?) -> Swift.Void)
+  @objc public func login(withQRCode code: Swift.String, completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc public func logout(completion: @escaping () -> Swift.Void)
+  @objc public func recoverPassword(forEmail email: Swift.String, completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct LoginTokenSercetServerModel : Swift.Codable {
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct Merchant {
+  public var id: Swift.Int {
+    get
+  }
+  public var name: Swift.String {
+    get
+  }
+  public var phone: Swift.String? {
+    get
+  }
+}
+public struct MerchantSelection : Swift.Hashable {
+  public var id: Swift.Int {
+    get
+  }
+  public var name: Swift.String {
+    get
+  }
+  public var oidc: [BringgDriverSDKObjc.OpenIdConfiguration]? {
+    get
+  }
+  public static func == (a: BringgDriverSDKObjc.MerchantSelection, b: BringgDriverSDKObjc.MerchantSelection) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+@_hasMissingDesignatedInitializers @objc final public class MerchantSelectionObjc : ObjectiveC.NSObject {
+  @objc final public var id: Swift.Int {
+    @objc get
+  }
+  @objc final public var name: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+final public class MulticastDelegate<T> {
+  public init()
+  final public func add(_ delegate: T) -> BringgDriverSDKObjc.MulticastDelegateSubscription
+  final public func invoke(_ invocation: (T) -> Swift.Void)
+  final public func allDelegates() -> [T]
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class MulticastDelegateSubscription : ObjectiveC.NSObject {
+  @objc public func stopListening()
+  @objc deinit
+  @objc override dynamic public init()
+}
+public struct MultipleInventoryItemsQuantityUpdateRequest {
+  public let taskId: Swift.Int
+  public let waypointId: Swift.Int
+  public let rejectReasonId: Swift.Int
+  public let inventoryItemUpdates: [BringgDriverSDKObjc.MultipleInventoryItemsQuantityUpdateRequest.InventoryItemUpdate]
+  public init?(taskId: Swift.Int, waypointId: Swift.Int, rejectReasonId: Swift.Int, inventoryItemUpdates: [BringgDriverSDKObjc.MultipleInventoryItemsQuantityUpdateRequest.InventoryItemUpdate])
+}
+extension MultipleInventoryItemsQuantityUpdateRequest {
+  public struct InventoryItemUpdate {
+    public init(taskInventoryId: Swift.Int, updateType: BringgDriverSDKObjc.MultipleInventoryItemsQuantityUpdateRequest.InventoryItemUpdate.UpdateType)
+    public let taskInventoryId: Swift.Int
+    public let updateType: BringgDriverSDKObjc.MultipleInventoryItemsQuantityUpdateRequest.InventoryItemUpdate.UpdateType
+    public enum UpdateType {
+      case rejectAll
+      case partial(quantity: Swift.Int, rejectedQuantity: Swift.Int)
+    }
+  }
+}
+public protocol OpenIdConfigurationProtocol {
+  var issuer: Foundation.URL { get }
+  var clientId: Swift.String { get }
+  var redirectURLs: [Foundation.URL] { get }
+}
+public struct OpenIdConfiguration : BringgDriverSDKObjc.OpenIdConfigurationProtocol, Swift.Hashable {
+  public var issuer: Foundation.URL {
+    get
+  }
+  public var clientId: Swift.String {
+    get
+  }
+  public var redirectURLs: [Foundation.URL] {
+    get
+  }
+  public static func == (a: BringgDriverSDKObjc.OpenIdConfiguration, b: BringgDriverSDKObjc.OpenIdConfiguration) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+@_hasMissingDesignatedInitializers @objc final public class OpenIdConfigurationObjc : ObjectiveC.NSObject {
+  @objc final public var issuer: Foundation.URL {
+    @objc get
+  }
+  @objc final public var clientId: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct OpenIdDiscoverResponse : BringgDriverSDKObjc.OpenIdConfigurationProtocol {
+  public var issuer: Foundation.URL {
+    get
+  }
+  public var clientId: Swift.String {
+    get
+  }
+  public var redirectURLs: [Foundation.URL] {
+    get
+  }
+}
+public enum CreatePendingShiftError : Swift.Error {
+  case generalError(Swift.Error)
+  case stateErrorFromTheServer(BringgDriverSDKObjc.CreatePendingShiftErrorType)
+  case createPendingShiftCalledWhileShiftOperationInProgress
+}
+@objc public enum CreatePendingShiftErrorType : Swift.Int, Swift.Codable {
+  case none = 0
+  case alreadyExists = 1
+  case alreadyExistsOnDifferentDevice = 2
+  case notAllowedDueToDistanceFromHome = 3
+  case notAllowedDueToScheduleTimeOfDay = 4
+  case notAllowedDueToDistanceFromScheduleHomeAndTimeOfDay = 5
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public typealias PickupDropoffOptionObjc = BringgDriverSDKObjc.PickupDropoffOption
+public struct Shift : Swift.Hashable {
+  public var id: Swift.Int {
+    get
+  }
+  public var startDate: Foundation.Date {
+    get
+  }
+  public var endDate: Foundation.Date? {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.Shift, b: BringgDriverSDKObjc.Shift) -> Swift.Bool
+}
+public struct ShiftHistory : Swift.Hashable {
+  public var id: Swift.Int {
+    get
+  }
+  public var startDate: Foundation.Date? {
+    get
+  }
+  public var endDate: Foundation.Date? {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.ShiftHistory, b: BringgDriverSDKObjc.ShiftHistory) -> Swift.Bool
+}
+public protocol ShiftHistoryManagerProtocol {
+  func getShiftHistory(forceRefresh: Swift.Bool, completion: @escaping (Swift.Result<[BringgDriverSDKObjc.ShiftHistory], Swift.Error>) -> Swift.Void)
+  func getNextPage(completion: @escaping (Swift.Result<[BringgDriverSDKObjc.ShiftHistory], Swift.Error>) -> Swift.Void)
+  var hasNextPage: Swift.Bool { get }
+}
+@objc public class ShiftHistoryObjc : ObjectiveC.NSObject {
+  @objc public var id: Foundation.NSNumber {
+    @objc get
+  }
+  @objc public var startDate: Foundation.Date? {
+    @objc get
+  }
+  @objc public var endDate: Foundation.Date? {
+    @objc get
+  }
+  convenience public init?(shift: BringgDriverSDKObjc.ShiftHistory?)
+  public init(shiftHistory: BringgDriverSDKObjc.ShiftHistory)
+  @objc deinit
+  @objc override dynamic public init()
+}
+public enum StartShiftError : Swift.Error {
+  case generalError(Swift.Error)
+  case stateErrorFromTheServer(BringgDriverSDKObjc.StartShiftErrorType)
+  case startShiftCalledWhileShiftOperationInProgress
+  case startShiftCalledWithoutPendingShift
+  case notAllMandatoryActionsAreFulfilled
+}
+public enum ForceStartShiftError : Swift.Error {
+  case generalError(Swift.Error)
+  case notAllMandatoryActionsAreFulfilled
+  case startShiftAlreadyInProgress
+  case startShiftCalledWithoutPendingShift
+}
+public enum EndShiftError : Swift.Error {
+  case notAllMandatoryBeforeEndShiftActionsAreFulfilled
+  public static func == (a: BringgDriverSDKObjc.EndShiftError, b: BringgDriverSDKObjc.EndShiftError) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public protocol ShiftManagerProtocol : AnyObject {
+  var isOnShift: Swift.Bool { get }
+  var currentShift: BringgDriverSDKObjc.Shift? { get }
+  @discardableResult
+  func addDelegate(_ delegate: BringgDriverSDKObjc.ShiftManagerDelegate) -> BringgDriverSDKObjc.MulticastDelegateSubscription
+  func startShift(completion: @escaping (Swift.Result<Swift.Void, BringgDriverSDKObjc.StartShiftError>) -> Swift.Void)
+  func forceStartShift(completion: @escaping (Swift.Result<Swift.Void, BringgDriverSDKObjc.ForceStartShiftError>) -> Swift.Void)
+  func endShift() -> BringgDriverSDKObjc.EndShiftError?
+}
+public protocol ShiftManagerDelegate : AnyObject {
+  func shiftStarted()
+  func shiftEnded()
+}
+@objc public protocol ShiftManagerObjcDelegate : AnyObject {
+  @objc func shiftStarted()
+  @objc func shiftEnded()
+}
+@objc public protocol ShiftManagerObjcProtocol {
+  @objc var isOnShift: Swift.Bool { get }
+  @objc var currentShift: BringgDriverSDKObjc.ShiftObjc? { get }
+  @discardableResult
+  @objc func addDelegate(_ delegate: BringgDriverSDKObjc.ShiftManagerObjcDelegate) -> BringgDriverSDKObjc.MulticastDelegateSubscription
+  @objc func startShift(completion: @escaping (Swift.Error?, BringgDriverSDKObjc.StartShiftErrorType) -> Swift.Void)
+  @objc func forceStartShift(completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc func endShift()
+}
+@_hasMissingDesignatedInitializers @objc final public class ShiftManagerObjc : ObjectiveC.NSObject, BringgDriverSDKObjc.ShiftManagerObjcProtocol {
+  @objc final public var isOnShift: Swift.Bool {
+    @objc get
+  }
+  @objc final public var currentShift: BringgDriverSDKObjc.ShiftObjc? {
+    @objc get
+  }
+  @discardableResult
+  @objc final public func addDelegate(_ delegate: BringgDriverSDKObjc.ShiftManagerObjcDelegate) -> BringgDriverSDKObjc.MulticastDelegateSubscription
+  @objc final public func startShift(completion: @escaping (Swift.Error?, BringgDriverSDKObjc.StartShiftErrorType) -> Swift.Void)
+  @objc final public func forceStartShift(completion: @escaping (Swift.Error?) -> Swift.Void)
+  @objc final public func endShift()
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension ShiftManagerObjc : BringgDriverSDKObjc.ShiftManagerDelegate {
+  final public func shiftStarted()
+  final public func shiftEnded()
+}
+@objc public class ShiftObjc : ObjectiveC.NSObject {
+  @objc public var id: Foundation.NSNumber {
+    @objc get
+  }
+  @objc public var startDate: Foundation.Date {
+    @objc get
+  }
+  @objc public var endDate: Foundation.Date? {
+    @objc get
+  }
+  convenience public init?(shift: BringgDriverSDKObjc.Shift?)
+  public init(shift: BringgDriverSDKObjc.Shift)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum StartShiftErrorType : Swift.Int, Swift.Codable {
+  case none = 0
+  case alreadyExists = 1
+  case alreadyExistsOnDifferentDevice = 2
+  case notAllowedDueToDistanceFromHome = 3
+  case notAllowedDueToScheduleTimeOfDay = 4
+  case notAllowedDueToDistanceFromScheduleHomeAndTimeOfDay = 5
+  case givenShiftAlreadyStarted = 6
+  case shiftWasStartedByDispatcher = 7
+  case notAllMandatoryActionsAreFulfilled = 8
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+}
+@objc public enum TaskStatus : Swift.Int, Swift.Hashable {
+  case invalid = -1
+  case free = 0
+  case assigned = 1
+  case onTheWay = 2
+  case checkedIn = 3
+  case checkedOut = 4
+  case accepted = 6
+  case cancelled = 7
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+}
+extension TaskStatus {
+  public static let activeTaskStates: [BringgDriverSDKObjc.TaskStatus]
+  public static let startedTaskStates: [BringgDriverSDKObjc.TaskStatus]
+  public var isActive: Swift.Bool {
+    get
+  }
+  public var isStarted: Swift.Bool {
+    get
+  }
+}
+extension TaskStatus : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+@objc public enum TaskType : Swift.Int, Swift.Hashable, Swift.Encodable {
+  case none = 1
+  case pickup = 2
+  case returnTask = 3
+  case delivery = 4
+  case pickupAndDelivery = 5
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct Task : Swift.Hashable {
+  public var id: Swift.Int {
+    get
+  }
+  public var externalId: Swift.String? {
+    get
+  }
+  public var userId: Swift.Int? {
+    get
+  }
+  public var runId: Swift.Int? {
+    get
+  }
+  public var status: BringgDriverSDKObjc.TaskStatus {
+    get
+  }
+  public var title: Swift.String? {
+    get
+  }
+  public var priority: Swift.Int? {
+    get
+  }
+  public var asap: Swift.Bool? {
+    get
+  }
+  public var startedTime: Foundation.Date? {
+    get
+  }
+  public var scheduledAt: Foundation.Date? {
+    get
+  }
+  public var activeWaypointId: Swift.Int? {
+    get
+  }
+  public var tagId: Swift.Int? {
+    get
+  }
+  public var taskTypeId: BringgDriverSDKObjc.TaskType? {
+    get
+  }
+  public var groupUUID: Swift.String? {
+    get
+  }
+  public var totalPrice: Swift.Double? {
+    get
+  }
+  public var deliveryPrice: Swift.Double? {
+    get
+  }
+  public var leftToBePaid: Swift.Double? {
+    get
+  }
+  public var waypoints: [BringgDriverSDKObjc.Waypoint] {
+    get
+  }
+  public var taskInventories: [BringgDriverSDKObjc.TaskInventory]? {
+    get
+  }
+  public func findInventoryItem(byTaskInventoryId taskInventoryId: Swift.Int) -> BringgDriverSDKObjc.TaskInventory?
+  public func getTaskInventoryAndAllRecursiveSubInventories(taskInventoryId: Swift.Int) throws -> (taskInventory: BringgDriverSDKObjc.TaskInventory, recursiveSubInventories: [BringgDriverSDKObjc.TaskInventory])
+  public func getTaskTaskInventories(withWaypointId waypointId: Swift.Int) -> [BringgDriverSDKObjc.TaskInventory]
+  public var jsonDict: [Swift.String : Swift.AnyHashable]? {
+    mutating get
+    set
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.Task, b: BringgDriverSDKObjc.Task) -> Swift.Bool
+}
+extension Task {
+  public var activeWaypoint: BringgDriverSDKObjc.Waypoint? {
+    get
+  }
+}
+public struct TaskInventory : Swift.Hashable {
+  public struct Dimensions : Swift.Hashable {
+    public let width: Swift.Double?
+    public let height: Swift.Double?
+    public let length: Swift.Double?
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: BringgDriverSDKObjc.TaskInventory.Dimensions, b: BringgDriverSDKObjc.TaskInventory.Dimensions) -> Swift.Bool
+  }
+  public var id: Swift.Int {
+    get
+  }
+  public var inventoryId: Swift.Int? {
+    get
+  }
+  public var waypointId: Swift.Int? {
+    get
+  }
+  public var externalId: Swift.String? {
+    get
+  }
+  public var price: Swift.Double? {
+    get
+  }
+  public var originalQuantity: Swift.Int? {
+    get
+  }
+  public var quantity: Swift.Int? {
+    get
+  }
+  public var rejectedQuantity: Swift.Int? {
+    get
+  }
+  public var name: Swift.String? {
+    get
+  }
+  public var note: Swift.String? {
+    get
+  }
+  public var scanString: Swift.String? {
+    get
+  }
+  public var pending: Swift.Bool? {
+    get
+  }
+  public var image: BringgDriverSDKObjc.ImageURL? {
+    get
+  }
+  public var dimensions: BringgDriverSDKObjc.TaskInventory.Dimensions? {
+    get
+  }
+  public var weight: Swift.Double? {
+    get
+  }
+  public var subInventories: [BringgDriverSDKObjc.TaskInventory]? {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.TaskInventory, b: BringgDriverSDKObjc.TaskInventory) -> Swift.Bool
+}
+extension TaskInventory {
+  public var targetQuantity: Swift.Int? {
+    get
+  }
+  public var cost: Swift.Double? {
+    get
+  }
+  public var hasEditedQuantityOrRejectedQuantity: Swift.Bool {
+    get
+  }
+  public var isFullyHandled: Swift.Bool {
+    get
+  }
+  public var isFullyRejected: Swift.Bool {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class TaskInventoryObjc : ObjectiveC.NSObject {
+  @objc public var id: Swift.Int {
+    @objc get
+  }
+  @objc public var inventoryId: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var waypointId: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var externalId: Swift.String? {
+    @objc get
+  }
+  @objc public var price: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var originalQuantity: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var quantity: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var rejectedQuantity: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var name: Swift.String? {
+    @objc get
+  }
+  @objc public var note: Swift.String? {
+    @objc get
+  }
+  @objc public var scanString: Swift.String? {
+    @objc get
+  }
+  @objc public var pending: Swift.Bool {
+    @objc get
+  }
+  @objc public var image: Foundation.URL? {
+    @objc get
+  }
+  @objc public var height: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var width: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var length: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var subInventories: [BringgDriverSDKObjc.TaskInventoryObjc]? {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init()
+}
+public struct TaskInventoryRejectReason {
+  public var id: Swift.Int {
+    get
+  }
+  public var reason: Swift.String {
+    get
+  }
+}
+public struct TaskNote : Swift.Hashable {
+  public enum TypeAndData : Swift.Hashable {
+    case unknown
+    case note(note: Swift.String)
+    case signature(imageData: BringgDriverSDKObjc.ImageData, formGroupUUID: Swift.String?)
+    case photo(imageData: BringgDriverSDKObjc.ImageData, formGroupUUID: Swift.String?)
+    case html(note: Swift.String?, url: Foundation.URL)
+    case form(fields: [Swift.String : BringgDriverSDKObjc.JSONValue], formGroupUUID: Swift.String?)
+    case formattedTaskNote(data: BringgDriverSDKObjc.FormattedTaskNoteData)
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: BringgDriverSDKObjc.TaskNote.TypeAndData, b: BringgDriverSDKObjc.TaskNote.TypeAndData) -> Swift.Bool
+  }
+  public var id: Swift.Int {
+    get
+  }
+  public var taskInventoryId: Swift.Int? {
+    get
+  }
+  public var typeAndData: BringgDriverSDKObjc.TaskNote.TypeAndData {
+    get
+  }
+  public var createdAt: Foundation.Date {
+    get
+  }
+  public var updatedAt: Foundation.Date? {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.TaskNote, b: BringgDriverSDKObjc.TaskNote) -> Swift.Bool
+}
+extension TaskNote.TypeAndData {
+  public var imageData: BringgDriverSDKObjc.ImageData? {
+    get
+  }
+}
+public protocol TaskNoteImageManagerProtocol {
+  func retrieveImage(remoteImageData: BringgDriverSDKObjc.ImageData.Remote, completion: @escaping (Swift.Result<UIKit.UIImage, Swift.Error>) -> Swift.Void)
+  func retrieveImage(imageCacheKey: Swift.String, completion: @escaping (UIKit.UIImage?) -> Swift.Void)
+}
+@objc public enum TaskNoteType : Swift.Int {
+  case notSupported = -1
+  case note
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class TaskNoteObjc : ObjectiveC.NSObject {
+  @objc public var id: Swift.Int {
+    @objc get
+  }
+  @objc public var taskInventoryId: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var type: BringgDriverSDKObjc.TaskNoteType {
+    @objc get
+  }
+  @objc public var note: Swift.String? {
+    @objc get
+  }
+  @objc public var createdAt: Foundation.Date {
+    @objc get
+  }
+  @objc public var updatedAt: Foundation.Date? {
+    @objc get
+  }
+  @objc deinit
+  @objc override dynamic public init()
+}
+@_hasMissingDesignatedInitializers @objc public class TaskObjc : ObjectiveC.NSObject {
+  @objc public var id: Swift.Int {
+    @objc get
+  }
+  @objc public var externalId: Swift.String? {
+    @objc get
+  }
+  @objc public var userId: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var status: BringgDriverSDKObjc.TaskStatusObjc {
+    @objc get
+  }
+  @objc public var title: Swift.String? {
+    @objc get
+  }
+  @objc public var priority: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var asap: Swift.Bool {
+    @objc get
+  }
+  @objc public var startedTime: Foundation.Date? {
+    @objc get
+  }
+  @objc public var scheduledAt: Foundation.Date? {
+    @objc get
+  }
+  @objc public var activeWaypointId: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var tagId: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var taskTypeId: BringgDriverSDKObjc.TaskTypeObjc {
+    @objc get
+  }
+  @objc public var groupUUID: Swift.String? {
+    @objc get
+  }
+  @objc public var totalPrice: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var deliveryPrice: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var leftToBePaid: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var waypoints: [BringgDriverSDKObjc.WaypointObjc] {
+    @objc get
+  }
+  @objc public var taskInventories: [BringgDriverSDKObjc.TaskInventoryObjc]? {
+    @objc get
+  }
+  @objc public func getJSONDict() -> [Swift.String : Swift.AnyHashable]?
+  @objc override dynamic public init()
+  @objc deinit
+}
+public typealias TaskStatusObjc = BringgDriverSDKObjc.TaskStatus
+public typealias TaskTypeObjc = BringgDriverSDKObjc.TaskType
+public protocol TasksManagerDelegate : AnyObject {
+  func tasksManagerDidRefreshTaskList(_ tasksManager: BringgDriverSDKObjc.TasksManagerProtocol)
+  func tasksManager(_ tasksManager: BringgDriverSDKObjc.TasksManagerProtocol, didAddNewTask taskId: Swift.Int)
+  func tasksManager(_ tasksManager: BringgDriverSDKObjc.TasksManagerProtocol, didUpdateTask taskId: Swift.Int)
+  func tasksManager(_ tasksManager: BringgDriverSDKObjc.TasksManagerProtocol, didAutoStartTask taskId: Swift.Int)
+  func tasksManager(_ tasksManager: BringgDriverSDKObjc.TasksManagerProtocol, didRemoveTask task: BringgDriverSDKObjc.Task)
+  func tasksManager(_ tasksManager: BringgDriverSDKObjc.TasksManagerProtocol, didMassRemoveTasks tasks: [BringgDriverSDKObjc.Task])
+}
+public protocol TasksManagerSuggestionsDelegate : AnyObject {
+  func tasksManager(_ tasksManager: BringgDriverSDKObjc.TasksManagerProtocol, suggestToCheckinTask taskId: Swift.Int, waypointId: Swift.Int)
+  func tasksManager(_ tasksManager: BringgDriverSDKObjc.TasksManagerProtocol, suggestToCheckoutTask taskId: Swift.Int, waypointId: Swift.Int)
+}
+public enum StartTaskError : Swift.Error {
+  case notAccepted
+  case hasPickupLinkedTask
+  case generalError(Swift.Error)
+}
+public enum GetTaskResult : Swift.Hashable {
+  case task(BringgDriverSDKObjc.Task)
+  case taskNotAccessible
+  public var task: BringgDriverSDKObjc.Task? {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.GetTaskResult, b: BringgDriverSDKObjc.GetTaskResult) -> Swift.Bool
+}
+public protocol TasksManagerProtocol : AnyObject {
+  @discardableResult
+  func addDelegate(_ delegate: BringgDriverSDKObjc.TasksManagerDelegate) -> BringgDriverSDKObjc.MulticastDelegateSubscription
+  var suggestionsDelegate: BringgDriverSDKObjc.TasksManagerSuggestionsDelegate? { get set }
+  func getTasks(completion: @escaping ([BringgDriverSDKObjc.Task]?, Foundation.Date?, Swift.Error?) -> Swift.Void)
+  func getTask(withTaskId taskId: Swift.Int, completion: @escaping (Swift.Result<BringgDriverSDKObjc.GetTaskResult, Swift.Error>) -> Swift.Void)
+  func getTaskRawData(withTaskId taskId: Swift.Int) -> Foundation.Data?
+  func getClusters(completion: @escaping (Swift.Result<BringgDriverSDKObjc.GetClustersResult, Swift.Error>) -> Swift.Void)
+  func startTask(with taskId: Swift.Int, completion: @escaping (Swift.Result<Swift.Void, BringgDriverSDKObjc.StartTaskError>) -> Swift.Void)
+  func arriveAtWaypoint(with waypointId: Swift.Int, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func arriveAtWaypoint(with waypointId: Swift.Int, customerVehicle: BringgDriverSDKObjc.CustomerVehicle, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func arriveAtWaypointFollowingSuggestion(with waypointId: Swift.Int, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func silentArriveAtWaypoint(waypointId: Swift.Int, taskId: Swift.Int)
+  func leaveWaypoint(with waypointId: Swift.Int, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func leaveWaypointFollowingSuggestion(with waypointId: Swift.Int, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func silentLeaveWaypoint(waypointId: Swift.Int, taskId: Swift.Int)
+  func updateWaypointETA(waypointId: Swift.Int, eta: Foundation.Date, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func acceptTask(taskId: Swift.Int, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func acceptTasks(taskIds: [Swift.Int], completion: @escaping (Swift.Error?) -> Swift.Void)
+  func rejectTask(taskId: Swift.Int, completion: @escaping (Swift.Error?) -> Swift.Void)
+  func updateTasksPriorities(orderedTaskIds: [Swift.Int], completion: ((Swift.Error?) -> Swift.Void)?)
+  func getMaskedPhoneNumber(taskId: Swift.Int, waypointId: Swift.Int, completion: @escaping (Swift.Result<Swift.String, Swift.Error>) -> Swift.Void)
+  var shouldUseClusters: Swift.Bool { get }
+}
+public typealias TransportTypeObjc = BringgDriverSDKObjc.DriverActivityTypeObjc
+public struct User {
+  public var id: Swift.Int {
+    get
+  }
+  public var merchantId: Swift.Int? {
+    get
+  }
+  public var atHome: Swift.Bool? {
+    get
+  }
+  public var name: Swift.String? {
+    get
+  }
+  public var profileImage: BringgDriverSDKObjc.ImageURL? {
+    get
+  }
+  public var defaultUserActivity: BringgDriverSDKObjc.DriverActivityType? {
+    get
+  }
+  public var debug: Swift.Bool? {
+    get
+  }
+  public var uuid: Swift.String? {
+    get
+  }
+  public var email: Swift.String? {
+    get
+  }
+  public var phone: Swift.String? {
+    get
+  }
+}
+public typealias TransportType = BringgDriverSDKObjc.DriverActivityType
+public protocol UserManagerProtocol {
+  func setUserTransportType(_ transportType: BringgDriverSDKObjc.TransportType, completion: ((Swift.Error?) -> Swift.Void)?)
+}
+@objc public protocol UserManagerObjcProtocol {
+  @objc func setUserTransportType(_ transportType: BringgDriverSDKObjc.TransportTypeObjc, completion: ((Swift.Error?) -> Swift.Void)?)
+}
+@_hasMissingDesignatedInitializers @objc final public class UserObjc : ObjectiveC.NSObject {
+  @objc final public var id: Foundation.NSNumber {
+    @objc get
+  }
+  @objc final public var atHome: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc final public var name: Swift.String? {
+    @objc get
+  }
+  @objc final public var profileImage: Swift.String? {
+    @objc get
+  }
+  @objc final public var defaultUserActivity: BringgDriverSDKObjc.DriverActivityTypeObjc {
+    @objc get
+  }
+  @objc final public var debug: Swift.Bool {
+    @objc get
+  }
+  @objc final public var uuid: Swift.String? {
+    @objc get
+  }
+  @objc final public var email: Swift.String? {
+    @objc get
+  }
+  @objc final public var phone: Swift.String? {
+    @objc get
+  }
+  @objc final public var merchantId: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum PickupDropoffOption : Swift.Int, Swift.CaseIterable, Swift.CustomStringConvertible, Swift.Hashable, Swift.Encodable {
+  case none = -1
+  case pickup = 0
+  case dropoff = 1
+  case pickupAndDropoff = 2
+  public var description: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+  public typealias AllCases = [BringgDriverSDKObjc.PickupDropoffOption]
+  public static var allCases: [BringgDriverSDKObjc.PickupDropoffOption] {
+    get
+  }
+}
+@objc public enum AddressType : Swift.Int, Swift.Hashable {
+  case none = -1
+  case commercial = 1
+  case residential = 2
+  case educational = 3
+  case government = 4
+  case medical = 5
+  case industrial = 6
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct Waypoint : Swift.Hashable {
+  public struct Defaults {
+  }
+  public var id: Swift.Int {
+    get
+  }
+  public var taskId: Swift.Int {
+    get
+  }
+  public var address: Swift.String? {
+    get
+  }
+  public var addressSecondLine: Swift.String? {
+    get
+  }
+  public var addressType: BringgDriverSDKObjc.AddressType? {
+    get
+  }
+  public var locationName: Swift.String? {
+    get
+  }
+  public var lat: Swift.Double? {
+    get
+  }
+  public var lng: Swift.Double? {
+    get
+  }
+  public var zipcode: Swift.String? {
+    get
+  }
+  public var borough: Swift.String? {
+    get
+  }
+  public var city: Swift.String? {
+    get
+  }
+  public var street: Swift.String? {
+    get
+  }
+  public var state: Swift.String? {
+    get
+  }
+  public var neighborhood: Swift.String? {
+    get
+  }
+  public var district: Swift.String? {
+    get
+  }
+  public var houseNumber: Swift.Int? {
+    get
+  }
+  public var checkinTime: Foundation.Date? {
+    get
+  }
+  public var checkoutTime: Foundation.Date? {
+    get
+  }
+  public var scheduledAt: Foundation.Date? {
+    get
+  }
+  public var hasToLeaveBy: Foundation.Date? {
+    get
+  }
+  public var etl: Foundation.Date? {
+    get
+  }
+  public var eta: Foundation.Date? {
+    get
+  }
+  public var noEarlierThan: Foundation.Date? {
+    get
+  }
+  public var noLaterThan: Foundation.Date? {
+    get
+  }
+  public var position: Swift.Int? {
+    get
+  }
+  public var done: Swift.Bool? {
+    get
+  }
+  public var late: Swift.Bool? {
+    get
+  }
+  public var asap: Swift.Bool? {
+    get
+  }
+  public var rating: Swift.String? {
+    get
+  }
+  public var pickupDropoffOption: BringgDriverSDKObjc.PickupDropoffOption? {
+    get
+  }
+  public var mustApproveInventory: Swift.Bool? {
+    get
+  }
+  public var allowEditingInventory: Swift.Bool? {
+    get
+  }
+  public var findMe: Swift.Bool? {
+    get
+  }
+  public var uiData: BringgDriverSDKObjc.Waypoint.UIData {
+    get
+  }
+  public var companyName: Swift.String? {
+    get
+  }
+  public var name: Swift.String? {
+    get
+  }
+  public var phoneAvailable: Swift.Bool? {
+    get
+  }
+  public var phone: Swift.String? {
+    get
+  }
+  public var customer: BringgDriverSDKObjc.Customer? {
+    get
+  }
+  public var contacts: [BringgDriverSDKObjc.Contact]? {
+    get
+  }
+  public var extraCustomers: [BringgDriverSDKObjc.Customer]? {
+    get
+  }
+  public var taskNotes: [BringgDriverSDKObjc.TaskNote]? {
+    get
+  }
+  public var inventoryItems: [BringgDriverSDKObjc.TaskInventory]? {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.Waypoint, b: BringgDriverSDKObjc.Waypoint) -> Swift.Bool
+}
+extension Waypoint {
+  public struct UIData {
+    public var color: Swift.String? {
+      get
+    }
+    public var number: Swift.Int? {
+      get
+    }
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class WaypointObjc : ObjectiveC.NSObject {
+  @objc public var id: Swift.Int {
+    @objc get
+  }
+  @objc public var taskId: Swift.Int {
+    @objc get
+  }
+  @objc public var address: Swift.String? {
+    @objc get
+  }
+  @objc public var addressSecondLine: Swift.String? {
+    @objc get
+  }
+  @objc public var addressType: BringgDriverSDKObjc.AddressType {
+    @objc get
+  }
+  @objc public var locationName: Swift.String? {
+    @objc get
+  }
+  @objc public var lat: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var lng: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var zipcode: Swift.String? {
+    @objc get
+  }
+  @objc public var borough: Swift.String? {
+    @objc get
+  }
+  @objc public var city: Swift.String? {
+    @objc get
+  }
+  @objc public var street: Swift.String? {
+    @objc get
+  }
+  @objc public var state: Swift.String? {
+    @objc get
+  }
+  @objc public var neighborhood: Swift.String? {
+    @objc get
+  }
+  @objc public var district: Swift.String? {
+    @objc get
+  }
+  @objc public var houseNumber: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var checkinTime: Foundation.Date? {
+    @objc get
+  }
+  @objc public var checkoutTime: Foundation.Date? {
+    @objc get
+  }
+  @objc public var scheduledAt: Foundation.Date? {
+    @objc get
+  }
+  @objc public var hasToLeaveBy: Foundation.Date? {
+    @objc get
+  }
+  @objc public var etl: Foundation.Date? {
+    @objc get
+  }
+  @objc public var eta: Foundation.Date? {
+    @objc get
+  }
+  @objc public var noEarlierThan: Foundation.Date? {
+    @objc get
+  }
+  @objc public var noLaterThan: Foundation.Date? {
+    @objc get
+  }
+  @objc public var position: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var done: Swift.Bool {
+    @objc get
+  }
+  @objc public var late: Swift.Bool {
+    @objc get
+  }
+  @objc public var asap: Swift.Bool {
+    @objc get
+  }
+  @objc public var rating: Swift.String? {
+    @objc get
+  }
+  @objc public var pickupDropoffOption: BringgDriverSDKObjc.PickupDropoffOptionObjc {
+    @objc get
+  }
+  @objc public var findMe: Swift.Bool {
+    @objc get
+  }
+  @objc public var uiDataColor: Swift.String? {
+    @objc get
+  }
+  @objc public var uiDataNumber: Foundation.NSNumber? {
+    @objc get
+  }
+  @objc public var companyName: Swift.String? {
+    @objc get
+  }
+  @objc public var name: Swift.String? {
+    @objc get
+  }
+  @objc public var phoneAvailable: Swift.Bool {
+    @objc get
+  }
+  @objc public var customer: BringgDriverSDKObjc.CustomerObjc? {
+    @objc get
+  }
+  @objc public var contacts: [BringgDriverSDKObjc.ContactObjc]? {
+    @objc get
+  }
+  @objc public var extraCustomers: [BringgDriverSDKObjc.CustomerObjc]? {
+    @objc get
+  }
+  @objc public var taskNotes: [BringgDriverSDKObjc.TaskNoteObjc]? {
+    @objc get
+  }
+  @objc public var inventoryItems: [BringgDriverSDKObjc.TaskInventoryObjc]? {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension BringgDriverSDKObjc.AllowShareWithCustomer : Swift.Decodable {}
+extension BringgDriverSDKObjc.AllowShareWithCustomer : Swift.Encodable {}
+extension BringgDriverSDKObjc.AllowShareWithCustomer : Swift.Equatable {}
+extension BringgDriverSDKObjc.AllowShareWithCustomer : Swift.Hashable {}
+extension BringgDriverSDKObjc.AllowShareWithCustomer : Swift.RawRepresentable {}
+extension BringgDriverSDKObjc.BigDataAnalyticsEventType.MapViewAnalyticsAction : Swift.Equatable {}
+extension BringgDriverSDKObjc.BigDataAnalyticsEventType.MapViewAnalyticsAction : Swift.Hashable {}
+extension BringgDriverSDKObjc.BigDataAnalyticsEventType.MapViewAnalyticsAction : Swift.RawRepresentable {}
+extension BringgDriverSDKObjc.ContactType : Swift.RawRepresentable {}
+extension BringgDriverSDKObjc.DriverActivityType : Swift.Equatable {}
+extension BringgDriverSDKObjc.DriverActivityType : Swift.Hashable {}
+extension BringgDriverSDKObjc.DriverActivityType : Swift.RawRepresentable {}
+extension BringgDriverSDKObjc.GetFloatingInventoriesCachePolicy : Swift.Equatable {}
+extension BringgDriverSDKObjc.GetFloatingInventoriesCachePolicy : Swift.Hashable {}
+extension BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.SubInventoryUpdateType : Swift.Hashable {}
+extension BringgDriverSDKObjc.CreatePendingShiftErrorType : Swift.Equatable {}
+extension BringgDriverSDKObjc.CreatePendingShiftErrorType : Swift.Hashable {}
+extension BringgDriverSDKObjc.CreatePendingShiftErrorType : Swift.RawRepresentable {}
+extension BringgDriverSDKObjc.EndShiftError : Swift.Equatable {}
+extension BringgDriverSDKObjc.EndShiftError : Swift.Hashable {}
+extension BringgDriverSDKObjc.StartShiftErrorType : Swift.Equatable {}
+extension BringgDriverSDKObjc.StartShiftErrorType : Swift.Hashable {}
+extension BringgDriverSDKObjc.StartShiftErrorType : Swift.RawRepresentable {}
+extension BringgDriverSDKObjc.TaskStatus : Swift.RawRepresentable {}
+extension BringgDriverSDKObjc.TaskType : Swift.RawRepresentable {}
+extension BringgDriverSDKObjc.TaskNoteType : Swift.Equatable {}
+extension BringgDriverSDKObjc.TaskNoteType : Swift.Hashable {}
+extension BringgDriverSDKObjc.TaskNoteType : Swift.RawRepresentable {}
+extension BringgDriverSDKObjc.PickupDropoffOption : Swift.RawRepresentable {}
+extension BringgDriverSDKObjc.AddressType : Swift.RawRepresentable {}
