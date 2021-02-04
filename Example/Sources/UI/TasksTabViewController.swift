@@ -28,7 +28,6 @@ class TasksTabViewController: UIViewController {
         super.viewDidLoad()
         refreshDisplayMode()
         refreshView()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "merge"), style: .plain, target: self, action: #selector(groupTasks))
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,18 +80,5 @@ class TasksTabViewController: UIViewController {
         }
         addChild(viewController)
         viewController.didMove(toParent: self)
-    }
-    
-    @objc private func groupTasks() {
-        let groupTasksViewController = GroupTasksViewController()
-        groupTasksViewController.delegate = self
-        navigationController?.pushViewController(groupTasksViewController, animated: true)
-    }
-}
-
-extension TasksTabViewController: GroupTasksViewControllerDelegate {
-    func groupTasksViewControllerDidCreateGroup() {
-        taskListViewController?.getTasksAndUpdateUI()
-        clustersViewController?.getTasksAndUpdateUI()
     }
 }

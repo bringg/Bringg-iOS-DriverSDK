@@ -291,7 +291,7 @@ extension WaypointPageCell: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    @nonobjc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Sections(rawValue: indexPath.section) else { return }
         switch section {
         case .waypointDetails: break
@@ -303,7 +303,7 @@ extension WaypointPageCell: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    func tableView(_ tableView: UITableView, didSelectPhoneNumberCellAtIndexPath indexPath: IndexPath) {
+    @nonobjc func tableView(_ tableView: UITableView, didSelectPhoneNumberCellAtIndexPath indexPath: IndexPath) {
         guard let cellType = PhoneNumberCells(rawValue: indexPath.row) else { return }
         switch cellType {
         case .phoneAvailable:
