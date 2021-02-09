@@ -5,7 +5,7 @@
 //  Copyright © 2020 Bringg. All rights reserved.
 //
 
-import BringgDriverSDK
+import BringgDriverSDKObjc
 import Foundation
 import FSPagerView
 import SnapKit

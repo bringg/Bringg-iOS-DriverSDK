@@ -6,7 +6,7 @@
 //
 
 import AVFoundation
-import BringgDriverSDK
+import BringgDriverSDKObjc
 import PhoneNumberKit
 import SnapKit
 import UIKit

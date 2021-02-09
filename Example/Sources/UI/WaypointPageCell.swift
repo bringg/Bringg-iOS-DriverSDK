@@ -5,7 +5,7 @@
 //  Copyright © 2020 Bringg. All rights reserved.
 //
 
-import BringgDriverSDK
+import BringgDriverSDKObjc
 import Foundation
 import FSPagerView
 import SnapKit
@@ -291,7 +291,7 @@ extension WaypointPageCell: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-    @nonobjc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let section = Sections(rawValue: indexPath.section) else { return }
         switch section {
         case .waypointDetails: break
@@ -303,7 +303,7 @@ extension WaypointPageCell: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    @nonobjc func tableView(_ tableView: UITableView, didSelectPhoneNumberCellAtIndexPath indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectPhoneNumberCellAtIndexPath indexPath: IndexPath) {
         guard let cellType = PhoneNumberCells(rawValue: indexPath.row) else { return }
         switch cellType {
         case .phoneAvailable:
