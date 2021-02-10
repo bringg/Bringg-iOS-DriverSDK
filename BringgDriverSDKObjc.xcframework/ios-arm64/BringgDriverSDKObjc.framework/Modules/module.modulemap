@@ -1,0 +1,4 @@
+framework module BringgDriverSDKObjc {
+  header "BringgDriverSDKObjc-Swift.h"
+  requires objc
+}

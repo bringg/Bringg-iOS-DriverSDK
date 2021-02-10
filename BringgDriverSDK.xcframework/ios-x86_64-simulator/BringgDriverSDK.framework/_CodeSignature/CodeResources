@@ -10,7 +10,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		kV1BRhRHBJ6h/3Eq8KRSPEGD/mY=
+		rtJ1DTHzsynrH3QrhCJOgjYuvWc=
 		</data>
 		<key>Modules/BringgDriverSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Modules/BringgDriverSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		IkE9QEj23XSWU1w/bl1qVnEt9ig=
+		+JMJG0uK+BvV0GvgJpSmx221XPg=
 		</data>
 		<key>Modules/BringgDriverSDK.swiftmodule/x86_64.swiftdoc</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Modules/BringgDriverSDK.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		IkE9QEj23XSWU1w/bl1qVnEt9ig=
+		+JMJG0uK+BvV0GvgJpSmx221XPg=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -68,7 +68,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			JMJCHVQyP5jekKCLl6X1361ce/jUMieHoP8G0RXL2Tw=
+			Tmlq4baiohDoJYtHwlyT5YXDVYmmX8fuk5nsEUuaBA8=
 			</data>
 		</dict>
 		<key>Modules/BringgDriverSDK.swiftmodule/x86_64.swiftdoc</key>
@@ -89,7 +89,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			JMJCHVQyP5jekKCLl6X1361ce/jUMieHoP8G0RXL2Tw=
+			Tmlq4baiohDoJYtHwlyT5YXDVYmmX8fuk5nsEUuaBA8=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
