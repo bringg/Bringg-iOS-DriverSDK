@@ -974,6 +974,11 @@ public enum StartTaskError : Swift.Error {
   case hasPickupLinkedTask
   case generalError(Swift.Error)
 }
+public enum FinishAllStartedTasksError : Swift.Error {
+  public struct TaskIdErrorPair {
+  }
+  case multipleErrorsFound(_: [BringgDriverSDK.FinishAllStartedTasksError.TaskIdErrorPair])
+}
 public enum GetTaskResult : Swift.Hashable {
   case task(BringgDriverSDK.Task)
   case taskNotAccessible

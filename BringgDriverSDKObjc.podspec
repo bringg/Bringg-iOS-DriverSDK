@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                     = 'BringgDriverSDKObjc'
-  s.version                  = '1.116.1'
+  s.version                  = '1.117.0'
   s.summary                  = 'Driver SDK for the Bringg platform'
 
   s.description              = <<-DESC
