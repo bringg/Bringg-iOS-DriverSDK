@@ -4,7 +4,7 @@
 //
 //  Created by Ido Mizrachi on 30/08/2020.
 //
-import BringgDriverSDK
+import BringgDriverSDKObjc
 import UIKit
 
 class TaskTableCellView: UITableViewCell {

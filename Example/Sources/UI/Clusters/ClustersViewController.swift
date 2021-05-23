@@ -5,7 +5,7 @@
 //  Created by Ido Mizrachi on 26/08/2020.
 //
 
-import BringgDriverSDK
+import BringgDriverSDKObjc
 import UIKit
 import SnapKit
 
@@ -13,7 +13,6 @@ final class ClustersViewController: UIViewController {
     enum Sections: Int, CaseIterable {
         case cluster = 0
         case unclusterTasks
-        case breaks
     }
     
     private lazy var refreshControl: UIRefreshControl = {
@@ -28,7 +27,6 @@ final class ClustersViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(ClusterCell.self, forCellReuseIdentifier: ClusterCell.cellIdentifier)
         tableView.register(TaskTableCellView.self, forCellReuseIdentifier: TaskTableCellView.cellIdentifier)
-        tableView.register(BreakTableCellView.self, forCellReuseIdentifier: BreakTableCellView.cellIdentifier)
         tableView.refreshControl = self.refreshControl
         return tableView
     }()
@@ -36,8 +34,7 @@ final class ClustersViewController: UIViewController {
     //State
     private var clusters: [Cluster] = []
     private var unclusteredTasks: [Task] = []
-    private var breaks: [ScheduledBreak] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -48,10 +45,8 @@ final class ClustersViewController: UIViewController {
         }
 
         getTasksAndUpdateUI()
-        getBreaksAndUpdateUI()
 
         Bringg.shared.loginManager.addDelegate(self)
-        Bringg.shared.breaksManager.addDelegate(self)
     }
     
     func getTasksAndUpdateUI() {
@@ -72,23 +67,8 @@ final class ClustersViewController: UIViewController {
         }
     }
 
-    func getBreaksAndUpdateUI() {
-        Bringg.shared.breaksManager.getScheduledBreaks(cachePolicy: .reloadIgnoringCacheData) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let breaks):
-                self.breaks = breaks
-            case .failure(let error):
-                self.breaks = []
-                self.showError(error.localizedDescription)
-            }
-            self.tasksTableView.reloadData()
-        }
-    }
-    
     @objc private func refreshControlTriggered() {
         getTasksAndUpdateUI()
-        getBreaksAndUpdateUI()
     }
 }
 
@@ -104,8 +84,6 @@ extension ClustersViewController: UITableViewDataSource {
             return clusters.count
         case .unclusterTasks:
             return unclusteredTasks.count
-        case .breaks:
-            return breaks.count
         case .none:
             return 0
         }
@@ -117,8 +95,6 @@ extension ClustersViewController: UITableViewDataSource {
             return clusterCell(tableView, atIndexPath: indexPath)
         case .unclusterTasks:
             return unclusteredTaskCell(tableView, atIndexPath: indexPath)
-        case .breaks:
-            return breakCell(tableView, atIndexPath: indexPath)
         case .none:
             return UITableViewCell()
         }
@@ -130,8 +106,6 @@ extension ClustersViewController: UITableViewDataSource {
             return "Clusters"
         case .unclusterTasks:
             return "Unclustered Tasks"
-        case .breaks:
-            return "Breaks"
         case .none:
             return nil
         }
@@ -153,13 +127,6 @@ extension ClustersViewController: UITableViewDataSource {
         return cell
     }
 
-    private func breakCell(_ tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: BreakTableCellView.cellIdentifier, for: indexPath) as! BreakTableCellView
-        let breakModel = breaks[indexPath.row]
-        cell.breakModel = breakModel
-        cell.onAction = { [weak self] in self?.breakActionPressed(breakModel) }
-        return cell
-    }
 }
 
 //MARK: - UITableViewDelegate
@@ -205,22 +172,5 @@ extension ClustersViewController: UserEventsDelegate {
         self.clusters = []
         self.unclusteredTasks = []
         tasksTableView.reloadData()
-    }
-}
-
-// MARK: - BreaksManagerDelegate
-extension ClustersViewController: BreaksManagerDelegate {
-    func breaksDataChanged(_ sender: BreaksManagerProtocol) {
-        getBreaksAndUpdateUI()
-    }
-
-    private func breakActionPressed(_ breakModel: ScheduledBreak?) {
-        guard let breakModel = breakModel else { return }
-        if breakModel.isStarted() {
-            try? Bringg.shared.breaksManager.endBreak(breakId: breakModel.id)
-        } else {
-            try? Bringg.shared.breaksManager.startBreak(breakId: breakModel.id)
-        }
-        getBreaksAndUpdateUI()
     }
 }

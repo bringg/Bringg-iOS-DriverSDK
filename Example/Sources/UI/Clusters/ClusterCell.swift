@@ -5,7 +5,7 @@
 //  Created by Ido Mizrachi on 27/08/2020.
 //
 
-import BringgDriverSDK
+import BringgDriverSDKObjc
 import UIKit
 import SnapKit
 
