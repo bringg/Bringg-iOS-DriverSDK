@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                     = 'BringgDriverSDK'
-  s.version                  = '1.116.1'
+  s.version                  = '1.122.0'
   s.summary                  = 'Driver SDK for the Bringg platform'
 
   s.description              = <<-DESC
@@ -15,8 +15,8 @@ Pod::Spec.new do |s|
   s.authors                  = { 'Bringg iOS Dev Team' => 'bringg-ios-developers@bringg.com' }
   s.source                   = { git: 'https://github.com/bringg/Bringg-iOS-DriverSDK.git', tag: s.version.to_s }
 
-  s.platform                 = :ios, '11.0'
-  s.ios.deployment_target    = '11.0'
+  s.platform                 = :ios, '12.0'
+  s.ios.deployment_target    = '12.0'
 
   s.frameworks               = 'CoreLocation', 'CoreMotion'
   s.ios.vendored_frameworks  = 'BringgDriverSDK.xcframework'
@@ -27,7 +27,6 @@ Pod::Spec.new do |s|
   s.dependency 'Socket.IO-Client-Swift', '15.1.0'
   s.dependency 'Starscream', '3.1.0'
   s.dependency 'libPhoneNumber-iOS', '0.9.15'
-  s.dependency 'CryptoSwift', '1.0.0'
   s.dependency 'GzipSwift', '5.0.0'
   s.dependency 'Alamofire', '4.9.0'
   s.dependency 'XCGLogger', '7.0.0'

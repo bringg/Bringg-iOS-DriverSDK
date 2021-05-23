@@ -4,11 +4,11 @@
 import AVFoundation
 import Alamofire
 import SystemConfiguration.CaptiveNetwork
+import CommonCrypto
 import CoreBluetooth
 import CoreLocation
 import CoreMotion
 import CoreTelephony
-import CryptoSwift
 import DeviceKit
 import Foundation
 import Gzip
@@ -483,7 +483,7 @@ public struct InventoriesQuantityUpdateRequest : Swift.Equatable {
     case acceptAll
     case rejectAll(rejectReasonId: Swift.Int)
     case partial(quantity: Swift.Int, rejectedQuantity: Swift.Int, rejectReasonId: Swift.Int)
-    case scan(scanString: Swift.String, isManualScan: Swift.Bool)
+    case scan(scanString: Swift.String, isManualScan: Swift.Bool, inventoryId: Swift.Int?)
     public static func == (a: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.UpdateType, b: BringgDriverSDKObjc.InventoriesQuantityUpdateRequest.UpdateType) -> Swift.Bool
   }
   public enum SubInventoryUpdateType : Swift.Equatable, Swift.CaseIterable {
@@ -1334,6 +1334,16 @@ public protocol TaskNoteImageManagerProtocol {
   @objc override dynamic public init()
   @objc deinit
 }
+public struct TaskScanServerModel : Swift.Codable, Swift.Hashable {
+  public let scanString: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDKObjc.TaskScanServerModel, b: BringgDriverSDKObjc.TaskScanServerModel) -> Swift.Bool
+}
 public typealias TaskStatusObjc = BringgDriverSDKObjc.TaskStatus
 public typealias TaskTypeObjc = BringgDriverSDKObjc.TaskType
 public protocol TasksManagerDelegate : AnyObject {
@@ -1352,6 +1362,11 @@ public enum StartTaskError : Swift.Error {
   case notAccepted
   case hasPickupLinkedTask
   case generalError(Swift.Error)
+}
+public enum FinishAllStartedTasksError : Swift.Error {
+  public struct TaskIdErrorPair {
+  }
+  case multipleErrorsFound(_: [BringgDriverSDKObjc.FinishAllStartedTasksError.TaskIdErrorPair])
 }
 public enum GetTaskResult : Swift.Hashable {
   case task(BringgDriverSDKObjc.Task)
@@ -1622,6 +1637,9 @@ public struct Waypoint : Swift.Hashable {
     get
   }
   public var taskNotes: [BringgDriverSDKObjc.TaskNote]? {
+    get
+  }
+  public var nonInventoryTaskScans: [BringgDriverSDKObjc.TaskScanServerModel]? {
     get
   }
   public var inventoryItems: [BringgDriverSDKObjc.TaskInventory]? {

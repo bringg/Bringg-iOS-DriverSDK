@@ -73,7 +73,7 @@ class TaskViewController: UIViewController {
         view.addSubview(waypointsPagerView)
         view.addSubview(acceptTaskView)
         view.addSubview(notLoggedInView)
-
+        
         makeConstraints()
         updateUI()
     }

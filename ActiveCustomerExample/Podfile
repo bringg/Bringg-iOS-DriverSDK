@@ -1,5 +1,5 @@
 use_frameworks!
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 target 'BringgActiveCustomerSDKExample' do
   pod 'BringgDriverSDK', :path => '../'
@@ -13,7 +13,6 @@ target 'BringgActiveCustomerSDKExample' do
     'Socket.IO-Client-Swift',
     'Starscream',
     'libPhoneNumber-iOS',
-    'CryptoSwift',
     'GzipSwift',
     'Alamofire',
     'XCGLogger',

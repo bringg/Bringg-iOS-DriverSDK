@@ -34,16 +34,18 @@ final class ClustersViewController: UIViewController {
     //State
     private var clusters: [Cluster] = []
     private var unclusteredTasks: [Task] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(tasksTableView)
+
         tasksTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            
         }
+
         getTasksAndUpdateUI()
+
         Bringg.shared.loginManager.addDelegate(self)
     }
     
@@ -64,7 +66,7 @@ final class ClustersViewController: UIViewController {
             self.refreshControl.endRefreshing()
         }
     }
-    
+
     @objc private func refreshControlTriggered() {
         getTasksAndUpdateUI()
     }
@@ -77,34 +79,34 @@ extension ClustersViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case Sections.cluster.rawValue:
+        switch Sections(rawValue: section) {
+        case .cluster:
             return clusters.count
-        case Sections.unclusterTasks.rawValue:
+        case .unclusterTasks:
             return unclusteredTasks.count
-        default:
+        case .none:
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case Sections.cluster.rawValue:
+        switch Sections(rawValue: indexPath.section) {
+        case .cluster:
             return clusterCell(tableView, atIndexPath: indexPath)
-        case Sections.unclusterTasks.rawValue:
+        case .unclusterTasks:
             return unclusteredTaskCell(tableView, atIndexPath: indexPath)
-        default:
+        case .none:
             return UITableViewCell()
         }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case Sections.cluster.rawValue:
+        switch Sections(rawValue: section) {
+        case .cluster:
             return "Clusters"
-        case Sections.unclusterTasks.rawValue:
+        case .unclusterTasks:
             return "Unclustered Tasks"
-        default:
+        case .none:
             return nil
         }
     }
@@ -124,6 +126,7 @@ extension ClustersViewController: UITableViewDataSource {
         }
         return cell
     }
+
 }
 
 //MARK: - UITableViewDelegate
@@ -171,4 +174,3 @@ extension ClustersViewController: UserEventsDelegate {
         tasksTableView.reloadData()
     }
 }
-

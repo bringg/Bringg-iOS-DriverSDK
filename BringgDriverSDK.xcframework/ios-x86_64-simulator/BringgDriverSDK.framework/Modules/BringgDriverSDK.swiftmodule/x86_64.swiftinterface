@@ -4,11 +4,11 @@
 import AVFoundation
 import Alamofire
 import SystemConfiguration.CaptiveNetwork
+import CommonCrypto
 import CoreBluetooth
 import CoreLocation
 import CoreMotion
 import CoreTelephony
-import CryptoSwift
 import DeviceKit
 import Foundation
 import Gzip
@@ -370,7 +370,7 @@ public struct InventoriesQuantityUpdateRequest : Swift.Equatable {
     case acceptAll
     case rejectAll(rejectReasonId: Swift.Int)
     case partial(quantity: Swift.Int, rejectedQuantity: Swift.Int, rejectReasonId: Swift.Int)
-    case scan(scanString: Swift.String, isManualScan: Swift.Bool)
+    case scan(scanString: Swift.String, isManualScan: Swift.Bool, inventoryId: Swift.Int?)
     public static func == (a: BringgDriverSDK.InventoriesQuantityUpdateRequest.UpdateType, b: BringgDriverSDK.InventoriesQuantityUpdateRequest.UpdateType) -> Swift.Bool
   }
   public enum SubInventoryUpdateType : Swift.Equatable, Swift.CaseIterable {
@@ -957,6 +957,16 @@ public protocol TaskNoteImageManagerProtocol {
   func retrieveImage(remoteImageData: BringgDriverSDK.ImageData.Remote, completion: @escaping (Swift.Result<UIKit.UIImage, Swift.Error>) -> Swift.Void)
   func retrieveImage(imageCacheKey: Swift.String, completion: @escaping (UIKit.UIImage?) -> Swift.Void)
 }
+public struct TaskScanServerModel : Swift.Codable, Swift.Hashable {
+  public let scanString: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: BringgDriverSDK.TaskScanServerModel, b: BringgDriverSDK.TaskScanServerModel) -> Swift.Bool
+}
 public protocol TasksManagerDelegate : AnyObject {
   func tasksManagerDidRefreshTaskList(_ tasksManager: BringgDriverSDK.TasksManagerProtocol)
   func tasksManager(_ tasksManager: BringgDriverSDK.TasksManagerProtocol, didAddNewTask taskId: Swift.Int)
@@ -973,6 +983,11 @@ public enum StartTaskError : Swift.Error {
   case notAccepted
   case hasPickupLinkedTask
   case generalError(Swift.Error)
+}
+public enum FinishAllStartedTasksError : Swift.Error {
+  public struct TaskIdErrorPair {
+  }
+  case multipleErrorsFound(_: [BringgDriverSDK.FinishAllStartedTasksError.TaskIdErrorPair])
 }
 public enum GetTaskResult : Swift.Hashable {
   case task(BringgDriverSDK.Task)
@@ -1205,6 +1220,9 @@ public struct Waypoint : Swift.Hashable {
     get
   }
   public var taskNotes: [BringgDriverSDK.TaskNote]? {
+    get
+  }
+  public var nonInventoryTaskScans: [BringgDriverSDK.TaskScanServerModel]? {
     get
   }
   public var inventoryItems: [BringgDriverSDK.TaskInventory]? {

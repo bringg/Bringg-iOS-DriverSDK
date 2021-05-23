@@ -1,8 +1,7 @@
 PODS:
   - Alamofire (4.9.0)
-  - BringgDriverSDKObjc (1.116.1):
+  - BringgDriverSDKObjc (1.122.0):
     - Alamofire (= 4.9.0)
-    - CryptoSwift (= 1.0.0)
     - DeviceKit (= 4.2.1)
     - GzipSwift (= 5.0.0)
     - KeychainAccess (= 3.2.0)
@@ -16,7 +15,6 @@ PODS:
   - CocoaLumberjack/Core (3.6.0)
   - CocoaLumberjack/Swift (3.6.0):
     - CocoaLumberjack/Core
-  - CryptoSwift (1.0.0)
   - DeviceKit (4.2.1)
   - FSPagerView (0.8.3)
   - GzipSwift (5.0.0)
@@ -58,7 +56,6 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - CocoaLumberjack
-    - CryptoSwift
     - DeviceKit
     - FSPagerView
     - GzipSwift
@@ -87,9 +84,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
-  BringgDriverSDKObjc: 7eb7f0235dd2c422652ced78d2e7736cf9d8599f
+  BringgDriverSDKObjc: 0d31afe4ab8b3fc03c83fdbe4a540f5d06287bc2
   CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
-  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   DeviceKit: cadb5ff25d45fe186778bf2d0fd2ea4750542189
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   GzipSwift: 5592f4d62b641e04d06443ba471f8ed76b1363e4
@@ -105,6 +101,6 @@ SPEC CHECKSUMS:
   Starscream: 5cbf3d36bf5af6906d1362bba4ce326bb011d4cc
   XCGLogger: 0434f15e3909cdc450bb63faf638b8792ab782ab
 
-PODFILE CHECKSUM: a29a00bc7f30ca80a18aa62f22ffa7840c6fc0cf
+PODFILE CHECKSUM: c0857e108cfd5472e48b11778bfa09d920eadf9e
 
 COCOAPODS: 1.10.0.rc.1

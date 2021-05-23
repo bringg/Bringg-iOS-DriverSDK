@@ -26,7 +26,7 @@ extension TaskStatus {
 }
 
 class TaskListViewController: UIViewController {
-    private enum Sections: Int {
+    private enum Sections: Int, CaseIterable {
         case tasks
     }
     
@@ -38,6 +38,7 @@ class TaskListViewController: UIViewController {
         let tableView = UITableView(frame: view.bounds, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(TaskTableCellView.self, forCellReuseIdentifier: TaskTableCellView.cellIdentifier)
         tableView.tableFooterView = UIView()
         return tableView
     }()
@@ -50,8 +51,6 @@ class TaskListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        tasksTableView.register(TaskTableCellView.self, forCellReuseIdentifier: TaskTableCellView.cellIdentifier)
-        
         view.addSubview(tasksTableView)
         view.addSubview(notLoggedInView)
 
@@ -59,14 +58,13 @@ class TaskListViewController: UIViewController {
         
         Bringg.shared.tasksManager.addDelegate(self)
         Bringg.shared.loginManager.addDelegate(self)
-        
+
         tasksTableView.isEditing = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonPressed))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         getTasksAndUpdateUI()
     }
     
@@ -92,7 +90,8 @@ class TaskListViewController: UIViewController {
             self.tasksTableView.reloadData()
         }
     }
-    
+
+
     private func makeConstraints() {
         tasksTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -119,14 +118,19 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableCellView.cellIdentifier, for: indexPath)
-        cell.selectionStyle = .none
-        if let taskCell = cell as? TaskTableCellView {
+        switch Sections(rawValue: indexPath.section) {
+        case .tasks:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: TaskTableCellView.cellIdentifier,
+                for: indexPath
+            ) as! TaskTableCellView
+            cell.selectionStyle = .none
             let task = tasks?[indexPath.row]
-            taskCell.task = task
+            cell.task = task
+            return cell
+        case .none:
+            return UITableViewCell()
         }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -138,11 +142,16 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return Sections.allCases.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks?.count ?? 0
+        switch Sections(rawValue: section) {
+        case .tasks:
+            return tasks?.count ?? 0
+        case .none:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {

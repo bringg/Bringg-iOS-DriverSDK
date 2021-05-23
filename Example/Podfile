@@ -1,7 +1,9 @@
 use_frameworks!
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 target 'BringgDriverSDKExample' do
+  #pod 'BringgDriverSDK', :path => '../'
+  
   # BringgDriverSDKObjc should be added to the podfile if you need Objc support
   pod 'BringgDriverSDKObjc', :path => '../'
 
@@ -20,7 +22,6 @@ target 'BringgDriverSDKExample' do
     'Socket.IO-Client-Swift',
     'Starscream',
     'libPhoneNumber-iOS',
-    'CryptoSwift',
     'GzipSwift',
     'Alamofire',
     'XCGLogger',
@@ -35,6 +36,8 @@ target 'BringgDriverSDKExample' do
       target.build_configurations.each do |config|
         if BringgDriverSDKDependencies.include? target.name
           config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+        else
+          config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'NO'
         end
       end
     end
