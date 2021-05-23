@@ -17,6 +17,9 @@ To integrate BringgDriverSDK into your Xcode project using CocoaPods, specify it
 
 ```ruby
 pod 'BringgDriverSDK', '1.122.0'
+#OR
+#pod 'BringgDriverSDKObjc', '1.122.0'
+
 # All dependencies of the BringgDriverSDK needs to be built with the 'BUILD_LIBRARY_FOR_DISTRIBUTION' configuration set to 'YES'
 BringgDriverSDKDependencies = [
   'Socket.IO-Client-Swift',
