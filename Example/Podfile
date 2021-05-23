@@ -17,6 +17,11 @@ target 'BringgDriverSDKExample' do
   pod 'FSPagerView'
   pod 'SnapKit'
 
+  # The following dependencies needs to be built with the 'BUILD_LIBRARY_FOR_DISTRIBUTION' configuration set to 'NO'
+  DoNotBuildLDistributionLibraryDependencies = [
+    'FSPagerView'
+  ]
+
   # All dependencies of the BringgDriverSDK needs to be built with the 'BUILD_LIBRARY_FOR_DISTRIBUTION' configuration set to 'YES'
   BringgDriverSDKDependencies = [
     'Socket.IO-Client-Swift',
@@ -36,6 +41,9 @@ target 'BringgDriverSDKExample' do
       target.build_configurations.each do |config|
         if BringgDriverSDKDependencies.include? target.name
           config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'YES'
+        end
+        if DoNotBuildLDistributionLibraryDependencies.include? target.name
+          config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'NO'
         end
       end
     end
