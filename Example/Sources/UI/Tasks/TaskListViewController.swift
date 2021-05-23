@@ -5,7 +5,7 @@
 //  Copyright © 2020 Bringg. All rights reserved.
 //
 
-import BringgDriverSDKObjc
+import BringgDriverSDK
 import FSPagerView
 import SnapKit
 import UIKit
@@ -26,8 +26,9 @@ extension TaskStatus {
 }
 
 class TaskListViewController: UIViewController {
-    private enum Sections: Int {
+    private enum Sections: Int, CaseIterable {
         case tasks
+        case breaks
     }
     
     //Views
@@ -38,19 +39,20 @@ class TaskListViewController: UIViewController {
         let tableView = UITableView(frame: view.bounds, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(TaskTableCellView.self, forCellReuseIdentifier: TaskTableCellView.cellIdentifier)
+        tableView.register(BreakTableCellView.self, forCellReuseIdentifier: BreakTableCellView.cellIdentifier)
         tableView.tableFooterView = UIView()
         return tableView
     }()
     
     //State
     private var tasks: [Task]?
+    private var breaks: [ScheduledBreak]?
     private var lastTimeTasksWereRefreshed: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        tasksTableView.register(TaskTableCellView.self, forCellReuseIdentifier: TaskTableCellView.cellIdentifier)
         
         view.addSubview(tasksTableView)
         view.addSubview(notLoggedInView)
@@ -59,6 +61,7 @@ class TaskListViewController: UIViewController {
         
         Bringg.shared.tasksManager.addDelegate(self)
         Bringg.shared.loginManager.addDelegate(self)
+        Bringg.shared.breaksManager.addDelegate(self)
         
         tasksTableView.isEditing = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonPressed))
@@ -66,8 +69,8 @@ class TaskListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         getTasksAndUpdateUI()
+        getBreaksAndUpdateUI()
     }
     
     func getTasksAndUpdateUI() {
@@ -89,6 +92,25 @@ class TaskListViewController: UIViewController {
                 return task1.id > task2.id
             })
             self.lastTimeTasksWereRefreshed = lastTimeTasksWereRefreshed
+            self.tasksTableView.reloadData()
+        }
+    }
+
+    func getBreaksAndUpdateUI() {
+        guard Bringg.shared.loginManager.isLoggedIn else {
+            notLoggedInView.isHidden = false
+            return
+        }
+        notLoggedInView.isHidden = true
+        Bringg.shared.breaksManager.getScheduledBreaks(cachePolicy: .reloadIgnoringCacheData) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let breaks):
+                self.breaks = breaks
+            case .failure(let error):
+                self.breaks = []
+                self.showError(error.localizedDescription)
+            }
             self.tasksTableView.reloadData()
         }
     }
@@ -119,14 +141,29 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableCellView.cellIdentifier, for: indexPath)
-        cell.selectionStyle = .none
-        if let taskCell = cell as? TaskTableCellView {
+        switch Sections(rawValue: indexPath.section) {
+        case .tasks:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: TaskTableCellView.cellIdentifier,
+                for: indexPath
+            ) as! TaskTableCellView
+            cell.selectionStyle = .none
             let task = tasks?[indexPath.row]
-            taskCell.task = task
+            cell.task = task
+            return cell
+        case .breaks:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: BreakTableCellView.cellIdentifier,
+                for: indexPath
+            ) as! BreakTableCellView
+            cell.selectionStyle = .none
+            let breakModel = breaks?[indexPath.row]
+            cell.breakModel = breakModel
+            cell.onAction = { [weak self] in self?.breakActionPressed(breakModel) }
+            return cell
+        case .none:
+            return UITableViewCell()
         }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -134,15 +171,24 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .tasks:
             return "Tasks"
+        case .breaks:
+            return "Breaks"
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return Sections.allCases.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks?.count ?? 0
+        switch Sections(rawValue: section) {
+        case .tasks:
+            return tasks?.count ?? 0
+        case .breaks:
+            return breaks?.count ?? 0
+        case .none:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -213,5 +259,21 @@ extension TaskListViewController: UserEventsDelegate {
     
     func userDidLogout() {
         getTasksAndUpdateUI()
+    }
+}
+
+extension TaskListViewController: BreaksManagerDelegate {
+    func breaksDataChanged(_ sender: BreaksManagerProtocol) {
+        getBreaksAndUpdateUI()
+    }
+
+    private func breakActionPressed(_ breakModel: ScheduledBreak?) {
+        guard let breakModel = breakModel else { return }
+        if breakModel.isStarted() {
+            try? Bringg.shared.breaksManager.endBreak(breakId: breakModel.id)
+        } else {
+            try? Bringg.shared.breaksManager.startBreak(breakId: breakModel.id)
+        }
+        getBreaksAndUpdateUI()
     }
 }

@@ -5,7 +5,7 @@
 //  Copyright (c) 2020 Bringg. All rights reserved.
 //
 
-import BringgDriverSDKObjc
+import BringgDriverSDK
 import UIKit
 
 @UIApplicationMain

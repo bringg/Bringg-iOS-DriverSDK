@@ -13,7 +13,6 @@ target 'BringgActiveCustomerSDKExample' do
     'Socket.IO-Client-Swift',
     'Starscream',
     'libPhoneNumber-iOS',
-    'CryptoSwift',
     'GzipSwift',
     'Alamofire',
     'XCGLogger',

@@ -5,7 +5,7 @@
 //  Created by Ido Mizrachi on 26/08/2020.
 //
 
-import BringgDriverSDKObjc
+import BringgDriverSDK
 import UIKit
 import SnapKit
 
@@ -13,6 +13,7 @@ final class ClustersViewController: UIViewController {
     enum Sections: Int, CaseIterable {
         case cluster = 0
         case unclusterTasks
+        case breaks
     }
     
     private lazy var refreshControl: UIRefreshControl = {
@@ -27,6 +28,7 @@ final class ClustersViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(ClusterCell.self, forCellReuseIdentifier: ClusterCell.cellIdentifier)
         tableView.register(TaskTableCellView.self, forCellReuseIdentifier: TaskTableCellView.cellIdentifier)
+        tableView.register(BreakTableCellView.self, forCellReuseIdentifier: BreakTableCellView.cellIdentifier)
         tableView.refreshControl = self.refreshControl
         return tableView
     }()
@@ -34,17 +36,22 @@ final class ClustersViewController: UIViewController {
     //State
     private var clusters: [Cluster] = []
     private var unclusteredTasks: [Task] = []
+    private var breaks: [ScheduledBreak] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(tasksTableView)
+
         tasksTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-            
         }
+
         getTasksAndUpdateUI()
+        getBreaksAndUpdateUI()
+
         Bringg.shared.loginManager.addDelegate(self)
+        Bringg.shared.breaksManager.addDelegate(self)
     }
     
     func getTasksAndUpdateUI() {
@@ -64,9 +71,24 @@ final class ClustersViewController: UIViewController {
             self.refreshControl.endRefreshing()
         }
     }
+
+    func getBreaksAndUpdateUI() {
+        Bringg.shared.breaksManager.getScheduledBreaks(cachePolicy: .reloadIgnoringCacheData) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let breaks):
+                self.breaks = breaks
+            case .failure(let error):
+                self.breaks = []
+                self.showError(error.localizedDescription)
+            }
+            self.tasksTableView.reloadData()
+        }
+    }
     
     @objc private func refreshControlTriggered() {
         getTasksAndUpdateUI()
+        getBreaksAndUpdateUI()
     }
 }
 
@@ -77,34 +99,40 @@ extension ClustersViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case Sections.cluster.rawValue:
+        switch Sections(rawValue: section) {
+        case .cluster:
             return clusters.count
-        case Sections.unclusterTasks.rawValue:
+        case .unclusterTasks:
             return unclusteredTasks.count
-        default:
+        case .breaks:
+            return breaks.count
+        case .none:
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case Sections.cluster.rawValue:
+        switch Sections(rawValue: indexPath.section) {
+        case .cluster:
             return clusterCell(tableView, atIndexPath: indexPath)
-        case Sections.unclusterTasks.rawValue:
+        case .unclusterTasks:
             return unclusteredTaskCell(tableView, atIndexPath: indexPath)
-        default:
+        case .breaks:
+            return breakCell(tableView, atIndexPath: indexPath)
+        case .none:
             return UITableViewCell()
         }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case Sections.cluster.rawValue:
+        switch Sections(rawValue: section) {
+        case .cluster:
             return "Clusters"
-        case Sections.unclusterTasks.rawValue:
+        case .unclusterTasks:
             return "Unclustered Tasks"
-        default:
+        case .breaks:
+            return "Breaks"
+        case .none:
             return nil
         }
     }
@@ -122,6 +150,14 @@ extension ClustersViewController: UITableViewDataSource {
         if let taskCell = cell as? TaskTableCellView {
             taskCell.task = unclusteredTasks[indexPath.row]
         }
+        return cell
+    }
+
+    private func breakCell(_ tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: BreakTableCellView.cellIdentifier, for: indexPath) as! BreakTableCellView
+        let breakModel = breaks[indexPath.row]
+        cell.breakModel = breakModel
+        cell.onAction = { [weak self] in self?.breakActionPressed(breakModel) }
         return cell
     }
 }
@@ -172,3 +208,19 @@ extension ClustersViewController: UserEventsDelegate {
     }
 }
 
+// MARK: - BreaksManagerDelegate
+extension ClustersViewController: BreaksManagerDelegate {
+    func breaksDataChanged(_ sender: BreaksManagerProtocol) {
+        getBreaksAndUpdateUI()
+    }
+
+    private func breakActionPressed(_ breakModel: ScheduledBreak?) {
+        guard let breakModel = breakModel else { return }
+        if breakModel.isStarted() {
+            try? Bringg.shared.breaksManager.endBreak(breakId: breakModel.id)
+        } else {
+            try? Bringg.shared.breaksManager.startBreak(breakId: breakModel.id)
+        }
+        getBreaksAndUpdateUI()
+    }
+}

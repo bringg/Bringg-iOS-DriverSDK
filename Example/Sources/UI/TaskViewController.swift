@@ -5,13 +5,14 @@
 //  Copyright © 2020 Bringg. All rights reserved.
 //
 
-import BringgDriverSDKObjc
+import BringgDriverSDK
 import Foundation
 import FSPagerView
 import SnapKit
 
 protocol TaskViewControllerDelegate: AnyObject {
     func taskViewControllerDidCompleteTask()
+    func taskViewControllerDidUngroupTask()
 }
 
 class TaskViewController: UIViewController {
@@ -73,6 +74,10 @@ class TaskViewController: UIViewController {
         view.addSubview(waypointsPagerView)
         view.addSubview(acceptTaskView)
         view.addSubview(notLoggedInView)
+        
+        if task.groupUUID != nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "split"), style: .plain, target: self, action: #selector(ungroupTask))
+        }
 
         makeConstraints()
         updateUI()
@@ -157,6 +162,18 @@ class TaskViewController: UIViewController {
             }
 
             self.refreshTask()
+        }
+    }
+    
+    @objc private func ungroupTask() {
+        Bringg.shared.tasksManagerInternal.ungroupTask(groupLeaderTaskId: task.id) { result in
+            switch result {
+            case .failure(let error):
+                print("Failed to ungroup task: \(error)")
+            case .success(let ungroupedTasks):
+                self.delegate?.taskViewControllerDidUngroupTask()
+                print("Ungrouped successfully: \(ungroupedTasks)")
+            }
         }
     }
 }
