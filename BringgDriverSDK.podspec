@@ -20,7 +20,15 @@ Pod::Spec.new do |s|
 
   s.frameworks               = 'CoreLocation', 'CoreMotion'
   s.ios.vendored_frameworks  = 'BringgDriverSDK.xcframework'
-  s.ios.user_target_xcconfig = { 'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES' }
+  
+  s.pod_target_xcconfig = { 
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' 
+  }
+
+  s.ios.user_target_xcconfig = { 
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64',
+    'BUILD_LIBRARY_FOR_DISTRIBUTION' => 'YES'
+  }
 
   ######## Dependencies ######
 
