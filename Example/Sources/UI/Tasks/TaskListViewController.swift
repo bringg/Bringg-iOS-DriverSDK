@@ -5,7 +5,7 @@
 //  Copyright © 2020 Bringg. All rights reserved.
 //
 
-import BringgDriverSDK
+import BringgDriverSDKObjc
 import FSPagerView
 import SnapKit
 import UIKit
@@ -28,7 +28,6 @@ extension TaskStatus {
 class TaskListViewController: UIViewController {
     private enum Sections: Int, CaseIterable {
         case tasks
-        case breaks
     }
     
     //Views
@@ -40,14 +39,12 @@ class TaskListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TaskTableCellView.self, forCellReuseIdentifier: TaskTableCellView.cellIdentifier)
-        tableView.register(BreakTableCellView.self, forCellReuseIdentifier: BreakTableCellView.cellIdentifier)
         tableView.tableFooterView = UIView()
         return tableView
     }()
     
     //State
     private var tasks: [Task]?
-    private var breaks: [ScheduledBreak]?
     private var lastTimeTasksWereRefreshed: Date?
     
     override func viewDidLoad() {
@@ -61,8 +58,7 @@ class TaskListViewController: UIViewController {
         
         Bringg.shared.tasksManager.addDelegate(self)
         Bringg.shared.loginManager.addDelegate(self)
-        Bringg.shared.breaksManager.addDelegate(self)
-        
+
         tasksTableView.isEditing = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonPressed))
     }
@@ -70,7 +66,6 @@ class TaskListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getTasksAndUpdateUI()
-        getBreaksAndUpdateUI()
     }
     
     func getTasksAndUpdateUI() {
@@ -96,25 +91,7 @@ class TaskListViewController: UIViewController {
         }
     }
 
-    func getBreaksAndUpdateUI() {
-        guard Bringg.shared.loginManager.isLoggedIn else {
-            notLoggedInView.isHidden = false
-            return
-        }
-        notLoggedInView.isHidden = true
-        Bringg.shared.breaksManager.getScheduledBreaks(cachePolicy: .reloadIgnoringCacheData) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let breaks):
-                self.breaks = breaks
-            case .failure(let error):
-                self.breaks = []
-                self.showError(error.localizedDescription)
-            }
-            self.tasksTableView.reloadData()
-        }
-    }
-    
+
     private func makeConstraints() {
         tasksTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -151,16 +128,6 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
             let task = tasks?[indexPath.row]
             cell.task = task
             return cell
-        case .breaks:
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: BreakTableCellView.cellIdentifier,
-                for: indexPath
-            ) as! BreakTableCellView
-            cell.selectionStyle = .none
-            let breakModel = breaks?[indexPath.row]
-            cell.breakModel = breakModel
-            cell.onAction = { [weak self] in self?.breakActionPressed(breakModel) }
-            return cell
         case .none:
             return UITableViewCell()
         }
@@ -171,8 +138,6 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .tasks:
             return "Tasks"
-        case .breaks:
-            return "Breaks"
         }
     }
     
@@ -184,8 +149,6 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         switch Sections(rawValue: section) {
         case .tasks:
             return tasks?.count ?? 0
-        case .breaks:
-            return breaks?.count ?? 0
         case .none:
             return 0
         }
@@ -259,21 +222,5 @@ extension TaskListViewController: UserEventsDelegate {
     
     func userDidLogout() {
         getTasksAndUpdateUI()
-    }
-}
-
-extension TaskListViewController: BreaksManagerDelegate {
-    func breaksDataChanged(_ sender: BreaksManagerProtocol) {
-        getBreaksAndUpdateUI()
-    }
-
-    private func breakActionPressed(_ breakModel: ScheduledBreak?) {
-        guard let breakModel = breakModel else { return }
-        if breakModel.isStarted() {
-            try? Bringg.shared.breaksManager.endBreak(breakId: breakModel.id)
-        } else {
-            try? Bringg.shared.breaksManager.startBreak(breakId: breakModel.id)
-        }
-        getBreaksAndUpdateUI()
     }
 }

@@ -1,8 +1,8 @@
 use_frameworks!
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 target 'BringgDriverSDKExample' do
-  pod 'BringgDriverSDK', :path => '../'
+  #pod 'BringgDriverSDK', :path => '../'
   
   # BringgDriverSDKObjc should be added to the podfile if you need Objc support
   pod 'BringgDriverSDKObjc', :path => '../'
